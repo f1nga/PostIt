@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wallapop/src/ui/modules/home/tabs/my_profile_tab/my_profile_controller.dart';
+import 'package:wallapop/src/ui/modules/home/tabs/my_profile_tab/widgets/my_profile_action.dart';
 import 'package:wallapop/src/ui/modules/home/tabs/my_profile_tab/widgets/my_profile_header.dart';
 
 import '../../../../../helpers/get.dart';
@@ -29,17 +30,57 @@ class _MyProfileTabState extends State<MyProfileTab> {
       child: Scaffold(
         backgroundColor: backgroundColor,
         body: SafeArea(
-          child: Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 15,
+          child: Column(children: const [
+            MyProfileHeader(),
+            SizedBox(
+              height: 20,
             ),
-            child: const MyProfileHeader(),
-          ),
+            Padding(
+              padding: EdgeInsets.only(left: 16.0),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  "TRANSACCIONES",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            MyProfileAction(
+              icon: Icon(Icons.handshake),
+              title: "Compras",
+            ),
+            MyProfileAction(
+              icon: Icon(Icons.sell),
+              title: "Ventas",
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: 16.0),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  "Cuenta",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            MyProfileAction(
+              icon: Icon(Icons.edit),
+              title: "Editar el perfil",
+            ),
+          ]),
         ),
       ),
     );
   }
 
-  @override
   bool get wantKeepAlive => true;
 }

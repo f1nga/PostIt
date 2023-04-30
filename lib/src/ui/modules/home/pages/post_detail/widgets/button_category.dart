@@ -1,27 +1,29 @@
 import 'package:flutter/material.dart';
 
-import '../../utils/colors.dart';
-import '../../utils/font_styles.dart';
+import '../../../../../../utils/colors.dart';
+import '../../../../../../utils/font_styles.dart';
 
-class CustomRoundedButtonWithIcon extends StatelessWidget {
+class ButtonCategory extends StatelessWidget {
   final double? radius;
   final Color? splashColor;
+  final Color? iconColor;
   final Color? textColor;
   final Color? buttonColor;
   final String title;
   final Function onPressed;
   final IconData icon;
   final double? width;
-  const CustomRoundedButtonWithIcon({
+  const ButtonCategory({
     Key? key,
     this.radius,
     this.splashColor,
-    this.textColor,
+    this.iconColor,
     this.buttonColor,
     required this.title,
     required this.onPressed,
     required this.icon,
     this.width,
+    this.textColor,
   }) : super(key: key);
 
   @override
@@ -33,17 +35,16 @@ class CustomRoundedButtonWithIcon extends StatelessWidget {
       child: Ink(
         width: width ?? 360,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(radius ?? 50),
-            border: Border.all(color: Colors.black),
-            color: buttonColor ?? Colors.blue,
-            boxShadow: const [BoxShadow(color: Color.fromRGBO(0, 0, 0, 0.08))]),
+          borderRadius: BorderRadius.circular(radius ?? 50),
+          color: buttonColor ?? Colors.blue,
+        ),
         child: Padding(
             padding: const EdgeInsets.all(12.0),
             child: Row(
               children: <Widget>[
                 Icon(
                   icon,
-                  color: textColor ?? Colors.white,
+                  color: iconColor ?? Colors.white,
                 ),
                 const SizedBox(
                   width: 10,
@@ -51,7 +52,7 @@ class CustomRoundedButtonWithIcon extends StatelessWidget {
                 Text(
                   title,
                   style: FontStyles.subtitle.copyWith(
-                    color: primaryColor,
+                    color: textColor,
                   ),
                 ),
               ],

@@ -18,7 +18,7 @@ Map<int, Color> colorCodes = {
 MaterialColor primaryMaterialcolor = MaterialColor(0xffFF004B, colorCodes);
 
 /// white background color
-const backgroundColor = Color(0xffffffff);
+const backgroundColor = Color.fromARGB(255, 231, 227, 227);
 const backgroundColorShade = Color(0x4DFFFFFF);
 /// red primaryColor
 // const primaryColor = Color(0xffFF004B);

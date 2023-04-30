@@ -1,8 +1,11 @@
 import 'package:wallapop/src/data/providers/post_provider.dart';
+import 'package:wallapop/src/data/providers/user_provider.dart';
 import 'package:wallapop/src/data/repositories/post_repository.dart';
 
 import '../data/providers/authentication_provider.dart';
+import '../data/repositories/user_repository.dart';
 import '../data/repositories_implementation/post_repository_impl.dart';
+import '../data/repositories_implementation/user_repository_impl.dart';
 import 'get.dart';
 
 import '../data/repositories/authentication_repository.dart';
@@ -13,8 +16,10 @@ abstract class DependencyInjection {
     final AuthenticationRepository authenticationRepository =
         AuthenticationRepositoryImpl(AuthenticationProvider());
     final PostRepository postRepository = PostRepositoryImpl(PostProvider());
+    final UserRepository userRepository = UserRepositoryImpl(UserProvider());
 
     Get.i.put<AuthenticationRepository>(authenticationRepository);
     Get.i.put<PostRepository>(postRepository);
+    Get.i.put<UserRepository>(userRepository);
   }
 }
