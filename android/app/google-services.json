@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "356916660437",
+    "project_id": "postit-2cd14",
+    "storage_bucket": "postit-2cd14.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:356916660437:android:3d7e5e36af4c01597f3a5c",
+        "android_client_info": {
+          "package_name": "com.example.wallapop"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "356916660437-181fp1agmi38l51qitgqqn63s85pepgg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQP2iM2qiaLa-EdQ9sQRBjgmZ7dpu90fg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "356916660437-181fp1agmi38l51qitgqqn63s85pepgg.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "356916660437-ep4jau93rgah7ctjp461vljteh8ae0v8.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.wallapop"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
