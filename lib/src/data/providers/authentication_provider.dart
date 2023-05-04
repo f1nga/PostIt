@@ -41,8 +41,6 @@ class AuthenticationProvider {
           await findUserWithEmailInDatabase(email);
       if (record.docs.isEmpty) return null;
 
-      print("$email, $password");
-
       /// Encrypt the user password
       User user = User.fromMap(record.docs.first.data());
       final Crypt hInfo = Crypt(user.password!);
@@ -89,7 +87,10 @@ class AuthenticationProvider {
       );
 
       /// Insert the user into firebase user collection
-      await FirebaseFirestore.instance.collection(userStore).add(
+      await FirebaseFirestore.instance
+          .collection(userStore)
+          .doc(newUser.id)
+          .set(
             newUser.toMap(),
           );
       return true;

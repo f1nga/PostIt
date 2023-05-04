@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:wallapop/src/data/models/review.dart';
+import 'package:wallapop/src/data/repositories/post_repository.dart';
+import 'package:wallapop/src/data/repositories/review_repository.dart';
 
 import '../../../../../../data/models/post.dart';
 import '../../../../../../data/models/user.dart';
@@ -8,16 +11,32 @@ import '../../../../../../helpers/get.dart';
 
 class MyProfileResumeController extends ChangeNotifier {
   final UserRepository _usersRepository = Get.i.find<UserRepository>()!;
+  final ReviewRepository _reviewsRepository = Get.i.find<ReviewRepository>()!;
+  final PostRepository _postsRepository = Get.i.find<PostRepository>()!;
 
-  String _nickname = "", _image = "";
-  int _stars = 0, _sales = 0, _purchases = 0;
+  User _user = User(nickname: "", email: "");
+  User get user => _user;
+
   List<Post> _userPosts = [];
   List<Post> get userPosts => _userPosts;
-  int? get stars => _stars;
-  int? get sales => _sales;
-  int? get purchases => _purchases;
-  String? get nickname => _nickname;
-  String? get image => _image;
+
+  List<Review> _userReviews = [];
+  List<Review> get userReviews => _userReviews;
+
+  late User _userReview;
+  User get userReview => _userReview;
+
+  late Post _postReview;
+  Post get postReview => _postReview;
+
+  int _selectedContainer = 1;
+  int get selectedContainer => _selectedContainer;
+
+  bool _comingFromMyProfile = false;
+  bool get comingFromMyProfile => _comingFromMyProfile;
+
+  bool _isLoading = true;
+  bool get isLoading => _isLoading;
 
   void Function()? onDispose;
 
@@ -26,12 +45,32 @@ class MyProfileResumeController extends ChangeNotifier {
   }
 
   void _init() async {
-    _nickname = Get.i.find<User>()!.nickname;
-    _image = Get.i.find<User>()!.image;
-    _stars = Get.i.find<User>()!.stars;
-    _sales = Get.i.find<User>()!.sales;
-    _purchases = Get.i.find<User>()!.purchases;
-    _userPosts = await _usersRepository.getPostsByUser(Get.i.find<User>()!);
+    if (_user.email == "") {
+      _user = await _usersRepository.getCurrentUser();
+      _comingFromMyProfile = true;
+    }
+    _userPosts = await _usersRepository.getPostsByUser(_user);
+
+    _userReviews = await _reviewsRepository.getReviewsByUser(_user);
+
+    notifyListeners();
+  }
+
+  void setUser(User user) {
+    _user = user;
+  }
+
+  void onisContainerSelected(int value) {
+    _selectedContainer = value;
+
+    notifyListeners();
+  }
+
+  void getUserAndPostByReviewId(String reviewId, String reviewPostId) async {
+    _userReview = await _usersRepository.getUserByReviewId(reviewId);
+    _postReview = await _postsRepository.getPostByReviewId(reviewPostId);
+
+    _isLoading = false;
     notifyListeners();
   }
 }

@@ -4,9 +4,12 @@ import 'package:wallapop/src/routes/routes.dart';
 import 'package:wallapop/src/ui/modules/home/tabs/my_profile_tab/my_profile_controller.dart';
 import 'package:wallapop/src/ui/modules/home/tabs/my_profile_tab/my_profile_resume/my_profile_resume_controller.dart';
 import 'package:wallapop/src/ui/modules/home/tabs/my_profile_tab/my_profile_resume/widgets/my_profile_resume_header.dart';
+import 'package:wallapop/src/ui/modules/home/tabs/my_profile_tab/my_profile_resume/widgets/profile_resume_reviews.dart';
+import 'package:wallapop/src/ui/modules/home/tabs/my_profile_tab/my_profile_resume/widgets/select_container.dart';
 import 'package:wallapop/src/ui/modules/home/tabs/my_profile_tab/widgets/my_profile_action.dart';
 import 'package:wallapop/src/ui/modules/home/tabs/my_profile_tab/widgets/my_profile_header.dart';
 
+import '../../../../../../data/models/user.dart';
 import '../../../../../../helpers/get.dart';
 import '../../../../../../utils/colors.dart';
 import '../../../../../../utils/font_styles.dart';
@@ -20,24 +23,38 @@ class MyProfileResumePage extends StatefulWidget {
 }
 
 class _MyProfileResumePageState extends State<MyProfileResumePage> {
+  late final MyProfileResumeController _controller;
+
+  @override
+  void initState() {
+    _controller = MyProfileResumeController();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _controller.afterFistLayout();
+    });
+    Get.i.put<MyProfileResumeController>(_controller);
+    _controller.onDispose = () => Get.i.remove<MyProfileResumeController>();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    final User user = ModalRoute.of(context)!.settings.arguments as User;
+
+    _controller.setUser(user);
+
     return ChangeNotifierProvider<MyProfileResumeController>(
-      create: (_) {
-        final MyProfileResumeController controller =
-            MyProfileResumeController();
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          controller.afterFistLayout();
-        });
-        Get.i.put<MyProfileResumeController>(controller);
-        controller.onDispose = () => Get.i.remove<MyProfileResumeController>();
-        return controller;
-      },
+      create: (_) => _controller,
       child: Scaffold(
         backgroundColor: backgroundColor,
         appBar: AppBar(
           backgroundColor: Colors.white,
           elevation: 0,
+          title: Text(
+            "Resumen del perfil",
+            style: FontStyles.title.copyWith(
+              color: secondaryColor,
+            ),
+          ),
           centerTitle: false,
           leading: IconButton(
             key: const Key("arrow_back_icon"),
@@ -45,31 +62,39 @@ class _MyProfileResumePageState extends State<MyProfileResumePage> {
               Icons.arrow_back,
             ),
             onPressed: () {
-              Navigator.popAndPushNamed(context, Routes.home);
+              Navigator.pop(
+                context,
+              );
             },
           ),
         ),
         body: SafeArea(
-          child: Column(children: const [
-            MyProfileResumeHeader(),
-            SizedBox(
-              height: 10,
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 16.0),
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "MIS PRODUCTOS",
-                  style: TextStyle(fontWeight: FontWeight.bold),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                const MyProfileResumeHeader(),
+                const Divider(),
+                const SizedBox(
+                  height: 5,
                 ),
-              ),
+                const SelectContainer(),
+                const SizedBox(
+                  height: 10,
+                ),
+                Consumer<MyProfileResumeController>(
+                  builder: (context, controller, child) {
+                    if (controller.selectedContainer == 1) {
+                      return const MyProfileResumeProducts();
+                    } else if (controller.selectedContainer == 2) {
+                      return const ProfileResumeReviews();
+                    } else {
+                      return Text("${controller.selectedContainer}");
+                    }
+                  },
+                ),
+              ],
             ),
-            SizedBox(
-              height: 10,
-            ),
-            MyProfileResumeProducts()
-          ]),
+          ),
         ),
       ),
     );

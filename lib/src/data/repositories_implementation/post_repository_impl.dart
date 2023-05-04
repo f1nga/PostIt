@@ -14,4 +14,29 @@ class PostRepositoryImpl implements PostRepository {
   Future<bool> addPost(Post post, User user) {
     return _postProvider.addPost(post, user);
   }
+
+  @override
+  Future<List<Post>> getPosts(User user) {
+    return _postProvider.getPosts(user);
+  }
+
+  @override
+  Future<bool> addLikeToPost(String postId) {
+    return _postProvider.addLikeToPost(postId);
+  }
+
+  @override
+  Future<bool> removeLikeToPost(String postId) {
+    return _postProvider.removeLikeToPost(postId);
+  }
+
+  @override
+  Future<List<Post>> getFavouritePostsByUser(User user) {
+    return _postProvider.getFavouritePostsByUser(user);
+  }
+
+  @override
+  Future<Post> getPostByReviewId(String reviewId) {
+    return _postProvider.getPostByReviewId(reviewId);
+  }
 }

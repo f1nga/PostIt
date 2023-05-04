@@ -1,10 +1,11 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 import '../../utils/methods.dart';
 
 class Post {
-  late String
-      title,
+  late String title,
       description,
       category,
       state,
@@ -12,6 +13,9 @@ class Post {
       id = Methods.generateId();
   late double price;
   late File file;
+  late int likes;
+  late Timestamp date = Timestamp.now();
+  late bool sold = false;
 
   Post({
     required this.title,
@@ -20,7 +24,8 @@ class Post {
     required this.category,
     required this.state,
     required this.file,
-    this.image = ""
+    this.image = "",
+    this.likes = 0,
   });
 
   /// A function that converts a Map to object Post
@@ -33,6 +38,9 @@ class Post {
     category = map["category"];
     state = map["state"];
     image = map["image"];
+    likes = map["likes"];
+    date = map["date"];
+    sold = map["sold"];
   }
 
   /// A function that convert a object Post to a Map
@@ -45,7 +53,10 @@ class Post {
       "price": price,
       "category": category,
       "state": state,
-      "image": image
+      "image": image,
+      "likes": likes,
+      "date": date,
+      "sold": sold,
     };
   }
 }

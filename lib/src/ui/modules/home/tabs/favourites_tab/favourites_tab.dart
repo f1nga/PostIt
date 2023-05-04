@@ -1,67 +1,57 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:wallapop/src/ui/modules/home/tabs/favourites_tab/favourites_tab_controller.dart';
+import 'package:wallapop/src/ui/modules/home/tabs/favourites_tab/widgets/favourites_tab_products.dart';
+import 'package:wallapop/src/ui/modules/home/tabs/home_tab/home_tab_controller.dart';
+import 'package:wallapop/src/ui/modules/home/tabs/home_tab/widgets/home_tab_products.dart';
 
-class HomeTab extends StatefulWidget {
-  const HomeTab({super.key});
+import '../../../../../helpers/get.dart';
+import '../my_profile_tab/my_profile_resume/my_profile_resume_controller.dart';
+
+class FavouritesTab extends StatefulWidget {
+  const FavouritesTab({super.key});
 
   @override
-  State<HomeTab> createState() => _HomeTabState();
+  State<FavouritesTab> createState() => _FavouritesTabState();
 }
 
-class _HomeTabState extends State<HomeTab> {
+class _FavouritesTabState extends State<FavouritesTab> {
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
+    return ChangeNotifierProvider<FavouritesTabController>(
+      create: (_) {
+        final FavouritesTabController controller = FavouritesTabController();
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          controller.afterFistLayout();
+        });
+        Get.i.put<FavouritesTabController>(controller);
+        controller.onDispose = () => Get.i.remove<FavouritesTabController>();
+        return controller;
+      },
+      child: SingleChildScrollView(
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                'Categorías populares',
-                style: TextStyle(
-                  fontSize: 24.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 20.0),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  _buildCategoryCard(
-                      'Ropa', Icons.accessibility_new, Colors.blue, context),
-                  _buildCategoryCard(
-                      'Electrónica', Icons.devices, Colors.orange, context),
-                  _buildCategoryCard('Hogar', Icons.home, Colors.pink, context),
-                ],
-              ),
-              const SizedBox(height: 20.0),
-              const Text(
+            children: const [
+              Text(
                 'Productos destacados',
                 style: TextStyle(
                   fontSize: 24.0,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const SizedBox(height: 20.0),
-              _buildProductCard('Zapatos de cuero', '120.00',
-                  'https://blog.calimodstore.com/wp-content/uploads/2021/06/duracion-zapatos-cuero.jpg', context),
-              const SizedBox(height: 10.0),
-              _buildProductCard(
-                  'Cámara digital', '250.00', 'https://cdn.computerhoy.com/sites/navi.axelspringer.es/public/media/image/2013/06/12389-mejores-camaras-reflex.jpg?tf=3840x',
-                  context),
-              const SizedBox(height: 10.0),
-              _buildProductCard(
-                  'Mesa de centro', '80.00', 'https://mubak.com/613-large_default/mesa-de-centro-loop-elevable-modelo-one.jpg',
-                  context),
+              SizedBox(height: 20.0),
+              FavouritesTabProducts()
             ],
           ),
         ),
-      );
-    
+      ),
+    );
   }
 
-  Widget _buildCategoryCard(String title, IconData icon, Color color,
-      BuildContext context) {
+  Widget _buildCategoryCard(
+      String title, IconData icon, Color color, BuildContext context) {
     return InkWell(
       onTap: () {},
       child: Container(
@@ -93,8 +83,8 @@ class _HomeTabState extends State<HomeTab> {
     );
   }
 
-  Widget _buildProductCard(String title, String price, String imageUrl,
-      BuildContext context) {
+  Widget _buildProductCard(
+      String title, String price, String imageUrl, BuildContext context) {
     return InkWell(
       onTap: () {},
       child: Container(
@@ -128,8 +118,7 @@ class _HomeTabState extends State<HomeTab> {
                   Text(
                     title,
                     style: const TextStyle(
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.bold),
+                        fontSize: 20.0, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 10.0),
                   Text(

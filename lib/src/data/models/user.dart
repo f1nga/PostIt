@@ -7,7 +7,7 @@ import '../../utils/methods.dart';
 class User {
   late String nickname, email, image, id = Methods.generateId();
   String? password;
-  late List<dynamic> postsCreated;
+  late List<dynamic> postsCreated, postsLiked, reviewsCreated;
   late File? file;
   late int stars, sales, purchases;
 
@@ -16,6 +16,8 @@ class User {
     required this.email,
     this.password,
     this.postsCreated = const [],
+    this.postsLiked = const [],
+    this.reviewsCreated = const [],
     this.image = Constants.defaultProfileAvatar,
     this.file,
     this.stars = 0,
@@ -31,6 +33,8 @@ class User {
     email = map["email"];
     password = map["password"];
     postsCreated = map["postsCreated"];
+    postsLiked = map["postsLiked"];
+    reviewsCreated = map["reviewsCreated"];
     image = map["image"];
     stars = map["stars"];
     purchases = map["purchases"];
@@ -46,6 +50,8 @@ class User {
       "email": email,
       "password": password,
       "postsCreated": postsCreated,
+      "postsLiked": postsLiked,
+      "reviewsCreated": reviewsCreated,
       "image": image,
       "stars": stars,
       "sales": sales,

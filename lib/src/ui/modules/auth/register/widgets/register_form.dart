@@ -33,7 +33,10 @@ class RegisterForm extends StatelessWidget {
           description: "Registro fallido",
         );
       } else {
-        Methods.showSnackbar(context, "Snackbar");
+        Methods.showSnackbar(
+          context,
+          "Registro completado",
+        );
         Navigator.pushReplacementNamed(
           context,
           Routes.login,
@@ -67,9 +70,7 @@ class RegisterForm extends StatelessWidget {
               labelText: "Nickname",
               prefixIcon: const Icon(Icons.person_outline),
               validator: (text) {
-                return text.trim().length >= 3
-                    ? null
-                    : "Invalid nickname";
+                return text.trim().length >= 3 ? null : "Invalid nickname";
               },
               onchanged: controller.onNicknameChanged,
               textInputAction: TextInputAction.next,
@@ -100,9 +101,7 @@ class RegisterForm extends StatelessWidget {
               labelText: "Password",
               prefixIcon: const Icon(Icons.key),
               validator: (text) {
-                return text.trim().length >= 5
-                    ? null
-                    : "Invalid password";
+                return text.trim().length >= 5 ? null : "Invalid password";
               },
               onchanged: controller.onPasswordChanged,
               textInputAction: TextInputAction.send,
@@ -116,9 +115,7 @@ class RegisterForm extends StatelessWidget {
               labelText: "Repeat password",
               prefixIcon: const Icon(Icons.key),
               validator: (text) {
-                return text.trim().length >= 5
-                    ? null
-                    : "Invalid password";
+                return text.trim().length >= 5 ? null : "Invalid password";
               },
               onSubmitted: (text) => _submit(context),
               onchanged: controller.onPasswordChanged2,
@@ -137,13 +134,11 @@ class RegisterForm extends StatelessWidget {
                   Dialogs.alert(
                     context,
                     title: "Error",
-                    description:
-                        "Invalid passwords match",
+                    description: "Invalid passwords match",
                   );
                 }
               },
-              label:
-                  "Crear la cuenta",
+              label: "Crear la cuenta",
             ),
             const SizedBox(
               height: 8,

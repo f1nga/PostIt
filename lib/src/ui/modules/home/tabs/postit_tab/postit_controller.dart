@@ -7,6 +7,7 @@ import 'package:wallapop/src/data/models/post.dart';
 import 'package:wallapop/src/data/models/utils/product_category_type.dart';
 import 'package:wallapop/src/data/models/utils/product_state_type.dart';
 import 'package:wallapop/src/data/repositories/post_repository.dart';
+import 'package:wallapop/src/data/repositories/user_repository.dart';
 
 import '../../../../../data/models/user.dart';
 import '../../../../../data/repositories/authentication_repository.dart';
@@ -15,11 +16,13 @@ import '../../../../../utils/colors.dart';
 import '../../../../global_widgets/custom_form.dart';
 
 class PostitController extends ChangeNotifier {
-  String _title = '', _description = '', _category = '', _state = '';
+  String _title = '', _description = '', _state = '';
+  ProductCategoryType? _category;
   double _price = 0.0;
   File? _imageFile;
 
   final PostRepository _repository = Get.i.find<PostRepository>()!;
+  final UserRepository _usersRepository = Get.i.find<UserRepository>()!;
 
   int _isClickedCategory = 1;
   int get isClickedCategory {
@@ -35,7 +38,7 @@ class PostitController extends ChangeNotifier {
     return _state;
   }
 
-  String get category {
+  ProductCategoryType? get category {
     return _category;
   }
 
@@ -57,21 +60,29 @@ class PostitController extends ChangeNotifier {
 
   void onIsCarCategoryClicked(int value) async {
     _isClickedCategory = value;
-    _category = ProductCategoryType.cars;
+    _category = ProductCategoryType(
+      value: ProductCategoryType.cars,
+      icon: ProductCategoryType.carsIcon,
+    );
 
     notifyListeners();
   }
 
   void onIsComputingCategoryClicked(int value) async {
     _isClickedCategory = value;
-    _category = ProductCategoryType.computing;
+    _category = ProductCategoryType(
+      value: ProductCategoryType.computing,
+      icon: ProductCategoryType.computingIcon,
+    );
 
     notifyListeners();
   }
 
   void onIsHomeAppliancesCategoryClicked(int value) async {
     _isClickedCategory = value;
-    _category = ProductCategoryType.home_appliances;
+    _category = ProductCategoryType(
+        value: ProductCategoryType.homeAppliances,
+        icon: ProductCategoryType.homeAppliancesIcon);
 
     notifyListeners();
   }
@@ -144,11 +155,11 @@ class PostitController extends ChangeNotifier {
         title: _title,
         description: _description,
         price: _price,
-        category: _category,
+        category: _category!.value,
         state: _state,
         file: _imageFile!,
       ),
-      Get.i.find<User>()!,
+      await _usersRepository.getCurrentUser(),
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wallapop/src/data/models/user.dart';
 import 'package:wallapop/src/routes/routes.dart';
 import 'package:wallapop/src/ui/modules/home/tabs/my_profile_tab/my_profile_controller.dart';
 import 'package:wallapop/src/utils/colors.dart';
@@ -101,9 +102,10 @@ class MyProfileHeader extends StatelessWidget {
           ],
         ),
       ),
-      onTap: () => Navigator.popAndPushNamed(
+      onTap: () => Navigator.pushNamed(
         context,
         Routes.profileResume,
+        arguments: User(nickname: "", email: "")
       ),
     );
   }

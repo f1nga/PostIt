@@ -33,7 +33,9 @@ class _CategorySelectionState extends State<CategorySelection> {
           width: 15,
         ),
         Text(
-          controller.category == "" ? "Categoría" : controller.category,
+          controller.category == null
+              ? "Categoría"
+              : controller.category!.value,
           style: const TextStyle(
               color: Color.fromARGB(255, 128, 125, 125), fontSize: 16),
         ),
@@ -89,7 +91,8 @@ class _CategorySelectionState extends State<CategorySelection> {
                                   },
                                 ),
                                 RadioListTile<int>(
-                                  title: const Text(ProductCategoryType.computing),
+                                  title:
+                                      const Text(ProductCategoryType.computing),
                                   value: 2,
                                   groupValue: controller.isClickedCategory,
                                   activeColor: primaryColor,
@@ -102,20 +105,20 @@ class _CategorySelectionState extends State<CategorySelection> {
                                   },
                                 ),
                                 RadioListTile<int>(
-                                  title:
-                                      const Text(ProductCategoryType.home_appliances),
+                                  title: const Text(
+                                      ProductCategoryType.homeAppliances),
                                   value: 3,
                                   groupValue: controller.isClickedCategory,
                                   activeColor: primaryColor,
                                   onChanged: (value) {
                                     setState(() {
                                       controller
-                                          .onIsHomeAppliancesCategoryClicked(value!);
+                                          .onIsHomeAppliancesCategoryClicked(
+                                              value!);
                                     });
                                     Navigator.pop(context);
                                   },
                                 ),
-                                
                               ],
                             ),
                           ),

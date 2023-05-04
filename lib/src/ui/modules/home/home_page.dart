@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:wallapop/src/ui/modules/home/tabs/favourites_tab.dart';
+import 'package:wallapop/src/ui/modules/home/tabs/favourites_tab/favourites_tab.dart';
 import 'package:wallapop/src/ui/modules/home/tabs/my_profile_tab/my_profile_tab.dart';
 import 'package:wallapop/src/ui/modules/home/tabs/postit_tab/postit_tab.dart';
 
@@ -10,7 +10,7 @@ import '../../../helpers/get.dart';
 import '../../../utils/colors.dart';
 import '../../../utils/font_styles.dart';
 import 'home_controller.dart';
-import 'tabs/home_tab.dart';
+import 'tabs/home_tab/home_tab.dart';
 import 'widgets/drawer_widget.dart';
 import 'widgets/home_bottom_bar.dart';
 
@@ -93,7 +93,7 @@ class _HomePageState extends State<HomePage> {
               controller: controller.tabController,
               children: const [
                 HomeTab(),
-                FavouriteTab(),
+                FavouritesTab(),
                 PostitTab(),
                 MyProfileTab(),
               ],
