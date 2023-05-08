@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:wallapop/src/ui/global_widgets/select_image.dart';
 
 import '../../../../../routes/routes.dart';
 import '../../../../../utils/dialogs.dart';
@@ -62,6 +63,13 @@ class RegisterForm extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
+            const SizedBox(
+              height: 25,
+            ),
+            SelectImage(
+              circleImage: Methods.getIconState(controller.imageFile),
+              onPressed: controller.getFromGallery,
+            ),
             const SizedBox(
               height: 25,
             ),

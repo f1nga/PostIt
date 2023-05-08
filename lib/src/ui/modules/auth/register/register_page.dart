@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:wallapop/src/ui/global_widgets/select_image.dart';
 import 'package:wallapop/src/ui/modules/welcome/widgets/header_details_widget.dart';
 
 import '../../../../utils/colors.dart';
@@ -22,7 +23,7 @@ class _RegisterPageState extends State<RegisterPage> {
       create: (_) => RegisterController(),
       builder: (_, __) {
         return Scaffold(
-          backgroundColor: backgroundColor,
+          backgroundColor: Colors.white,
           appBar: AppBar(
             title: Text(
               "Crea una cuenta",
@@ -45,7 +46,6 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                   child: Column(
                     children: const [
-                      HeaderDetails(comingFromWelcome: false),
                       RegisterForm(isLateLogin: false),
                     ],
                   )),

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_awesome_buttons/flutter_awesome_buttons.dart';
 import 'package:uuid/uuid.dart';
@@ -128,5 +130,20 @@ abstract class Methods {
     }
 
     return "${date.day} $month ${date.year}";
+  }
+
+  static Widget getIconState(File? _imageFile) {
+    if (_imageFile == null) {
+      return const Icon(
+        Icons.image_search,
+        color: secondaryColor,
+        size: 32,
+      );
+    } else {
+      return Image.file(
+        _imageFile,
+        fit: BoxFit.fill,
+      );
+    }
   }
 }

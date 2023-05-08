@@ -22,7 +22,7 @@ class _LoginPageState extends State<LoginPage> {
       create: (_) => LoginController(),
       builder: (_, __) {
         return Scaffold(
-          backgroundColor: backgroundColor,
+          backgroundColor: Colors.white,
           appBar: AppBar(
             title: Text(
               key: const Key("login_title"),

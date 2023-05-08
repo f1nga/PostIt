@@ -29,6 +29,9 @@ class _MyPostDetailBodyState extends State<MyPostDetailBody> {
         children: [
           Row(
             children: [
+              const SizedBox(
+                height: 20,
+              ),
               CustomRoundedButton(
                 onPressed: () => {},
                 title: "Reservar",

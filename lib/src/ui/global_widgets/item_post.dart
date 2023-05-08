@@ -53,7 +53,7 @@ class ItemPost extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10.0),
                 image: DecorationImage(
-                  image: NetworkImage(post.image),
+                  image: NetworkImage(post.imagesList[0]),
                   fit: BoxFit.cover,
                 ),
               ),

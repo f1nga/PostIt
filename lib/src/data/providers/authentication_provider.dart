@@ -1,6 +1,8 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crypt/crypt.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -15,6 +17,7 @@ const String userStore = "user_store";
 const String emailConstant = "email";
 const String token = "token";
 const String passwordConstant = "password";
+const String usersBucket = "users_bucket";
 
 /// Class that contains the provider methods logic
 class AuthenticationProvider {
@@ -69,7 +72,8 @@ class AuthenticationProvider {
   /// Register function that add a user in database if it doesn't exists.
   /// @param {User} The user data.
   /// @returns {boolean} Returns true if everything go ok, return false if the user already exist.
-  Future<bool> register(String nickname, String email, String password) async {
+  Future<bool> register(
+      String nickname, String email, String password, File? image) async {
     try {
       /// Find user in database by email
       final QuerySnapshot<Map<String, dynamic>> record =
@@ -85,6 +89,20 @@ class AuthenticationProvider {
         email: email,
         password: cryptHash.toString(),
       );
+
+      if (image != null) {
+        newUser.image = await FirebaseStorage.instance
+            .ref(usersBucket)
+            .child(
+              image.hashCode.toString(),
+            )
+            .putFile(
+              image,
+            )
+            .then(
+              (task) => task.ref.getDownloadURL(),
+            );
+      }
 
       /// Insert the user into firebase user collection
       await FirebaseFirestore.instance

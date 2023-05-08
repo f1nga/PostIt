@@ -1,8 +1,13 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
 import 'package:flutter/foundation.dart';
 import 'package:wallapop/src/data/models/user.dart';
+import 'package:wallapop/src/data/models/utils/product_category_type.dart';
+import 'package:wallapop/src/data/models/utils/product_state_type.dart';
+import 'package:wallapop/src/data/providers/review_provider.dart';
 import 'package:wallapop/src/data/repositories/user_repository.dart';
 
 import '../../helpers/get.dart';
@@ -21,17 +26,24 @@ class PostProvider {
   Future<bool> addPost(Post newPost, User user) async {
     try {
       /// Insert the post image to database
-      newPost.image = await FirebaseStorage.instance
-          .ref(postBucket)
-          .child(
-            newPost.file.hashCode.toString(),
-          )
-          .putFile(
-            newPost.file,
-          )
-          .then(
-            (task) => task.ref.getDownloadURL(),
-          );
+
+      for (File? file in newPost.filesList) {
+        if (file != null) {
+          final String image = await FirebaseStorage.instance
+              .ref(postBucket)
+              .child(
+                file.hashCode.toString(),
+              )
+              .putFile(
+                file,
+              )
+              .then(
+                (task) => task.ref.getDownloadURL(),
+              );
+
+          newPost.imagesList.add(image);
+        }
+      }
 
       /// Add post to database
       await FirebaseFirestore.instance
@@ -59,8 +71,35 @@ class PostProvider {
     }
   }
 
+  Future<User> getUserByEmail(String email) async {
+    final record = await FirebaseFirestore.instance
+        .collection(userStore)
+        .where(
+          emailField,
+          isEqualTo: email,
+        )
+        .limit(1)
+        .get();
+
+    Map<String, dynamic> map = record.docs.first.data();
+
+    return User.fromMap(map);
+  }
+
   Future<List<Post>> getPosts(User user) async {
     List<Post> postsList = [];
+    if (user.postsCreated.isEmpty) user.postsCreated.add("");
+
+    // await addPost(
+    //     Post(
+    //         title: "Golf 1.9 TDI",
+    //         description:
+    //             "190.000km con las revisiones hechas y cambio de correa a los 120. Precio negociable.",
+    //         price: 3500,
+    //         category: ProductCategoryType.cars,
+    //         state: ProductStateType.good,
+    //         filesList: []),
+    //     await getUserByEmail("albert@gmail.com"));
 
     try {
       await FirebaseFirestore.instance

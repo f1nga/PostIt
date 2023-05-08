@@ -30,6 +30,7 @@ class HomeTabController extends ChangeNotifier {
       likedPosts[index] =
           await _usersRepository.isPostLiked(_userPosts[index].id);
     }
+
     notifyListeners();
   }
 

@@ -38,7 +38,7 @@ class _MyPostDetailPageState extends State<MyPostDetailPage> {
             child: Column(
               children: [
                 MyPostDetailSlider(
-                  images: [args.image],
+                  images: args.imagesList,
                   comingFromMyPost: true,
                   post: args,
                 ),

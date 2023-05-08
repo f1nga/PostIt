@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import '../../data/models/post.dart';
 
 class MyPostDetailSlider extends StatefulWidget {
-  final List<String> images;
+  final List<dynamic> images;
   final bool comingFromMyPost;
   final Post post;
 
@@ -31,17 +31,21 @@ class _MyPostDetailSliderState extends State<MyPostDetailSlider> {
       controller = context.watch<PostDetailController>();
     }
 
-    return SizedBox(
-      height: 300,
+    return AspectRatio(
+      aspectRatio: 16 / 9,
       child: PageView.builder(
+        scrollDirection: Axis.horizontal,
         itemCount: widget.images.length,
         itemBuilder: (BuildContext context, int index) {
           return Stack(
             children: [
-              Image.network(
-                widget.images[index],
-                fit: BoxFit.cover,
-                width: double.infinity,
+              SizedBox(
+                width: MediaQuery.of(context).size.width,
+                child: Image.network(
+                  widget.images[index],
+                  fit: BoxFit.cover,
+                  width: double.infinity,
+                ),
               ),
               Positioned(
                 top: 10,

@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:wallapop/src/data/models/post.dart';
 import 'package:wallapop/src/data/models/utils/product_category_type.dart';
@@ -9,8 +8,6 @@ import 'package:wallapop/src/data/models/utils/product_state_type.dart';
 import 'package:wallapop/src/data/repositories/post_repository.dart';
 import 'package:wallapop/src/data/repositories/user_repository.dart';
 
-import '../../../../../data/models/user.dart';
-import '../../../../../data/repositories/authentication_repository.dart';
 import '../../../../../helpers/get.dart';
 import '../../../../../utils/colors.dart';
 import '../../../../global_widgets/custom_form.dart';
@@ -19,7 +16,9 @@ class PostitController extends ChangeNotifier {
   String _title = '', _description = '', _state = '';
   ProductCategoryType? _category;
   double _price = 0.0;
-  File? _imageFile;
+
+  final List<File?> _filesList = [];
+  List<File?> get filesList => _filesList;
 
   final PostRepository _repository = Get.i.find<PostRepository>()!;
   final UserRepository _usersRepository = Get.i.find<UserRepository>()!;
@@ -129,13 +128,13 @@ class PostitController extends ChangeNotifier {
       maxHeight: 1800,
     );
     if (image != null) {
-      _imageFile = File(image.path);
+      _filesList.add(File(image.path));
       notifyListeners();
     }
   }
 
-  Widget getIconState() {
-    if (_imageFile == null) {
+  Widget getIconState(int index) {
+    if (_filesList.length <= index || _filesList.isEmpty) {
       return const Icon(
         Icons.image_search,
         color: secondaryColor,
@@ -143,7 +142,7 @@ class PostitController extends ChangeNotifier {
       );
     } else {
       return Image.file(
-        _imageFile!,
+        _filesList[index]!,
         fit: BoxFit.fill,
       );
     }
@@ -157,7 +156,7 @@ class PostitController extends ChangeNotifier {
         price: _price,
         category: _category!.value,
         state: _state,
-        file: _imageFile!,
+        filesList: _filesList,
       ),
       await _usersRepository.getCurrentUser(),
     );

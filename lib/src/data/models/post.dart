@@ -9,13 +9,15 @@ class Post {
       description,
       category,
       state,
-      image,
+      // image,
       id = Methods.generateId();
   late double price;
-  late File file;
+  // late File file;
   late int likes;
   late Timestamp date = Timestamp.now();
   late bool sold = false;
+  late List<File?> filesList;
+  late List<dynamic> imagesList = [];
 
   Post({
     required this.title,
@@ -23,8 +25,7 @@ class Post {
     required this.price,
     required this.category,
     required this.state,
-    required this.file,
-    this.image = "",
+    required this.filesList,
     this.likes = 0,
   });
 
@@ -37,7 +38,7 @@ class Post {
     price = map["price"];
     category = map["category"];
     state = map["state"];
-    image = map["image"];
+    imagesList = map["imagesList"];
     likes = map["likes"];
     date = map["date"];
     sold = map["sold"];
@@ -53,7 +54,7 @@ class Post {
       "price": price,
       "category": category,
       "state": state,
-      "image": image,
+      "imagesList": imagesList,
       "likes": likes,
       "date": date,
       "sold": sold,

@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'package:wallapop/src/ui/global_widgets/select_image.dart';
 import 'package:wallapop/src/ui/modules/home/tabs/postit_tab/postit_controller.dart';
 import 'package:provider/provider.dart';
 import 'package:wallapop/src/ui/modules/home/tabs/postit_tab/widgets/category_selection.dart';
@@ -64,20 +65,76 @@ class _PostitFormState extends State<PostitForm> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            GestureDetector(
-              child: Container(
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: tertiaryColor.withOpacity(0.5),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SelectImage(
+                  circleImage: controller.getIconState(0),
+                  onPressed: controller.getFromGallery,
+                  width: 40,
+                  height: 40,
                 ),
-                width: 70,
-                height: 70,
-                child: ClipOval(
-                  child: controller.getIconState(),
+                const SizedBox(
+                  width: 15,
                 ),
-              ),
-              onTap: () => controller.getFromGallery(),
+                SelectImage(
+                  circleImage: controller.getIconState(1),
+                  onPressed: controller.getFromGallery,
+                  width: 40,
+                  height: 40,
+                ),
+                const SizedBox(
+                  width: 15,
+                ),
+                SelectImage(
+                  circleImage: controller.getIconState(2),
+                  onPressed: controller.getFromGallery,
+                  width: 40,
+                  height: 40,
+                ),
+                const SizedBox(
+                  width: 15,
+                ),
+                SelectImage(
+                  circleImage: controller.getIconState(3),
+                  onPressed: controller.getFromGallery,
+                  width: 40,
+                  height: 40,
+                ),
+                const SizedBox(
+                  width: 15,
+                ),
+                SelectImage(
+                  circleImage: controller.getIconState(4),
+                  onPressed: controller.getFromGallery,
+                  width: 40,
+                  height: 40,
+                ),
+                const SizedBox(
+                  width: 15,
+                ),
+                SelectImage(
+                  circleImage: controller.getIconState(5),
+                  onPressed: controller.getFromGallery,
+                  width: 40,
+                  height: 40,
+                ),
+              ],
             ),
+            // GestureDetector(
+            //   child: Container(
+            //     decoration: BoxDecoration(
+            //       shape: BoxShape.circle,
+            //       color: tertiaryColor.withOpacity(0.5),
+            //     ),
+            //     width: 70,
+            //     height: 70,
+            //     child: ClipOval(
+            //       child: controller.getIconState(),
+            //     ),
+            //   ),
+            //   onTap: () => controller.getFromGallery(),
+            // ),
             const SizedBox(
               height: 20,
             ),
