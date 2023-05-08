@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 
 import 'package:wallapop/src/utils/constants.dart';
 
@@ -7,22 +8,20 @@ import '../../utils/methods.dart';
 class User {
   late String nickname, email, image, id = Methods.generateId();
   String? password;
-  late List<dynamic> postsCreated, postsLiked, reviewsCreated;
+  late List<dynamic> postsCreated = [],
+      postsLiked = [],
+      reviewsCreated = [],
+      productsPurchased = [],
+      productsSolded = [];
   late File? file;
-  late int stars, sales, purchases;
+  late int stars = 0;
 
   User({
     required this.nickname,
     required this.email,
     this.password,
-    this.postsCreated = const [],
-    this.postsLiked = const [],
-    this.reviewsCreated = const [],
     this.image = Constants.defaultProfileAvatar,
     this.file,
-    this.stars = 0,
-    this.sales = 0,
-    this.purchases = 0,
   });
 
   /// A function that converts a Map to object User
@@ -35,10 +34,10 @@ class User {
     postsCreated = map["postsCreated"];
     postsLiked = map["postsLiked"];
     reviewsCreated = map["reviewsCreated"];
+    productsPurchased = map["productsPurchased"];
+    productsSolded = map["productsSolded"];
     image = map["image"];
     stars = map["stars"];
-    purchases = map["purchases"];
-    sales = map["sales"];
   }
 
   /// A function that convert a object User to a Map
@@ -52,10 +51,10 @@ class User {
       "postsCreated": postsCreated,
       "postsLiked": postsLiked,
       "reviewsCreated": reviewsCreated,
+      "productsPurchased": productsPurchased,
+      "productsSolded": productsSolded,
       "image": image,
       "stars": stars,
-      "sales": sales,
-      "purchases": purchases,
     };
   }
 }

@@ -10,4 +10,5 @@ abstract class PostRepository {
   Future<bool> removeLikeToPost(String postId);
   Future<List<Post>> getFavouritePostsByUser(User user);
   Future<Post> getPostByReviewId(String reviewId);
+  Future<bool> soldProduct(String postId);
 }

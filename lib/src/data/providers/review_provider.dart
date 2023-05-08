@@ -9,6 +9,7 @@ const String userStore = "user_store";
 const String idField = "id";
 const String emailField = "email";
 const String reviewsCreatedField = "reviewsCreated";
+const String dateField = "date";
 
 /// Class that contains the provider methods logic
 class ReviewProvider {
@@ -47,6 +48,7 @@ class ReviewProvider {
       await FirebaseFirestore.instance
           .collection(reviewStore)
           .where(emailField, isEqualTo: user.email)
+          .orderBy(dateField, descending: true)
           .get()
           .then(
         (querySnapshot) {

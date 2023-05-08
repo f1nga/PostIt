@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wallapop/src/data/models/post.dart';
-import 'package:wallapop/src/routes/routes.dart';
 import 'package:wallapop/src/ui/global_widgets/item_post.dart';
-import 'package:wallapop/src/ui/modules/home/tabs/my_profile_tab/my_profile_controller.dart';
-import 'package:wallapop/src/ui/modules/home/tabs/my_profile_tab/my_profile_resume/my_profile_resume_controller.dart';
 import 'package:wallapop/src/utils/colors.dart';
 import 'package:provider/provider.dart';
 

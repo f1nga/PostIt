@@ -58,6 +58,8 @@ class MyProfileResumeController extends ChangeNotifier {
 
   void setUser(User user) {
     _user = user;
+
+    notifyListeners();
   }
 
   void onisContainerSelected(int value) {

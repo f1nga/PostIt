@@ -36,78 +36,81 @@ class _MyPostDetailSliderState extends State<MyPostDetailSlider> {
       child: PageView.builder(
         itemCount: widget.images.length,
         itemBuilder: (BuildContext context, int index) {
-          return Stack(children: [
-            Image.network(
-              widget.images[index],
-              fit: BoxFit.cover,
-              width: double.infinity,
-            ),
-            Positioned(
-              top: 10,
-              left: 20,
-              child: IconButton(
-                icon: const Icon(
-                  Icons.arrow_back,
-                  color: Colors.white,
-                  size: 30,
-                ),
-                onPressed: () =>
-                    Navigator.popAndPushNamed(context, Routes.home),
+          return Stack(
+            children: [
+              Image.network(
+                widget.images[index],
+                fit: BoxFit.cover,
+                width: double.infinity,
               ),
-            ),
-            Visibility(
-              visible: !widget.comingFromMyPost,
-              child: Positioned(
+              Positioned(
                 top: 10,
-                right: 45,
-                child: controller != null
-                    ? IconButton(
-                        icon: controller.isLiked
-                            ? const Icon(
-                                Icons.favorite,
-                                color: Colors.red,
-                                size: 30,
-                              )
-                            : const Icon(
-                                Icons.favorite_outline,
-                                color: Colors.white,
-                                size: 30,
-                              ),
-                        onPressed: () =>
-                            controller!.onIsLikedPressed(widget.post.id),
-                      )
-                    : const Icon(
-                        Icons.favorite_outline,
-                        size: 0,
-                      ),
+                left: 20,
+                child: IconButton(
+                  icon: const Icon(
+                    Icons.arrow_back,
+                    color: Colors.white,
+                    size: 30,
+                  ),
+                  onPressed: () =>
+                      Navigator.popAndPushNamed(context, Routes.home),
+                ),
               ),
-            ),
-            Positioned(
-              right: 5,
-              top: 10,
-              child: PopupMenuButton<String>(
-                color: Colors.white,
-                iconSize: 30,
-                onSelected: (String result) {
-                  print(result);
-                },
-                itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-                  const PopupMenuItem<String>(
-                    value: 'opcion1',
-                    child: Text('Opción 1'),
-                  ),
-                  const PopupMenuItem<String>(
-                    value: 'opcion2',
-                    child: Text('Opción 2'),
-                  ),
-                  const PopupMenuItem<String>(
-                    value: 'opcion3',
-                    child: Text('Opción 3'),
-                  ),
-                ],
+              Visibility(
+                visible: !widget.comingFromMyPost,
+                child: Positioned(
+                  top: 10,
+                  right: 45,
+                  child: controller != null
+                      ? IconButton(
+                          icon: controller.isLiked
+                              ? const Icon(
+                                  Icons.favorite,
+                                  color: Colors.red,
+                                  size: 30,
+                                )
+                              : const Icon(
+                                  Icons.favorite_outline,
+                                  color: Colors.white,
+                                  size: 30,
+                                ),
+                          onPressed: () =>
+                              controller!.onIsLikedPressed(widget.post.id),
+                        )
+                      : const Icon(
+                          Icons.favorite_outline,
+                          size: 0,
+                        ),
+                ),
               ),
-            ),
-          ]);
+              Positioned(
+                right: 5,
+                top: 10,
+                child: PopupMenuButton<String>(
+                  color: Colors.white,
+                  iconSize: 30,
+                  onSelected: (String result) {
+                    print(result);
+                  },
+                  itemBuilder: (BuildContext context) =>
+                      <PopupMenuEntry<String>>[
+                    const PopupMenuItem<String>(
+                      value: 'opcion1',
+                      child: Text('Opción 1'),
+                    ),
+                    const PopupMenuItem<String>(
+                      value: 'opcion2',
+                      child: Text('Opción 2'),
+                    ),
+                    const PopupMenuItem<String>(
+                      value: 'opcion3',
+                      child: Text('Opción 3'),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          );
         },
         onPageChanged: (int index) {
           setState(() {

@@ -75,11 +75,11 @@ class MyProfileResumeHeader extends StatelessWidget {
               const SizedBox(
                 width: 10,
               ),
-              Text("${controller.user.sales} ventas"),
+              Text("${controller.user.productsSolded.length} Ventas"),
               const SizedBox(
                 width: 10,
               ),
-              Text("${controller.user.purchases} Compras"),
+              Text("${controller.user.productsPurchased.length} Compras"),
             ],
           ),
         ),

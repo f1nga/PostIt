@@ -39,4 +39,9 @@ class PostRepositoryImpl implements PostRepository {
   Future<Post> getPostByReviewId(String reviewId) {
     return _postProvider.getPostByReviewId(reviewId);
   }
+
+  @override
+  Future<bool> soldProduct(String postId) {
+    return _postProvider.soldProduct(postId);
+  }
 }

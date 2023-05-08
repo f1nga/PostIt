@@ -172,4 +172,25 @@ class PostProvider {
 
     return post;
   }
+
+  Future<bool> soldProduct(String postId) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection(postStore)
+          .doc(
+            postId,
+          )
+          .update(
+        {soldField: true},
+      );
+
+      return true;
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
+
+    return false;
+  }
 }

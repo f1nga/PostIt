@@ -29,12 +29,13 @@ class HomeTabController extends ChangeNotifier {
     for (int index = 0; index < _userPosts.length; index++) {
       likedPosts[index] =
           await _usersRepository.isPostLiked(_userPosts[index].id);
-      print(likedPosts[index]);
     }
     notifyListeners();
   }
 
   void postFavouriteClicked(String postId, int index) async {
+    likedPosts[index] = !likedPosts[index];
+
     if (await _usersRepository.isPostLiked(postId)) {
       await _usersRepository.removePostLikedToUser(
           await _usersRepository.getCurrentUser(), postId);
@@ -45,7 +46,6 @@ class HomeTabController extends ChangeNotifier {
       await _postsRepository.addLikeToPost(postId);
     }
 
-    likedPosts[index] = !likedPosts[index];
     notifyListeners();
   }
 }

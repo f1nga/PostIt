@@ -129,7 +129,7 @@ class PostDetailBody extends StatelessWidget {
                         const SizedBox(
                           width: 5,
                         ),
-                        Text("${controller.user!.sales} Ventas"),
+                        Text("${controller.user!.productsSolded.length} Ventas"),
                       ],
                     ),
                   ],

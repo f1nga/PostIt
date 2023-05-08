@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wallapop/src/data/models/post.dart';
@@ -41,12 +43,24 @@ class _PostDetailPageState extends State<PostDetailPage> {
     _controller.getUserByPostId(args.id);
     _controller.isPostLiked(args.id);
 
-    void goToPurchaseReview() {
-      Navigator.pushNamed(
-        context,
-        Routes.purchaseReview,
-        arguments: PurchaseReviewArguments(post: args, user: _controller.user!),
-      );
+    void goToPurchaseReview() async {
+      final bool purchaseCompleted = await _controller.buyProduct(args.id);
+      if (purchaseCompleted) {
+        Methods.showSnackbar(context, "Compra completada");
+        Navigator.pushNamed(
+          context,
+          Routes.purchaseReview,
+          arguments:
+              PurchaseReviewArguments(post: args, user: _controller.user!),
+        );
+      } else {
+        Dialogs.alert(
+          context,
+          title: "Oops!",
+          description: "Algo ha salido mal",
+          okText: "Reintentar",
+        );
+      }
     }
 
     return ChangeNotifierProvider<PostDetailController>(

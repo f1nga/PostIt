@@ -11,6 +11,8 @@ class PostDetailController extends ChangeNotifier {
   final PostRepository _postsRepository = Get.i.find<PostRepository>()!;
 
   User? user;
+  late User _currentUser;
+  User get currentUser => _currentUser;
   bool isLoading = false;
   bool _isLiked = false;
   bool get isLiked => _isLiked;
@@ -22,26 +24,34 @@ class PostDetailController extends ChangeNotifier {
   }
 
   void _init() async {
+    _currentUser = await _usersRepository.getCurrentUser();
     notifyListeners();
   }
 
   Future<void> onIsLikedPressed(String postId) async {
     _isLiked = !_isLiked;
-    if (_isLiked) {
-      await _usersRepository.addPostLikedToUser(
-          await _usersRepository.getCurrentUser(), postId);
-      await _postsRepository.addLikeToPost(postId);
-    } else {
-      await _usersRepository.removePostLikedToUser(
-          await _usersRepository.getCurrentUser(), postId);
+
+    if (await _usersRepository.isPostLiked(postId)) {
+      await _usersRepository.removePostLikedToUser(_currentUser, postId);
       await _postsRepository.removeLikeToPost(postId);
+    } else {
+      await _usersRepository.addPostLikedToUser(_currentUser, postId);
+      await _postsRepository.addLikeToPost(postId);
     }
 
     notifyListeners();
   }
 
+  Future<bool> buyProduct(String postId) async {
+    return await _usersRepository.addPurchasedProduct(currentUser, postId) &&
+        await _postsRepository.soldProduct(postId) &&
+        await _usersRepository.addSoldedProduct(user!, postId) &&
+        await _usersRepository.removePostLikedToUser(currentUser, postId);
+  }
+
   void isPostLiked(String postId) async {
     _isLiked = await _usersRepository.isPostLiked(postId);
+    notifyListeners();
   }
 
   void getUserByPostId(String postId) async {

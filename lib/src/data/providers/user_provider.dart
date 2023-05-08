@@ -16,6 +16,8 @@ const String idField = "id";
 const String postsCreatedField = "postsCreated";
 const String starsField = "stars";
 const String reviewsCreatedField = "reviewsCreated";
+const String productsPurchasedField = "productsPurchased";
+const String productsSoldedField = "productsSolded";
 
 /// Class that contains the provider methods logic
 class UserProvider {
@@ -151,10 +153,6 @@ class UserProvider {
 
       int finalStars = (totalStars / reviews.length).round();
 
-      print("stars $totalStars");
-      print("FINALstars $finalStars");
-      print("reviews.length ${reviews.length}");
-
       await FirebaseFirestore.instance
           .collection(userStore)
           .doc(
@@ -170,6 +168,60 @@ class UserProvider {
         print(exception);
       }
     }
+    return false;
+  }
+
+  Future<bool> addPurchasedProduct(User user, String postId) async {
+    try {
+      user.productsPurchased.add(postId);
+
+      await _updateUserData(
+          user.id, productsPurchasedField, user.productsPurchased);
+
+      return true;
+    } catch (exception) {
+      if (kDebugMode) {
+        print(exception);
+      }
+    }
+    return false;
+  }
+
+  Future<bool> addSoldedProduct(User user, String postId) async {
+    try {
+      user.productsSolded.add(postId);
+
+      await _updateUserData(
+          user.id, productsSoldedField, user.productsSolded);
+
+      return true;
+    } catch (exception) {
+      if (kDebugMode) {
+        print(exception);
+      }
+    }
+    return false;
+  }
+
+  Future<bool> _updateUserData(
+      String userId, String field, List<dynamic> newList) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection(userStore)
+          .doc(
+            userId,
+          )
+          .update(
+        {field: newList},
+      );
+
+      return true;
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
+
     return false;
   }
 }

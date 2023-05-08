@@ -51,4 +51,14 @@ class UserRepositoryImpl implements UserRepository {
   Future<bool> updateUserStars(List<Review> reviews, User user) {
     return _userProvider.updateUserStars(reviews, user);
   }
+
+  @override
+  Future<bool> addPurchasedProduct(User user, String postId) {
+    return _userProvider.addPurchasedProduct(user, postId);
+  }
+
+  @override
+  Future<bool> addSoldedProduct(User user, String postId) {
+    return _userProvider.addSoldedProduct(user, postId);
+  }
 }

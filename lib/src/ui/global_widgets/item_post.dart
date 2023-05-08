@@ -84,7 +84,8 @@ class ItemPost extends StatelessWidget {
               visible: !comingFromMyProfile,
               child: IconButton(
                 onPressed: () {
-                  onLikePressed ?? {};
+                  print("adadsa");
+                  onLikePressed!();
                 },
                 icon: likedPosts ?? false
                     ? const Icon(
