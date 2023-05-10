@@ -44,4 +44,9 @@ class PostRepositoryImpl implements PostRepository {
   Future<bool> soldProduct(String postId) {
     return _postProvider.soldProduct(postId);
   }
+
+  @override
+  Future<List<Post>> getPurchasedPostsByUser(User user) {
+    return _postProvider.getPurchasedPostsByUser(user);
+  }
 }

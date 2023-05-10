@@ -32,35 +32,34 @@ class ButtonCategory extends StatelessWidget {
       borderRadius: BorderRadius.circular(radius ?? 50),
       onTap: onPressed as void Function()?,
       splashColor: splashColor ?? Colors.blue,
-      child: LayoutBuilder(
-          builder: (BuildContext context, BoxConstraints constraints) {
-        return Container(
-          width: width ?? 360,
+      child: FittedBox(
+        child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(radius ?? 50),
             color: buttonColor ?? Colors.blue,
           ),
           child: Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: Row(
-                children: <Widget>[
-                  Icon(
-                    icon,
-                    color: iconColor ?? Colors.white,
+            padding: const EdgeInsets.all(12.0),
+            child: Row(
+              children: <Widget>[
+                Icon(
+                  icon,
+                  color: iconColor ?? Colors.white,
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+                Text(
+                  title,
+                  style: FontStyles.subtitle.copyWith(
+                    color: textColor,
                   ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Text(
-                    title,
-                    style: FontStyles.subtitle.copyWith(
-                      color: textColor,
-                    ),
-                  ),
-                ],
-              )),
-        );
-      }),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

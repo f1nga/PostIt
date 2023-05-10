@@ -56,71 +56,121 @@ class _CategorySelectionState extends State<CategorySelection> {
                   builder: (context) {
                     return StatefulBuilder(
                       builder: (BuildContext context, StateSetter setState) {
-                        return SizedBox(
-                          height: 250,
-                          child: Center(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              mainAxisSize: MainAxisSize.min,
-                              children: <Widget>[
-                                Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 30, top: 15),
-                                    child: Text(
-                                      "Categoría",
-                                      style: FontStyles.bold
-                                          .copyWith(fontSize: 15),
-                                    ),
+                        return Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.only(left: 30, top: 8.3),
+                                  child: Text(
+                                    "Categoría",
+                                    style:
+                                        FontStyles.bold.copyWith(fontSize: 15),
                                   ),
                                 ),
-                                const SizedBox(
-                                  height: 12,
-                                ),
-                                RadioListTile<int>(
-                                  title: const Text(ProductCategoryType.cars),
-                                  value: 1,
-                                  groupValue: controller.isClickedCategory,
-                                  activeColor: primaryColor,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      controller.onIsCarCategoryClicked(value!);
-                                    });
-                                    Navigator.pop(context);
-                                  },
-                                ),
-                                RadioListTile<int>(
-                                  title:
-                                      const Text(ProductCategoryType.computing),
-                                  value: 2,
-                                  groupValue: controller.isClickedCategory,
-                                  activeColor: primaryColor,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      controller
-                                          .onIsComputingCategoryClicked(value!);
-                                    });
-                                    Navigator.pop(context);
-                                  },
-                                ),
-                                RadioListTile<int>(
-                                  title: const Text(
-                                      ProductCategoryType.homeAppliances),
-                                  value: 3,
-                                  groupValue: controller.isClickedCategory,
-                                  activeColor: primaryColor,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      controller
-                                          .onIsHomeAppliancesCategoryClicked(
-                                              value!);
-                                    });
-                                    Navigator.pop(context);
-                                  },
-                                ),
-                              ],
-                            ),
+                              ),
+                              const SizedBox(
+                                height: 8,
+                              ),
+                              RadioListTile<int>(
+                                title: const Text(ProductCategoryType.cars),
+                                value: 1,
+                                groupValue: controller.isClickedCategory,
+                                activeColor: primaryColor,
+                                onChanged: (value) {
+                                  setState(() {
+                                    controller.onIsCarCategoryClicked(value!);
+                                  });
+                                  Navigator.pop(context);
+                                },
+                              ),
+                              RadioListTile<int>(
+                                title: const Text(ProductCategoryType.pcs),
+                                value: 2,
+                                groupValue: controller.isClickedCategory,
+                                activeColor: primaryColor,
+                                onChanged: (value) {
+                                  setState(() {
+                                    controller
+                                        .onIsComputingCategoryClicked(value!);
+                                  });
+                                  Navigator.pop(context);
+                                },
+                              ),
+                              RadioListTile<int>(
+                                title: const Text(
+                                    ProductCategoryType.homeAppliances),
+                                value: 3,
+                                groupValue: controller.isClickedCategory,
+                                activeColor: primaryColor,
+                                onChanged: (value) {
+                                  setState(() {
+                                    controller
+                                        .onIsHomeAppliancesCategoryClicked(
+                                            value!);
+                                  });
+                                  Navigator.pop(context);
+                                },
+                              ),
+                              RadioListTile<int>(
+                                title: const Text(ProductCategoryType.mobiles),
+                                value: 4,
+                                groupValue: controller.isClickedCategory,
+                                activeColor: primaryColor,
+                                onChanged: (value) {
+                                  setState(() {
+                                    controller
+                                        .onIsMobilesCategoryClicked(value!);
+                                  });
+                                  Navigator.pop(context);
+                                },
+                              ),
+                              RadioListTile<int>(
+                                title: const Text(ProductCategoryType.consoles),
+                                value: 5,
+                                groupValue: controller.isClickedCategory,
+                                activeColor: primaryColor,
+                                onChanged: (value) {
+                                  setState(() {
+                                    controller
+                                        .onIsConsolesCategoryClicked(value!);
+                                  });
+                                  Navigator.pop(context);
+                                },
+                              ),
+                              RadioListTile<int>(
+                                title:
+                                    const Text(ProductCategoryType.motorcycles),
+                                value: 6,
+                                groupValue: controller.isClickedCategory,
+                                activeColor: primaryColor,
+                                onChanged: (value) {
+                                  setState(() {
+                                    controller
+                                        .onIsMotorCyclesCategoryClicked(value!);
+                                  });
+                                  Navigator.pop(context);
+                                },
+                              ),
+                              RadioListTile<int>(
+                                title:
+                                    const Text(ProductCategoryType.sports),
+                                value: 7,
+                                groupValue: controller.isClickedCategory,
+                                activeColor: primaryColor,
+                                onChanged: (value) {
+                                  setState(() {
+                                    controller
+                                        .onIsSportsCategoryClicked(value!);
+                                  });
+                                  Navigator.pop(context);
+                                },
+                              ),
+                            ],
                           ),
                         );
                       },

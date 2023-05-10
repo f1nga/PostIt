@@ -10,7 +10,6 @@ class PostitTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return ChangeNotifierProvider<PostitController>(
       create: (_) => PostitController(),
       builder: (_, __) {
@@ -18,9 +17,7 @@ class PostitTab extends StatelessWidget {
           backgroundColor: backgroundColor,
           body: SafeArea(
             child: Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 15,
-              ),
+              padding: const EdgeInsets.all(15),
               child: const PostitForm(),
             ),
           ),

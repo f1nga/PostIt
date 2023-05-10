@@ -30,10 +30,20 @@ abstract class Methods {
     switch (category) {
       case ProductCategoryType.cars:
         return ProductCategoryType.carsIcon;
-      case ProductCategoryType.computing:
-        return ProductCategoryType.computingIcon;
+      case ProductCategoryType.pcs:
+        return ProductCategoryType.pcsIcon;
       case ProductCategoryType.homeAppliances:
         return ProductCategoryType.homeAppliancesIcon;
+      case ProductCategoryType.mobiles:
+        return ProductCategoryType.mobilesIcon;
+      case ProductCategoryType.consoles:
+        return ProductCategoryType.consolesIcon;
+      case ProductCategoryType.motorcycles:
+        return ProductCategoryType.motorcyclesIcon;
+      case ProductCategoryType.realEstate:
+        return ProductCategoryType.realEstateIcon;
+      case ProductCategoryType.sports:
+        return ProductCategoryType.sportsIcon;
       default:
         return Icons.category;
     }

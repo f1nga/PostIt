@@ -10,6 +10,7 @@ import '../../../../../data/models/user.dart';
 import '../../../../../data/models/utils/product_category_type.dart';
 import '../../../../../data/models/utils/product_state_type.dart';
 import '../../../../../helpers/get.dart';
+import '../../../../../utils/font_styles.dart';
 import '../my_profile_tab/my_profile_resume/my_profile_resume_controller.dart';
 
 class HomeTab extends StatefulWidget {
@@ -20,36 +21,6 @@ class HomeTab extends StatefulWidget {
 }
 
 class _HomeTabState extends State<HomeTab> {
-  void hol() async {
-    final PostRepository _usersRepository = Get.i.find<PostRepository>()!;
-
-    final record = await FirebaseFirestore.instance
-        .collection("user_store")
-        .where(
-          "email",
-          isEqualTo: "josep@gmail.com",
-        )
-        .limit(1)
-        .get();
-
-    Map<String, dynamic> map = record.docs.first.data();
-
-    final user = User.fromMap(map);
-
-    await _usersRepository.addPost(
-      Post(
-        title: "Golf 1.9 TDI",
-        description:
-            "190.000km con las revisiones hechas y cambio de correa a los 120. Precio negociable.",
-        price: 3500,
-        category: ProductCategoryType.cars,
-        state: ProductStateType.good,
-        filesList: [],
-      ),
-      user,
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<HomeTabController>(
@@ -68,34 +39,31 @@ class _HomeTabState extends State<HomeTab> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
+              Text(
                 'Categorías populares',
-                style: TextStyle(
-                  fontSize: 24.0,
-                  fontWeight: FontWeight.bold,
+                style: FontStyles.title.copyWith(fontSize: 24),
+              ),
+              const SizedBox(height: 20.0),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    GestureDetector(
+                      child: _buildCategoryCard('Ropa', Icons.accessibility_new,
+                          Colors.blue, context),
+                    ),
+                    _buildCategoryCard(
+                        'Electrónica', Icons.devices, Colors.orange, context),
+                    _buildCategoryCard(
+                        'Hogar', Icons.home, Colors.pink, context),
+                  ],
                 ),
               ),
               const SizedBox(height: 20.0),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  GestureDetector(
-                    child: _buildCategoryCard(
-                        'Ropa', Icons.accessibility_new, Colors.blue, context),
-                    onTap: () => hol(),
-                  ),
-                  _buildCategoryCard(
-                      'Electrónica', Icons.devices, Colors.orange, context),
-                  _buildCategoryCard('Hogar', Icons.home, Colors.pink, context),
-                ],
-              ),
-              const SizedBox(height: 20.0),
-              const Text(
+              Text(
                 'Productos destacados',
-                style: TextStyle(
-                  fontSize: 24.0,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: FontStyles.title.copyWith(fontSize: 24),
               ),
               const SizedBox(height: 20.0),
               const HomeTabProducts()

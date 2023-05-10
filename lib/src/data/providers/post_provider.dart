@@ -5,12 +5,6 @@ import 'package:firebase_storage/firebase_storage.dart';
 
 import 'package:flutter/foundation.dart';
 import 'package:wallapop/src/data/models/user.dart';
-import 'package:wallapop/src/data/models/utils/product_category_type.dart';
-import 'package:wallapop/src/data/models/utils/product_state_type.dart';
-import 'package:wallapop/src/data/providers/review_provider.dart';
-import 'package:wallapop/src/data/repositories/user_repository.dart';
-
-import '../../helpers/get.dart';
 import '../models/post.dart';
 
 const String postStore = "post_store";
@@ -71,35 +65,9 @@ class PostProvider {
     }
   }
 
-  Future<User> getUserByEmail(String email) async {
-    final record = await FirebaseFirestore.instance
-        .collection(userStore)
-        .where(
-          emailField,
-          isEqualTo: email,
-        )
-        .limit(1)
-        .get();
-
-    Map<String, dynamic> map = record.docs.first.data();
-
-    return User.fromMap(map);
-  }
-
   Future<List<Post>> getPosts(User user) async {
     List<Post> postsList = [];
     if (user.postsCreated.isEmpty) user.postsCreated.add("");
-
-    // await addPost(
-    //     Post(
-    //         title: "Golf 1.9 TDI",
-    //         description:
-    //             "190.000km con las revisiones hechas y cambio de correa a los 120. Precio negociable.",
-    //         price: 3500,
-    //         category: ProductCategoryType.cars,
-    //         state: ProductStateType.good,
-    //         filesList: []),
-    //     await getUserByEmail("albert@gmail.com"));
 
     try {
       await FirebaseFirestore.instance
@@ -132,6 +100,31 @@ class PostProvider {
       await FirebaseFirestore.instance
           .collection(postStore)
           .where(idField, whereIn: user.postsLiked)
+          .get()
+          .then(
+        (querySnapshot) {
+          for (QueryDocumentSnapshot<Map<String, dynamic>> documentSnapshot
+              in querySnapshot.docs) {
+            postsList.add(Post.fromMap(documentSnapshot.data()));
+          }
+        },
+      );
+    } catch (exception) {
+      if (kDebugMode) {
+        print(exception);
+      }
+    }
+
+    return postsList;
+  }
+
+  Future<List<Post>> getPurchasedPostsByUser(User user) async {
+    List<Post> postsList = [];
+
+    try {
+      await FirebaseFirestore.instance
+          .collection(postStore)
+          .where(idField, whereIn: user.productsPurchased)
           .get()
           .then(
         (querySnapshot) {

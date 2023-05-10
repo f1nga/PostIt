@@ -27,24 +27,33 @@ class _PostitFormState extends State<PostitForm> {
     final PostitController controller = context.read<PostitController>();
     final bool isFormOK = controller.formKey.currentState!.validate();
 
-    if (isFormOK) {
+    if (isFormOK && controller.category != null && controller.state != "") {
       ProgressDialog.show(context);
 
-      final bool isOk = await controller.submit();
-      Navigator.pop(context);
-      if (!isOk) {
+      if (controller.filesList.isEmpty) {
+        Navigator.pop(context);
+
         Dialogs.alert(
           context,
           title: "Error",
-          description: "No se ha podido subir el post",
+          description: "Debe subir almenos una imagen",
         );
       } else {
-        Methods.showSnackbar(context, "Post completado!");
-        //Snack bar informativa
-        Navigator.popAndPushNamed(
-          context,
-          Routes.home,
-        );
+        final bool isOk = await controller.submit();
+        Navigator.pop(context);
+        if (!isOk) {
+          Dialogs.alert(
+            context,
+            title: "Error",
+            description: "No se ha podido subir el post",
+          );
+        } else {
+          Methods.showSnackbar(context, "Post completado!");
+          Navigator.popAndPushNamed(
+            context,
+            Routes.home,
+          );
+        }
       }
     } else {
       Dialogs.alert(
@@ -121,20 +130,6 @@ class _PostitFormState extends State<PostitForm> {
                 ),
               ],
             ),
-            // GestureDetector(
-            //   child: Container(
-            //     decoration: BoxDecoration(
-            //       shape: BoxShape.circle,
-            //       color: tertiaryColor.withOpacity(0.5),
-            //     ),
-            //     width: 70,
-            //     height: 70,
-            //     child: ClipOval(
-            //       child: controller.getIconState(),
-            //     ),
-            //   ),
-            //   onTap: () => controller.getFromGallery(),
-            // ),
             const SizedBox(
               height: 20,
             ),
@@ -142,7 +137,7 @@ class _PostitFormState extends State<PostitForm> {
               onchanged: controller.onTitleChanged,
               prefixIcon: const Icon(Icons.title),
               validator: (text) {
-                if (text.trim().length >= 4 && text.trim().length <= 15) {
+                if (text.trim().length >= 4 && text.trim().length <= 50) {
                   return null;
                 }
                 return "Título no válido";
@@ -158,7 +153,7 @@ class _PostitFormState extends State<PostitForm> {
               onSubmitted: (text) => /*_authenticate(context)*/ {},
               prefixIcon: const Icon(Icons.description),
               validator: (text) {
-                if (text.trim().length >= 4 && text.trim().length <= 100) {
+                if (text.trim().length >= 4 && text.trim().length <= 500) {
                   return null;
                 }
                 return "Descripción no válida";

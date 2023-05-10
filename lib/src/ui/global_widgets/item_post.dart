@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wallapop/src/utils/colors.dart';
 
 import '../../data/models/post.dart';
 import '../../routes/routes.dart';
@@ -74,7 +75,7 @@ class ItemPost extends StatelessWidget {
                     style: const TextStyle(
                       fontSize: 16.0,
                       fontWeight: FontWeight.bold,
-                      color: Colors.blue,
+                      color: primaryColor,
                     ),
                   ),
                 ],

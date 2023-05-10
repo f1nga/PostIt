@@ -70,8 +70,8 @@ class PostitController extends ChangeNotifier {
   void onIsComputingCategoryClicked(int value) async {
     _isClickedCategory = value;
     _category = ProductCategoryType(
-      value: ProductCategoryType.computing,
-      icon: ProductCategoryType.computingIcon,
+      value: ProductCategoryType.pcs,
+      icon: ProductCategoryType.pcsIcon,
     );
 
     notifyListeners();
@@ -82,6 +82,51 @@ class PostitController extends ChangeNotifier {
     _category = ProductCategoryType(
         value: ProductCategoryType.homeAppliances,
         icon: ProductCategoryType.homeAppliancesIcon);
+
+    notifyListeners();
+  }
+
+  void onIsMobilesCategoryClicked(int value) async {
+    _isClickedCategory = value;
+    _category = ProductCategoryType(
+        value: ProductCategoryType.mobiles,
+        icon: ProductCategoryType.mobilesIcon);
+
+    notifyListeners();
+  }
+
+  void onIsConsolesCategoryClicked(int value) async {
+    _isClickedCategory = value;
+    _category = ProductCategoryType(
+        value: ProductCategoryType.consoles,
+        icon: ProductCategoryType.consolesIcon);
+
+    notifyListeners();
+  }
+
+  void onIsMotorCyclesCategoryClicked(int value) async {
+    _isClickedCategory = value;
+    _category = ProductCategoryType(
+        value: ProductCategoryType.motorcycles,
+        icon: ProductCategoryType.motorcyclesIcon);
+
+    notifyListeners();
+  }
+
+  void onIsSportsCategoryClicked(int value) async {
+    _isClickedCategory = value;
+    _category = ProductCategoryType(
+        value: ProductCategoryType.sports,
+        icon: ProductCategoryType.sportsIcon);
+
+    notifyListeners();
+  }
+
+  void onIsRealEstateCategoryClicked(int value) async {
+    _isClickedCategory = value;
+    _category = ProductCategoryType(
+        value: ProductCategoryType.realEstate,
+        icon: ProductCategoryType.realEstateIcon);
 
     notifyListeners();
   }

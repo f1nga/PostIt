@@ -79,25 +79,28 @@ class _PostDetailPageState extends State<PostDetailPage> {
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         body: SafeArea(
           child: SingleChildScrollView(
-            child: Consumer<PostDetailController>(
-              builder: (context, controller, _) {
-                if (controller.isLoading) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                } else {
-                  return Column(
-                    children: [
-                      MyPostDetailSlider(
-                        images: args.imagesList,
-                        comingFromMyPost: false,
-                        post: args,
-                      ),
-                      PostDetailBody(controller: controller),
-                    ],
-                  );
-                }
-              },
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 50),
+              child: Consumer<PostDetailController>(
+                builder: (context, controller, _) {
+                  if (controller.isLoading) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else {
+                    return Column(
+                      children: [
+                        MyPostDetailSlider(
+                          images: args.imagesList,
+                          comingFromMyPost: false,
+                          post: args,
+                        ),
+                        PostDetailBody(controller: controller),
+                      ],
+                    );
+                  }
+                },
+              ),
             ),
           ),
         ),

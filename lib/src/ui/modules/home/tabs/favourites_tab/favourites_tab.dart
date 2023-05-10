@@ -6,6 +6,7 @@ import 'package:wallapop/src/ui/modules/home/tabs/home_tab/home_tab_controller.d
 import 'package:wallapop/src/ui/modules/home/tabs/home_tab/widgets/home_tab_products.dart';
 
 import '../../../../../helpers/get.dart';
+import '../../../../../utils/font_styles.dart';
 import '../my_profile_tab/my_profile_resume/my_profile_resume_controller.dart';
 
 class FavouritesTab extends StatefulWidget {
@@ -33,106 +34,17 @@ class _FavouritesTabState extends State<FavouritesTab> {
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
+            children: [
               Text(
-                'Productos destacados',
-                style: TextStyle(
-                  fontSize: 24.0,
-                  fontWeight: FontWeight.bold,
-                ),
+                'MIS FAVORITOS',
+                style: FontStyles.title.copyWith(fontSize: 24),
               ),
-              SizedBox(height: 20.0),
-              FavouritesTabProducts()
+              const SizedBox(
+                height: 20.0,
+              ),
+              const FavouritesTabProducts()
             ],
           ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildCategoryCard(
-      String title, IconData icon, Color color, BuildContext context) {
-    return InkWell(
-      onTap: () {},
-      child: Container(
-        padding: const EdgeInsets.all(20.0),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10.0),
-          color: color,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Icon(
-              icon,
-              color: Colors.white,
-              size: 30.0,
-            ),
-            const SizedBox(height: 10.0),
-            Text(
-              title,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 20.0,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildProductCard(
-      String title, String price, String imageUrl, BuildContext context) {
-    return InkWell(
-      onTap: () {},
-      child: Container(
-        padding: const EdgeInsets.all(20.0),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10.0),
-          border: Border.all(
-            color: Colors.grey,
-            width: 1.0,
-          ),
-        ),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              width: 100.0,
-              height: 100.0,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10.0),
-                image: DecorationImage(
-                  image: NetworkImage(imageUrl),
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-            const SizedBox(width: 10.0),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    title,
-                    style: const TextStyle(
-                        fontSize: 20.0, fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 10.0),
-                  Text(
-                    '$price',
-                    style: const TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.blue,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
         ),
       ),
     );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:wallapop/src/routes/routes.dart';
 import 'package:wallapop/src/ui/modules/home/tabs/my_profile_tab/my_profile_controller.dart';
 import 'package:wallapop/src/ui/modules/home/tabs/my_profile_tab/widgets/my_profile_action.dart';
 import 'package:wallapop/src/ui/modules/home/tabs/my_profile_tab/widgets/my_profile_header.dart';
@@ -45,12 +46,12 @@ class _MyProfileTabState extends State<MyProfileTab> {
                     );
                   } else {
                     return Column(
-                      children: const [
-                        MyProfileHeader(),
-                        SizedBox(
+                      children: [
+                        const MyProfileHeader(),
+                        const SizedBox(
                           height: 20,
                         ),
-                        Padding(
+                        const Padding(
                           padding: EdgeInsets.only(left: 16.0),
                           child: Align(
                             alignment: Alignment.centerLeft,
@@ -60,21 +61,25 @@ class _MyProfileTabState extends State<MyProfileTab> {
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         MyProfileAction(
-                          icon: Icon(Icons.handshake),
+                          icon: const Icon(Icons.handshake),
                           title: "Compras",
+                          onPressed: () => Navigator.pushNamed(
+                              context, Routes.myProfilePurchases),
                         ),
                         MyProfileAction(
-                          icon: Icon(Icons.sell),
+                          icon: const Icon(Icons.sell),
                           title: "Ventas",
+                          onPressed: () => Navigator.pushNamed(
+                              context, Routes.myProfilePurchases),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 20,
                         ),
-                        Padding(
+                        const Padding(
                           padding: EdgeInsets.only(left: 16.0),
                           child: Align(
                             alignment: Alignment.centerLeft,
@@ -84,12 +89,14 @@ class _MyProfileTabState extends State<MyProfileTab> {
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         MyProfileAction(
-                          icon: Icon(Icons.edit),
+                          icon: const Icon(Icons.edit),
                           title: "Editar el perfil",
+                          onPressed: () => Navigator.pushNamed(
+                              context, Routes.myProfilePurchases),
                         ),
                       ],
                     );

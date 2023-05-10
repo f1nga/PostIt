@@ -31,8 +31,8 @@ class _MyPostDetailSliderState extends State<MyPostDetailSlider> {
       controller = context.watch<PostDetailController>();
     }
 
-    return AspectRatio(
-      aspectRatio: 16 / 9,
+    return Container(
+      height: 300,
       child: PageView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: widget.images.length,
@@ -57,7 +57,7 @@ class _MyPostDetailSliderState extends State<MyPostDetailSlider> {
                     size: 30,
                   ),
                   onPressed: () =>
-                      Navigator.popAndPushNamed(context, Routes.home),
+                      Navigator.pop(context),
                 ),
               ),
               Visibility(

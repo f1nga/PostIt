@@ -30,7 +30,7 @@ class _MyPostDetailBodyState extends State<MyPostDetailBody> {
           Row(
             children: [
               const SizedBox(
-                height: 20,
+                height: 100,
               ),
               CustomRoundedButton(
                 onPressed: () => {},
@@ -48,9 +48,6 @@ class _MyPostDetailBodyState extends State<MyPostDetailBody> {
                 textColor: Colors.white,
               ),
             ],
-          ),
-          const SizedBox(
-            height: 20,
           ),
           Text(
             "${widget.post.price} €",
@@ -82,7 +79,6 @@ class _MyPostDetailBodyState extends State<MyPostDetailBody> {
             title: widget.post.category,
             onPressed: () => {},
             icon: Methods.getCategoryIcon(widget.post.category),
-            width: 150,
             buttonColor: backgroundColor,
             textColor: Colors.black,
           ),
