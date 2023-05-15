@@ -29,15 +29,10 @@ class ProfileResumeReviews extends StatelessWidget {
               const SizedBox(height: 10),
           itemCount: controller.userReviews.length,
           itemBuilder: (BuildContext context, int index) {
-            controller.getUserAndPostByReviewId(
-                controller.userReviews[index].id,
-                controller.userReviews[index].postId);
-
-            if (!controller.isLoading) {
-              return ItemReview(
-                review: controller.userReviews[index],
-              );
-            }
+            return ItemReview(
+              review: controller.userReviews[index],
+              index: index,
+            );
           },
         ),
       ),

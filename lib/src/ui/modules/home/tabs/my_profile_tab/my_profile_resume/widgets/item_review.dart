@@ -13,10 +13,12 @@ import 'package:provider/provider.dart';
 
 class ItemReview extends StatelessWidget {
   final Review review;
+  final int index;
 
   const ItemReview({
     super.key,
     required this.review,
+    required this.index,
   });
 
   @override
@@ -28,7 +30,7 @@ class ItemReview extends StatelessWidget {
       onTap: () => Navigator.pushNamed(
         context,
         Routes.postDetail,
-        arguments: controller.postReview,
+        arguments: controller.postReview[index],
       ),
       child: Row(
         children: [
@@ -37,28 +39,43 @@ class ItemReview extends StatelessWidget {
             width: 80,
             child: Stack(
               children: [
-                Positioned(
-                  top: 0,
-                  left: 0,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: Image.network(
-                      controller.postReview.imagesList[0],
-                      fit: BoxFit.cover,
-                      height: 60,
-                      width: 60,
-                    ),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: Image.network(
+                    controller.postReview[index].imagesList[0],
+                    fit: BoxFit.cover,
+                    height: 60,
+                    width: 60,
                   ),
                 ),
                 Positioned(
                   bottom: 0,
                   right: 0,
-                  child: ClipOval(
-                    child: Image.network(
-                      controller.userReview.image,
-                      fit: BoxFit.cover,
-                      height: 47,
-                      width: 47,
+                  child: GestureDetector(
+                    onTap: () => Navigator.pushNamed(
+                      context,
+                      Routes.profileResume,
+                      arguments: controller.userPost[index].nickname ==
+                              controller.user.nickname
+                          ? controller.userReview[index]
+                          : controller.userPost[index],
+                      // controller.comingFromMyProfile
+                      //     ? controller.userPost[index]
+                      //     : controller.userReview[index],
+                    ),
+                    child: ClipOval(
+                      child: Image.network(
+                        controller.userPost[index].nickname ==
+                                controller.user.nickname
+                            ? controller.userReview[index].image
+                            : controller.userPost[index].image,
+                        // controller.comingFromMyProfile
+                        //     ? controller.userPost[index].image
+                        //     : controller.userReview[index].image,
+                        fit: BoxFit.cover,
+                        height: 47,
+                        width: 47,
+                      ),
                     ),
                   ),
                 ),
@@ -72,15 +89,23 @@ class ItemReview extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                if(controller.comingFromMyProfile) 
                 Text(
-                  controller.comingFromMyProfile ? "Compraste" : "Vendió",
+                    controller.userPost[index].nickname ==
+                                controller.user.nickname ? "Compraste" : "Vendiste",
+                  style: FontStyles.regular.copyWith(color: tertiaryColor),
+                ),
+                if(!controller.comingFromMyProfile)
+                Text(
+                    controller.userPost[index].nickname ==
+                                controller.user.nickname ? "Compró" : "Vendió",
                   style: FontStyles.regular.copyWith(color: tertiaryColor),
                 ),
                 const SizedBox(
                   height: 5,
                 ),
                 Text(
-                  controller.postReview.title,
+                  controller.postReview[index].title,
                   style: FontStyles.title.copyWith(fontSize: 16),
                 ),
                 const SizedBox(
@@ -91,7 +116,7 @@ class ItemReview extends StatelessWidget {
                   height: 5,
                 ),
                 Text(
-                  "Por ${controller.userReview.nickname}",
+                  "Por ${controller.userReview[index].nickname}",
                   style: FontStyles.regular.copyWith(color: tertiaryColor),
                 ),
               ],

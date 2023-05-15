@@ -68,13 +68,17 @@ class _MyProfileTabState extends State<MyProfileTab> {
                           icon: const Icon(Icons.handshake),
                           title: "Compras",
                           onPressed: () => Navigator.pushNamed(
-                              context, Routes.myProfilePurchases),
+                            context,
+                            Routes.myProfilePurchases,
+                          ),
                         ),
                         MyProfileAction(
                           icon: const Icon(Icons.sell),
                           title: "Ventas",
                           onPressed: () => Navigator.pushNamed(
-                              context, Routes.myProfilePurchases),
+                            context,
+                            Routes.myProfileSales,
+                          ),
                         ),
                         const SizedBox(
                           height: 20,
@@ -96,7 +100,9 @@ class _MyProfileTabState extends State<MyProfileTab> {
                           icon: const Icon(Icons.edit),
                           title: "Editar el perfil",
                           onPressed: () => Navigator.pushNamed(
-                              context, Routes.myProfilePurchases),
+                            context,
+                            Routes.myProfilePurchases,
+                          ),
                         ),
                       ],
                     );

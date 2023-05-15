@@ -12,5 +12,7 @@ abstract class PostRepository {
   Future<Post> getPostByReviewId(String reviewId);
   Future<bool> soldProduct(String postId);
   Future<List<Post>> getPurchasedPostsByUser(User user);
+  Future<List<Post>> getSalesPostsByUser(User user);
+  Future<List<Post>> getPostsByText(String text);
   Future<bool> deletePost(String postId);
 }

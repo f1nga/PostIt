@@ -23,11 +23,14 @@ class MyProfileResumeController extends ChangeNotifier {
   List<Review> _userReviews = [];
   List<Review> get userReviews => _userReviews;
 
-  late User _userReview;
-  User get userReview => _userReview;
+  final List<User> _userPost = [];
+  List<User> get userPost => _userPost;
 
-  late Post _postReview;
-  Post get postReview => _postReview;
+  final List<User> _userReview = [];
+  List<User> get userReview => _userReview;
+
+  final List<Post> _postReview = [];
+  List<Post> get postReview => _postReview;
 
   int _selectedContainer = 1;
   int get selectedContainer => _selectedContainer;
@@ -45,7 +48,8 @@ class MyProfileResumeController extends ChangeNotifier {
   }
 
   void _init() async {
-    if (_user.email == "") {
+    final user = await _usersRepository.getCurrentUser();
+    if (_user.email == "" || _user.email == user.email) {
       _user = await _usersRepository.getCurrentUser();
       _comingFromMyProfile = true;
     }
@@ -53,30 +57,24 @@ class MyProfileResumeController extends ChangeNotifier {
 
     _userReviews = await _reviewsRepository.getReviewsByUser(_user);
 
-    for (var review in _userReviews) {
-      print(review.description);
+    for (Review review in _userReviews) {
+      _userReview.add(await _usersRepository.getUserByReviewId(review.id));
+      final Post post = await _postsRepository.getPostByReviewId(review.postId);
+      _postReview.add(post);
+      _userPost.add(await _usersRepository.getUserByPostId(post.id));
     }
-
+    _isLoading = false;
     notifyListeners();
   }
 
   void setUser(User user) {
     _user = user;
-
     notifyListeners();
   }
 
   void onisContainerSelected(int value) {
     _selectedContainer = value;
 
-    notifyListeners();
-  }
-
-  void getUserAndPostByReviewId(String reviewId, String reviewPostId) async {
-    _userReview = await _usersRepository.getUserByReviewId(reviewId);
-    _postReview = await _postsRepository.getPostByReviewId(reviewPostId);
-
-    _isLoading = false;
     notifyListeners();
   }
 }

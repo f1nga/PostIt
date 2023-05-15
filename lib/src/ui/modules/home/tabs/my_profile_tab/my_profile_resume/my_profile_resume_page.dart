@@ -44,58 +44,71 @@ class _MyProfileResumePageState extends State<MyProfileResumePage> {
 
     return ChangeNotifierProvider<MyProfileResumeController>(
       create: (_) => _controller,
-      child: Scaffold(
-        backgroundColor: backgroundColor,
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          elevation: 0,
-          title: Text(
-            "Resumen del perfil",
-            style: FontStyles.title.copyWith(
-              color: secondaryColor,
-            ),
-          ),
-          centerTitle: false,
-          leading: IconButton(
-            key: const Key("arrow_back_icon"),
-            icon: const Icon(
-              Icons.arrow_back,
-            ),
-            onPressed: () {
-              Navigator.pop(
-                context,
-              );
-            },
-          ),
-        ),
-        body: SafeArea(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                const MyProfileResumeHeader(),
-                const Divider(),
-                const SizedBox(
-                  height: 5,
+      child: Consumer<MyProfileResumeController>(
+        builder: (context, controller, _) {
+          if (controller.isLoading) {
+            return Container(
+              color: backgroundColor,
+              child: const Center(
+                child: CircularProgressIndicator(),
+              ),
+            );
+          } else {
+            return Scaffold(
+              backgroundColor: backgroundColor,
+              appBar: AppBar(
+                backgroundColor: Colors.white,
+                elevation: 0,
+                title: Text(
+                  "Resumen del perfil",
+                  style: FontStyles.title.copyWith(
+                    color: secondaryColor,
+                  ),
                 ),
-                const SelectContainer(),
-                const SizedBox(
-                  height: 10,
-                ),
-                Consumer<MyProfileResumeController>(
-                  builder: (context, controller, child) {
-                    if (controller.selectedContainer == 1) {
-                      return const MyProfileResumeProducts();
-                    } else if (controller.selectedContainer == 2) {
-                      return const ProfileResumeReviews();
-                    } else {
-                      return Text("${controller.selectedContainer}");
-                    }
+                centerTitle: false,
+                leading: IconButton(
+                  key: const Key("arrow_back_icon"),
+                  icon: const Icon(
+                    Icons.arrow_back,
+                  ),
+                  onPressed: () {
+                    Navigator.pop(
+                      context,
+                    );
                   },
                 ),
-              ],
-            ),
-          ),
-        ),
+              ),
+              body: SafeArea(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      const MyProfileResumeHeader(),
+                      const Divider(),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      const SelectContainer(),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Consumer<MyProfileResumeController>(
+                        builder: (context, controller, child) {
+                          if (controller.selectedContainer == 1) {
+                            return const MyProfileResumeProducts();
+                          } else if (controller.selectedContainer == 2) {
+                            return const ProfileResumeReviews();
+                          } else {
+                            return Text("${controller.selectedContainer}");
+                          }
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            );
+          }
+        },
       ),
     );
   }

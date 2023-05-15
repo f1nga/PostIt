@@ -14,6 +14,7 @@ const String idField = "id";
 const String postsCreatedField = "postsCreated";
 const String likesField = "likes";
 const String soldField = "sold";
+const String titleField = "title";
 
 /// Class that contains the provider methods logic
 class PostProvider {
@@ -125,6 +126,56 @@ class PostProvider {
       await FirebaseFirestore.instance
           .collection(postStore)
           .where(idField, whereIn: user.productsPurchased)
+          .get()
+          .then(
+        (querySnapshot) {
+          for (QueryDocumentSnapshot<Map<String, dynamic>> documentSnapshot
+              in querySnapshot.docs) {
+            postsList.add(Post.fromMap(documentSnapshot.data()));
+          }
+        },
+      );
+    } catch (exception) {
+      if (kDebugMode) {
+        print(exception);
+      }
+    }
+
+    return postsList;
+  }
+
+  Future<List<Post>> getSalesPostsByUser(User user) async {
+    List<Post> postsList = [];
+
+    try {
+      await FirebaseFirestore.instance
+          .collection(postStore)
+          .where(idField, whereIn: user.productsSolded)
+          .get()
+          .then(
+        (querySnapshot) {
+          for (QueryDocumentSnapshot<Map<String, dynamic>> documentSnapshot
+              in querySnapshot.docs) {
+            postsList.add(Post.fromMap(documentSnapshot.data()));
+          }
+        },
+      );
+    } catch (exception) {
+      if (kDebugMode) {
+        print(exception);
+      }
+    }
+
+    return postsList;
+  }
+
+  Future<List<Post>> getPostsByText(String text) async {
+    List<Post> postsList = [];
+
+    try {
+      await FirebaseFirestore.instance
+          .collection(postStore)
+          .where(titleField, arrayContains: text)
           .get()
           .then(
         (querySnapshot) {

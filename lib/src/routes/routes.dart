@@ -9,4 +9,6 @@ abstract class Routes {
   static const postDetail = '/postDetail';
   static const purchaseReview = '/purchaseReview';
   static const myProfilePurchases = '/myProfilePurchases';
+  static const myProfileSales = '/myProfileSales';
+  static const postsFiltered = '/postsFiltered';
 }
