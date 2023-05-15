@@ -61,4 +61,9 @@ class UserRepositoryImpl implements UserRepository {
   Future<bool> addSoldedProduct(User user, String postId) {
     return _userProvider.addSoldedProduct(user, postId);
   }
+
+  @override
+  Future<bool> deleteUserPost(String postId, User user) {
+    return _userProvider.deleteUserPost(postId, user);
+  }
 }

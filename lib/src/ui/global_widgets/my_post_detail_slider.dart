@@ -1,20 +1,28 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:wallapop/src/routes/routes.dart';
 import 'package:wallapop/src/ui/modules/home/pages/post_detail/post_detail_controller.dart';
 import 'package:provider/provider.dart';
+import 'package:wallapop/src/utils/colors.dart';
+import 'package:wallapop/src/utils/dialogs.dart';
+import 'package:wallapop/src/utils/methods.dart';
 
 import '../../data/models/post.dart';
+import '../modules/home/tabs/my_profile_tab/my_profile_resume/my_post_detail/my_post_detail_controller.dart';
+import '../modules/home/tabs/my_profile_tab/my_profile_resume/my_post_detail/widgets/button_category.dart';
 
 class MyPostDetailSlider extends StatefulWidget {
   final List<dynamic> images;
   final bool comingFromMyPost;
   final Post post;
 
-  const MyPostDetailSlider(
-      {super.key,
-      required this.images,
-      required this.comingFromMyPost,
-      required this.post});
+  const MyPostDetailSlider({
+    super.key,
+    required this.images,
+    required this.comingFromMyPost,
+    required this.post,
+  });
 
   @override
   _MyPostDetailSliderState createState() => _MyPostDetailSliderState();
@@ -26,9 +34,42 @@ class _MyPostDetailSliderState extends State<MyPostDetailSlider> {
   @override
   Widget build(BuildContext context) {
     PostDetailController? controller;
+    MyPostDetailController? myPostDetailController;
 
     if (!widget.comingFromMyPost) {
       controller = context.watch<PostDetailController>();
+    } else if (!widget.post.sold) {
+      myPostDetailController = context.watch<MyPostDetailController>();
+    }
+
+    void deletePost() async {
+      final bool postDeleted =
+          await myPostDetailController!.deletePost(widget.post.id);
+
+      if (postDeleted) {
+        Navigator.popAndPushNamed(
+          context,
+          Routes.profileResume,
+          arguments: await myPostDetailController.getCurrentUser(),
+        );
+        Methods.showSnackbar(context, "Producto eliminadao");
+      } else {
+        Dialogs.alert(
+          context,
+          title: "Cuidado",
+          description: "No se ha podido borrar el producto",
+        );
+      }
+    }
+
+    void showQuestionDialog() {
+      Methods.showQuestionDialog(
+        context,
+        "Cuidado",
+        "Seguro que quieres borrar el post?",
+        "Borrar",
+        deletePost,
+      );
     }
 
     return Container(
@@ -56,12 +97,25 @@ class _MyPostDetailSliderState extends State<MyPostDetailSlider> {
                     color: Colors.white,
                     size: 30,
                   ),
-                  onPressed: () =>
-                      Navigator.pop(context),
+                  onPressed: () => Navigator.pop(context),
                 ),
               ),
+              Positioned(
+                top: 80,
+                left: 20,
+                child: widget.post.sold
+                    ? ButtonCategory(
+                        title: "Vendido",
+                        icon: Icons.handshake,
+                        onPressed: () {},
+                        buttonColor: Colors.white,
+                        textColor: primaryColor,
+                        iconColor: primaryColor,
+                      )
+                    : const Text(""),
+              ),
               Visibility(
-                visible: !widget.comingFromMyPost,
+                visible: !widget.comingFromMyPost && !widget.post.sold,
                 child: Positioned(
                   top: 10,
                   right: 45,
@@ -81,10 +135,7 @@ class _MyPostDetailSliderState extends State<MyPostDetailSlider> {
                           onPressed: () =>
                               controller!.onIsLikedPressed(widget.post.id),
                         )
-                      : const Icon(
-                          Icons.favorite_outline,
-                          size: 0,
-                        ),
+                      : const Text(""),
                 ),
               ),
               Positioned(
@@ -94,21 +145,15 @@ class _MyPostDetailSliderState extends State<MyPostDetailSlider> {
                   color: Colors.white,
                   iconSize: 30,
                   onSelected: (String result) {
-                    print(result);
+                    if (result == "opcion1") {
+                      showQuestionDialog();
+                    }
                   },
                   itemBuilder: (BuildContext context) =>
                       <PopupMenuEntry<String>>[
-                    const PopupMenuItem<String>(
+                    PopupMenuItem<String>(
                       value: 'opcion1',
-                      child: Text('Opción 1'),
-                    ),
-                    const PopupMenuItem<String>(
-                      value: 'opcion2',
-                      child: Text('Opción 2'),
-                    ),
-                    const PopupMenuItem<String>(
-                      value: 'opcion3',
-                      child: Text('Opción 3'),
+                      child: const Text('Borrar producto'),
                     ),
                   ],
                 ),

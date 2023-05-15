@@ -15,4 +15,5 @@ abstract class UserRepository {
   Future<bool> updateUserStars(List<Review> reviews, User user);
   Future<bool> addPurchasedProduct(User user, String postId);
   Future<bool> addSoldedProduct(User user, String postId);
+  Future<bool> deleteUserPost(String postId, User user);
 }

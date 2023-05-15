@@ -192,7 +192,10 @@ class UserProvider {
       user.productsSolded.add(postId);
 
       await _updateUserData(
-          user.id, productsSoldedField, user.productsSolded);
+        user.id,
+        productsSoldedField,
+        user.productsSolded,
+      );
 
       return true;
     } catch (exception) {
@@ -213,6 +216,26 @@ class UserProvider {
           )
           .update(
         {field: newList},
+      );
+
+      return true;
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
+
+    return false;
+  }
+
+  Future<bool> deleteUserPost(String postId, User user) async {
+    try {
+      user.postsCreated.remove(postId);
+
+      await _updateUserData(
+        user.id,
+        postsCreatedField,
+        user.postsCreated,
       );
 
       return true;

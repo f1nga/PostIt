@@ -53,6 +53,10 @@ class MyProfileResumeController extends ChangeNotifier {
 
     _userReviews = await _reviewsRepository.getReviewsByUser(_user);
 
+    for (var review in _userReviews) {
+      print(review.description);
+    }
+
     notifyListeners();
   }
 

@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_awesome_buttons/flutter_awesome_buttons.dart';
 import 'package:uuid/uuid.dart';
@@ -155,5 +156,32 @@ abstract class Methods {
         fit: BoxFit.fill,
       );
     }
+  }
+
+  static String getLastEditedDate(DateTime date) {
+    final DateTime currentDate = Timestamp.now().toDate();
+
+    if (date.year == currentDate.year && date.month == currentDate.month) {
+      if (date.day == currentDate.day) {
+        if (date.hour == currentDate.hour) {
+          return "Editado hace ${currentDate.minute - date.minute} minutos";
+        } else {
+          return "Editado hace ${currentDate.hour - date.hour} horas";
+        }
+      } else {
+        if (currentDate.day - date.day == 1) return "Editado ayer";
+        for (var i = 2; i <= 6; i++) {
+          if (currentDate.day - date.day == i) return "Editado hace $i días";
+        }
+        if (currentDate.day - date.day <= 13) {
+          return "Editado hace más de una semana";
+        }
+        if (currentDate.day - date.day <= 20) {
+          return "Editado hace más de dos semanas";
+        }
+        return "Hace menos de un mes";
+      }
+    }
+    return "Editado hace más de un mes";
   }
 }

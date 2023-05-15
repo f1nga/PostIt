@@ -13,6 +13,7 @@ class ButtonCategory extends StatelessWidget {
   final Function onPressed;
   final IconData icon;
   final double? width;
+
   const ButtonCategory({
     Key? key,
     this.radius,

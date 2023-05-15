@@ -43,6 +43,7 @@ class ReviewProvider {
 
   Future<List<Review>> getReviewsByUser(User user) async {
     List<Review> reviewsList = [];
+    user.reviewsCreated.add("");
 
     try {
       await FirebaseFirestore.instance
@@ -51,13 +52,26 @@ class ReviewProvider {
           .orderBy(dateField, descending: true)
           .get()
           .then(
-        (querySnapshot) {
+        (querySnapshot) async {
           for (QueryDocumentSnapshot<Map<String, dynamic>> documentSnapshot
               in querySnapshot.docs) {
             reviewsList.add(Review.fromMap(documentSnapshot.data()));
           }
+          
         },
       );
+
+      await FirebaseFirestore.instance
+              .collection(reviewStore)
+              .where(idField, whereIn: user.reviewsCreated)
+              .orderBy(dateField, descending: true)
+              .get()
+              .then((querySnapshot) {
+            for (QueryDocumentSnapshot<Map<String, dynamic>> documentSnapshot
+                in querySnapshot.docs) {
+              reviewsList.add(Review.fromMap(documentSnapshot.data()));
+            }
+          });
     } catch (exception) {
       if (kDebugMode) {
         print(exception);

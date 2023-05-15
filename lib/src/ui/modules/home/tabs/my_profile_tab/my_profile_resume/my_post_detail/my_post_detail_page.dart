@@ -8,6 +8,7 @@ import 'package:wallapop/src/ui/modules/home/tabs/my_profile_tab/my_profile_cont
 import '../../../../../../../helpers/get.dart';
 import '../../../../../../../routes/routes.dart';
 import '../../../../../../../utils/colors.dart';
+import 'my_post_detail_controller.dart';
 
 class MyPostDetailPage extends StatefulWidget {
   const MyPostDetailPage({super.key});
@@ -21,16 +22,8 @@ class _MyPostDetailPageState extends State<MyPostDetailPage> {
   Widget build(BuildContext context) {
     final Post args = ModalRoute.of(context)!.settings.arguments as Post;
 
-    return ChangeNotifierProvider<MyProfileController>(
-      create: (_) {
-        final MyProfileController controller = MyProfileController();
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          controller.afterFistLayout();
-        });
-        Get.i.put<MyProfileController>(controller);
-        controller.onDispose = () => Get.i.remove<MyProfileController>();
-        return controller;
-      },
+    return ChangeNotifierProvider<MyPostDetailController>(
+      create: (_) => MyPostDetailController(),
       child: Scaffold(
         backgroundColor: Colors.white,
         body: SafeArea(

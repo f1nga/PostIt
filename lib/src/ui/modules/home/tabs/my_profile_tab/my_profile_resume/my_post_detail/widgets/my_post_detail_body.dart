@@ -94,22 +94,22 @@ class _MyPostDetailBodyState extends State<MyPostDetailBody> {
           const Divider(),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
-              Text("Editado hace 0 minutos"),
-              Spacer(),
-              Icon(Icons.remove_red_eye_outlined),
-              SizedBox(
+            children: [
+              Text(Methods.getLastEditedDate(widget.post.date.toDate())),
+              const Spacer(),
+              const Icon(Icons.remove_red_eye_outlined),
+              const SizedBox(
                 width: 8,
               ),
-              Text("0"),
-              SizedBox(
+              const Text("0"),
+              const SizedBox(
                 width: 8,
               ),
-              Icon(Icons.favorite_border_outlined),
-              SizedBox(
+              const Icon(Icons.favorite_border_outlined),
+              const SizedBox(
                 width: 8,
               ),
-              Text("0"),
+              const Text("0"),
             ],
           ),
           const Divider(),

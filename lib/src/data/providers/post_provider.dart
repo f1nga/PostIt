@@ -225,4 +225,21 @@ class PostProvider {
 
     return false;
   }
+
+  Future<bool> deletePost(String postId) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection(postStore)
+          .doc(postId)
+          .delete();
+
+      return true;
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
+
+    return false;
+  }
 }

@@ -17,11 +17,9 @@ class MyProfileResumeProducts extends StatelessWidget {
     final MyProfileResumeController controller =
         context.watch<MyProfileResumeController>();
 
-    final User user = ModalRoute.of(context)!.settings.arguments as User;
-
     return SingleChildScrollView(
       child: Container(
-        padding: const EdgeInsets.all(15),
+        padding: const EdgeInsets.symmetric(horizontal: 15),
         color: backgroundColor,
         height: MediaQuery.of(context).size.height - 280,
         child: ListView.separated(

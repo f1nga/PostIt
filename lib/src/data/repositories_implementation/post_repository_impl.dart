@@ -49,4 +49,9 @@ class PostRepositoryImpl implements PostRepository {
   Future<List<Post>> getPurchasedPostsByUser(User user) {
     return _postProvider.getPurchasedPostsByUser(user);
   }
+
+  @override
+  Future<bool> deletePost(String postId) {
+    return _postProvider.deletePost(postId);
+  }
 }

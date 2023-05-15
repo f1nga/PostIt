@@ -67,15 +67,19 @@ class _PostDetailPageState extends State<PostDetailPage> {
       create: (_) => _controller,
       child: Scaffold(
         backgroundColor: Colors.white,
-        floatingActionButton: BuyButton(onPressed: () {
-          Methods.showQuestionDialog(
-            context,
-            "Cuidado",
-            "¿Estas seguro de realizar esta compra?",
-            "Comprar",
-            () => goToPurchaseReview(),
-          );
-        }),
+        floatingActionButton: args.sold
+            ? null
+            : BuyButton(
+                onPressed: () {
+                  Methods.showQuestionDialog(
+                    context,
+                    "Cuidado",
+                    "¿Estas seguro de realizar esta compra?",
+                    "Comprar",
+                    () => goToPurchaseReview(),
+                  );
+                },
+              ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         body: SafeArea(
           child: SingleChildScrollView(

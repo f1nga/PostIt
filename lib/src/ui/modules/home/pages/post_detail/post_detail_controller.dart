@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wallapop/src/data/repositories/post_repository.dart';
+import 'package:wallapop/src/utils/methods.dart';
 
 import '../../../../../data/models/post.dart';
 import '../../../../../data/models/user.dart';
@@ -26,6 +27,10 @@ class PostDetailController extends ChangeNotifier {
   void _init() async {
     _currentUser = await _usersRepository.getCurrentUser();
     notifyListeners();
+  }
+
+  String getLastEditedDate(DateTime date) {
+    return Methods.getLastEditedDate(date);
   }
 
   Future<void> onIsLikedPressed(String postId) async {
