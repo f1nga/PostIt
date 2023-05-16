@@ -14,7 +14,14 @@ class HomeTabController extends ChangeNotifier {
   List<Post> _userPosts = [];
   List<Post> get userPosts => _userPosts;
 
-  List<bool> likedPosts = [];
+  List<String> _searchesList = [];
+  List<String> get searchesList => _searchesList;
+
+  List<bool> _likedPosts = [];
+  List<bool> get likedPosts => _likedPosts;
+
+  List<bool> _likedSearchs = [];
+  List<bool> get likedSearch => _likedSearchs;
 
   final TextEditingController _textFieldController = TextEditingController();
   TextEditingController get textFieldController => _textFieldController;
@@ -22,11 +29,10 @@ class HomeTabController extends ChangeNotifier {
   String _searchText = "";
   String get searchText => _searchText;
 
+  late User _user;
+
   final FocusNode _focusNode = FocusNode();
   FocusNode get focusNode => _focusNode;
-
-  List<Post> _filteredPostsList = [];
-  List<Post> get filteredPostsList => _filteredPostsList;
 
   void Function()? onDispose;
 
@@ -35,12 +41,13 @@ class HomeTabController extends ChangeNotifier {
   }
 
   void _init() async {
-    _userPosts = await _postsRepository
-        .getPosts(await _usersRepository.getCurrentUser());
-    likedPosts = List.generate(_userPosts.length, (_) => false);
+    _user = await _usersRepository.getCurrentUser();
+
+    _userPosts = await _postsRepository.getPosts(_user);
+    _likedPosts = List.generate(_userPosts.length, (_) => false);
 
     for (int index = 0; index < _userPosts.length; index++) {
-      likedPosts[index] =
+      _likedPosts[index] =
           await _usersRepository.isPostLiked(_userPosts[index].id);
     }
 
@@ -51,18 +58,21 @@ class HomeTabController extends ChangeNotifier {
 
   void _onSearchBarFocusChange() {
     if (_focusNode.hasFocus) {
-      // Se hizo foco en el campo de entrada
-      print('Campo de entrada con foco');
-      print("hoool2 ${_focusNode.hasFocus}");
-      notifyListeners();
-    } else {
-      // Se perdió el foco en el campo de entrada
-      print('Campo de entrada sin foco');
-      print("hoool1 ${_focusNode.hasFocus}");
+      _searchesList.clear();
+
+      for (dynamic search in _user.lastSearches) {
+        _searchesList.add(search);
+      }
+
+      _likedSearchs = List.generate(_searchesList.length, (_) => false);
+
+      for (int index = 0; index < _user.lastSearches.length; index++) {
+        _likedSearchs[index] =
+            _user.likedSearches.contains(_user.lastSearches[index]);
+      }
+
       notifyListeners();
     }
-
-    notifyListeners();
   }
 
   void unFocusSearchBar() {
@@ -71,16 +81,28 @@ class HomeTabController extends ChangeNotifier {
   }
 
   void postFavouriteClicked(String postId, int index) async {
-    likedPosts[index] = !likedPosts[index];
+    _likedPosts[index] = !_likedPosts[index];
 
     if (await _usersRepository.isPostLiked(postId)) {
-      await _usersRepository.removePostLikedToUser(
-          await _usersRepository.getCurrentUser(), postId);
+      await _usersRepository.removePostLikedToUser(_user, postId);
       await _postsRepository.removeLikeToPost(postId);
     } else {
-      await _usersRepository.addPostLikedToUser(
-          await _usersRepository.getCurrentUser(), postId);
+      await _usersRepository.addPostLikedToUser(_user, postId);
       await _postsRepository.addLikeToPost(postId);
+    }
+
+    notifyListeners();
+  }
+
+  void searchFavouriteClicked(String search, int index) async {
+    _likedSearchs[index] = !_likedSearchs[index];
+
+    if (_user.likedSearches.contains(search)) {
+      _user.likedSearches.remove(search);
+      await _usersRepository.updateLikedSearches(_user.likedSearches, _user);
+    } else {
+      _user.likedSearches.add(search);
+      await _usersRepository.updateLikedSearches(_user.likedSearches, _user);
     }
 
     notifyListeners();
@@ -90,19 +112,32 @@ class HomeTabController extends ChangeNotifier {
     _searchText = value;
   }
 
-  void submit(String text) async {
-    _filteredPostsList = await _postsRepository
-        .getPosts(await _usersRepository.getCurrentUser());
-
-    List<Post> finalList = [];
-
-    for (Post p in _filteredPostsList) {
-      if (p.title.contains(text)) {
-        finalList.add(p);
-      }
+  Future<bool> addNewSearchToDB(String text) async {
+    if (text.isNotEmpty) {
+      _searchesList.add(text);
+      return await _usersRepository.updateLastSearches(_searchesList, _user);
     }
+    return true;
+  }
 
-    _filteredPostsList = finalList;
+  Future<bool> removeSearchToDB(String text) async {
+    _searchesList.remove(text);
     notifyListeners();
+    return await _usersRepository.updateLastSearches(_searchesList, _user);
+  }
+
+  Future<bool> removeAllSearchesList() async {
+    _searchesList.clear();
+    notifyListeners();
+    return await _usersRepository.updateLastSearches([], _user);
+  }
+
+  Future<List<Post>> submit(String text) async {
+    List<Post> allPosts = await _postsRepository.getPosts(_user);
+
+    return allPosts
+        .where((element) =>
+            element.title.toLowerCase().contains(text.toLowerCase()))
+        .toList();
   }
 }

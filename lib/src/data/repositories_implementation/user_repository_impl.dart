@@ -23,6 +23,11 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
+  Future<User> getUserById(String userId) {
+    return _userProvider.getUserById(userId);
+  }
+
+  @override
   Future<bool> addPostLikedToUser(User user, String postId) {
     return _userProvider.addPostLikedToUser(user, postId);
   }
@@ -65,5 +70,25 @@ class UserRepositoryImpl implements UserRepository {
   @override
   Future<bool> deleteUserPost(String postId, User user) {
     return _userProvider.deleteUserPost(postId, user);
+  }
+
+  @override
+  Future<bool> updateLastSearches(List lastSearches, User user) {
+    return _userProvider.updateLastSearches(lastSearches, user);
+  }
+
+  @override
+  Future<bool> updateLikedSearches(List likedSearches, User user) {
+    return _userProvider.updateLikedSearches(likedSearches, user);
+  }
+
+  @override
+  Future<bool> updateProfilesLiked(List profilesLiked, User user) {
+    return _userProvider.updateProfilesLiked(profilesLiked, user);
+  }
+
+  @override
+  Future<List<User>> getFavouriteProfilesByUser(User user) {
+    return _userProvider.getFavouriteProfilesByUser(user);
   }
 }

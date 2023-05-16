@@ -12,7 +12,10 @@ class User {
       postsLiked = [],
       reviewsCreated = [],
       productsPurchased = [],
-      productsSolded = [];
+      productsSolded = [],
+      lastSearches = [],
+      likedSearches = [],
+      profilesLiked = [];
   late File? file;
   late int stars = 0;
 
@@ -36,6 +39,9 @@ class User {
     reviewsCreated = map["reviewsCreated"];
     productsPurchased = map["productsPurchased"];
     productsSolded = map["productsSolded"];
+    lastSearches = map["lastSearches"];
+    likedSearches = map["likedSearches"];
+    profilesLiked = map["profilesLiked"];
     image = map["image"];
     stars = map["stars"];
   }
@@ -53,6 +59,9 @@ class User {
       "reviewsCreated": reviewsCreated,
       "productsPurchased": productsPurchased,
       "productsSolded": productsSolded,
+      "lastSearches": lastSearches,
+      "likedSearches": likedSearches,
+      "profilesLiked": profilesLiked,
       "image": image,
       "stars": stars,
     };

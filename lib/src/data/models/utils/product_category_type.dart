@@ -10,7 +10,7 @@ class ProductCategoryType {
   static const String sports = "Deportes";
   static const String realEstate = "Inmobiliaria";
 
-  static const IconData carsIcon = Icons.car_crash;
+  static const IconData carsIcon = Icons.engineering;
   static const IconData pcsIcon = Icons.computer_rounded;
   static const IconData homeAppliancesIcon = Icons.home;
   static const IconData mobilesIcon = Icons.mobile_friendly;

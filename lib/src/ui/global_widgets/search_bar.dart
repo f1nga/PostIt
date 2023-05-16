@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:wallapop/src/ui/modules/home/tabs/home_tab/home_tab_controller.dart';
 
 import '../../utils/colors.dart';
+import 'package:provider/provider.dart';
+
 import '../../utils/icons.dart';
 
 class SearchBar extends StatelessWidget {
@@ -20,15 +23,20 @@ class SearchBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final HomeTabController controller = context.watch<HomeTabController>();
+
     return Container(
       padding: const EdgeInsets.symmetric(
         vertical: 10,
         horizontal: 12,
       ),
-      height: 40,
+      height: 45,
       decoration: BoxDecoration(
-        color: tertiaryColor.withOpacity(0.2),
-        borderRadius: BorderRadius.circular(10),
+        border: Border.all(
+          color: controller.focusNode.hasFocus ? primaryColor : tertiaryColor, // Color del borde
+          width: 1.0, // Ancho del borde
+        ),
+        borderRadius: BorderRadius.circular(10), // Radio de borde
       ),
       child: Row(
         children: [
@@ -36,11 +44,11 @@ class SearchBar extends StatelessWidget {
             child: TextField(
               controller: textFieldController,
               onChanged: onChanged,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 contentPadding: EdgeInsets.zero,
                 isDense: true,
                 border: InputBorder.none,
-                hintText: "Buscar en PostIt",
+                hintText: controller.focusNode.hasFocus ? "¿Qué estás buscando?" : "Buscar en PostIt",
               ),
               textInputAction: TextInputAction.search,
               focusNode: focusNode,
@@ -52,7 +60,7 @@ class SearchBar extends StatelessWidget {
             padding: EdgeInsets.zero,
             splashColor: transparentColor,
             onPressed: onPressed,
-            icon: textFieldController.text != ""
+            icon: controller.focusNode.hasFocus
                 ? const Icon(closeIcon)
                 : const Icon(Icons.search),
           ),

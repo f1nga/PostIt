@@ -16,12 +16,14 @@ class MyPostDetailSlider extends StatefulWidget {
   final List<dynamic> images;
   final bool comingFromMyPost;
   final Post post;
+  final bool likedProfile;
 
   const MyPostDetailSlider({
     super.key,
     required this.images,
     required this.comingFromMyPost,
     required this.post,
+    this.likedProfile = false,
   });
 
   @override

@@ -16,13 +16,18 @@ class PostsFilteredProducts extends StatelessWidget {
 
     return Container(
       color: backgroundColor,
-      child: ListView.builder(
+      child: ListView.separated(
         shrinkWrap: true,
+        separatorBuilder: (BuildContext context, int index) =>
+            const SizedBox(height: 10),
         itemCount: controller.postsList.length,
         itemBuilder: (BuildContext context, int index) {
           return ItemPost(
             post: controller.postsList[index],
-            comingFromMyProfile: true,
+            comingFromMyProfile: false,
+            onLikePressed: () => controller.postFavouriteClicked(
+                  controller.postsList[index].id, index),
+              likedPosts: controller.likedPosts[index],
           );
         },
       ),

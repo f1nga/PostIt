@@ -12,8 +12,13 @@ abstract class UserRepository {
   Future<User> getCurrentUser();
   Future<bool> isPostLiked(String postId);
   Future<User> getUserByReviewId(String reviewId);
+  Future<List<User>> getFavouriteProfilesByUser(User user);
+  Future<User> getUserById(String userId);
   Future<bool> updateUserStars(List<Review> reviews, User user);
   Future<bool> addPurchasedProduct(User user, String postId);
   Future<bool> addSoldedProduct(User user, String postId);
+  Future<bool> updateLastSearches(List<dynamic> lastSearches, User user);
+  Future<bool> updateLikedSearches(List<dynamic> likedSearches, User user);
+  Future<bool> updateProfilesLiked(List<dynamic> profilesLiked, User user);
   Future<bool> deleteUserPost(String postId, User user);
 }

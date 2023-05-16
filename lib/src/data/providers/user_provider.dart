@@ -18,6 +18,9 @@ const String starsField = "stars";
 const String reviewsCreatedField = "reviewsCreated";
 const String productsPurchasedField = "productsPurchased";
 const String productsSoldedField = "productsSolded";
+const String lastSearchesField = "lastSearches";
+const String likedSearchesField = "likedSearches";
+const String profilesLikedField = "profilesLiked";
 
 /// Class that contains the provider methods logic
 class UserProvider {
@@ -62,6 +65,31 @@ class UserProvider {
     Map<String, dynamic> map = record.docs.first.data();
 
     return User.fromMap(map);
+  }
+
+   Future<List<User>> getFavouriteProfilesByUser(User user) async {
+    List<User> usersList = [];
+
+    try {
+      await FirebaseFirestore.instance
+          .collection(userStore)
+          .where(idField, whereIn: user.profilesLiked)
+          .get()
+          .then(
+        (querySnapshot) {
+          for (QueryDocumentSnapshot<Map<String, dynamic>> documentSnapshot
+              in querySnapshot.docs) {
+            usersList.add(User.fromMap(documentSnapshot.data()));
+          }
+        },
+      );
+    } catch (exception) {
+      if (kDebugMode) {
+        print(exception);
+      }
+    }
+
+    return usersList;
   }
 
   Future<bool> addPostLikedToUser(User user, String postId) async {
@@ -126,6 +154,21 @@ class UserProvider {
         .get();
 
     return User.fromMap(record.docs.first.data());
+  }
+
+  Future<User> getUserById(String userId) async {
+    final record = await FirebaseFirestore.instance
+        .collection(userStore)
+        .where(
+          idField,
+          isEqualTo: userId,
+        )
+        .limit(1)
+        .get();
+
+    Map<String, dynamic> map = record.docs.first.data();
+
+    return User.fromMap(map);
   }
 
   Future<User> getUserByReviewId(String reviewId) async {
@@ -236,6 +279,62 @@ class UserProvider {
         user.id,
         postsCreatedField,
         user.postsCreated,
+      );
+
+      return true;
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
+
+    return false;
+  }
+
+  Future<bool> updateLastSearches(List<dynamic> lastSearches, User user) async {
+    try {
+      await _updateUserData(
+        user.id,
+        lastSearchesField,
+        lastSearches,
+      );
+
+      return true;
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
+
+    return false;
+  }
+
+  Future<bool> updateLikedSearches(
+      List<dynamic> likedSearches, User user) async {
+    try {
+      await _updateUserData(
+        user.id,
+        likedSearchesField,
+        likedSearches,
+      );
+
+      return true;
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
+
+    return false;
+  }
+
+  Future<bool> updateProfilesLiked(
+      List<dynamic> profilesLiked, User user) async {
+    try {
+      await _updateUserData(
+        user.id,
+        profilesLikedField,
+        profilesLiked,
       );
 
       return true;

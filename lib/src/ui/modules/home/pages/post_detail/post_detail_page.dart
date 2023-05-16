@@ -41,7 +41,7 @@ class _PostDetailPageState extends State<PostDetailPage> {
   Widget build(BuildContext context) {
     final Post args = ModalRoute.of(context)!.settings.arguments as Post;
     _controller.getUserByPostId(args.id);
-    _controller.isPostLiked(args.id);
+    _controller.onIsPostLiked(args.id);
 
     void goToPurchaseReview() async {
       final bool purchaseCompleted = await _controller.buyProduct(args.id);
@@ -64,7 +64,10 @@ class _PostDetailPageState extends State<PostDetailPage> {
     }
 
     return ChangeNotifierProvider<PostDetailController>(
-      create: (_) => _controller,
+      create: (_) {
+        _controller.onIsProfileLiked();
+        return _controller;
+      },
       child: Scaffold(
         backgroundColor: Colors.white,
         floatingActionButton: args.sold

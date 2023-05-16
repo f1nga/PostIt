@@ -27,6 +27,10 @@ class PostDetailBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Post post = ModalRoute.of(context)!.settings.arguments as Post;
+    final PostDetailController _controller =
+        context.watch<PostDetailController>();
+
+    // _controller.onIsProfileLiked();
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -71,7 +75,7 @@ class PostDetailBody extends StatelessWidget {
                     SizedBox(
                       height: 90,
                       child: UserIcon(
-                        userNickname: controller.user!.nickname,
+                        userNickname: _controller.user!.nickname,
                         userColor: Colors.greenAccent,
                         width: 60,
                         height: 60,
@@ -89,11 +93,21 @@ class PostDetailBody extends StatelessWidget {
                               BorderRadius.all(Radius.elliptical(30, 30)),
                           color: backgroundColor,
                         ),
-                        child: const Center(
-                          child: Icon(
-                            Icons.favorite_border,
-                            color: Colors.black,
-                            size: 22,
+                        child: Center(
+                          child: GestureDetector(
+                            onTap: () => _controller
+                                .onIsProfileLikePressed(_controller.user!.id),
+                            child: _controller.isProfileLiked
+                                ? const Icon(
+                                    Icons.favorite,
+                                    color: Colors.red,
+                                    size: 22,
+                                  )
+                                : const Icon(
+                                    Icons.favorite_border,
+                                    color: Colors.black,
+                                    size: 22,
+                                  ),
                           ),
                         ),
                       ),
@@ -110,14 +124,14 @@ class PostDetailBody extends StatelessWidget {
                       height: 15,
                     ),
                     Text(
-                      controller.user!.nickname,
+                      _controller.user!.nickname,
                       style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     UserStars(
-                      stars: controller.user!.stars,
+                      stars: _controller.user!.stars,
                       size: 18,
                     ),
                     const SizedBox(
@@ -129,7 +143,8 @@ class PostDetailBody extends StatelessWidget {
                         const SizedBox(
                           width: 5,
                         ),
-                        Text("${controller.user!.productsSolded.length} Ventas"),
+                        Text(
+                            "${_controller.user!.productsSolded.length} Ventas"),
                       ],
                     ),
                   ],
@@ -139,7 +154,7 @@ class PostDetailBody extends StatelessWidget {
             onTap: () => Navigator.pushNamed(
               context,
               Routes.profileResume,
-              arguments: controller.user,
+              arguments: _controller.user,
             ),
           ),
           const Divider(),
@@ -167,7 +182,7 @@ class PostDetailBody extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(controller.getLastEditedDate(post.date.toDate())),
+              Text(_controller.getLastEditedDate(post.date.toDate())),
               const Spacer(),
               const Icon(Icons.remove_red_eye_outlined),
               const SizedBox(

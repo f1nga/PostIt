@@ -14,8 +14,8 @@ class PostsFilteredController extends ChangeNotifier {
   List<Post> _postsList = [];
   List<Post> get postsList => _postsList;
 
-  List<User> _userCreatedPosts = [];
-  List<User> get userCreatedPosts => _userCreatedPosts;
+  List<bool> _likedPosts = [];
+  List<bool> get likedPosts => _likedPosts;
 
   void afterFistLayout() {
     _init();
@@ -25,8 +25,32 @@ class PostsFilteredController extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setPostsList(List<Post> postsList) {
+  void setPostsList(List<Post> postsList) async {
     _postsList = postsList;
+
+    _likedPosts = List.generate(_postsList.length, (_) => false);
+
+    for (int index = 0; index < _postsList.length; index++) {
+      likedPosts[index] =
+          await _usersRepository.isPostLiked(_postsList[index].id);
+    }
+
+    notifyListeners();
+  }
+
+  void postFavouriteClicked(String postId, int index) async {
+    likedPosts[index] = !likedPosts[index];
+
+    if (await _usersRepository.isPostLiked(postId)) {
+      await _usersRepository.removePostLikedToUser(
+          await _usersRepository.getCurrentUser(), postId);
+      await _postsRepository.removeLikeToPost(postId);
+    } else {
+      await _usersRepository.addPostLikedToUser(
+          await _usersRepository.getCurrentUser(), postId);
+      await _postsRepository.addLikeToPost(postId);
+    }
+
     notifyListeners();
   }
 

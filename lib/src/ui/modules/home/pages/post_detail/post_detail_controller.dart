@@ -12,11 +12,17 @@ class PostDetailController extends ChangeNotifier {
   final PostRepository _postsRepository = Get.i.find<PostRepository>()!;
 
   User? user;
+
   late User _currentUser;
   User get currentUser => _currentUser;
+
   bool isLoading = false;
+
   bool _isLiked = false;
   bool get isLiked => _isLiked;
+
+  bool _isProfileLiked = false;
+  bool get isProfileLiked => _isProfileLiked;
 
   void Function()? onDispose;
 
@@ -36,13 +42,26 @@ class PostDetailController extends ChangeNotifier {
   Future<void> onIsLikedPressed(String postId) async {
     _isLiked = !_isLiked;
 
-    if (await _usersRepository.isPostLiked(postId)) {
+    if (!_isLiked) {
       await _usersRepository.removePostLikedToUser(_currentUser, postId);
       await _postsRepository.removeLikeToPost(postId);
     } else {
       await _usersRepository.addPostLikedToUser(_currentUser, postId);
       await _postsRepository.addLikeToPost(postId);
     }
+
+    notifyListeners();
+  }
+
+  Future<void> onIsProfileLikePressed(String userId) async {
+    _isProfileLiked = !_isProfileLiked;
+
+    _isProfileLiked
+        ? _currentUser.profilesLiked.add(userId)
+        : _currentUser.profilesLiked.remove(userId);
+
+    await _usersRepository.updateProfilesLiked(
+        _currentUser.profilesLiked, _currentUser);
 
     notifyListeners();
   }
@@ -54,8 +73,16 @@ class PostDetailController extends ChangeNotifier {
         await _usersRepository.removePostLikedToUser(currentUser, postId);
   }
 
-  void isPostLiked(String postId) async {
+  void onIsPostLiked(String postId) async {
     _isLiked = await _usersRepository.isPostLiked(postId);
+
+    notifyListeners();
+  }
+
+  void onIsProfileLiked() async {
+    final currentUser = await _usersRepository.getCurrentUser();
+
+    _isProfileLiked = currentUser.profilesLiked.contains(user!.id);
     notifyListeners();
   }
 

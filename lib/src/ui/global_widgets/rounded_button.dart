@@ -11,6 +11,7 @@ class RoundedButton extends StatelessWidget {
   final EdgeInsets padding;
   final double fontSize;
   final IconData? iconData;
+  final double? borderRadius;
 
   const RoundedButton({
     super.key,
@@ -26,6 +27,7 @@ class RoundedButton extends StatelessWidget {
       horizontal: 30,
     ),
     this.fontSize = 16,
+    this.borderRadius,
   });
 
   @override
@@ -38,7 +40,7 @@ class RoundedButton extends StatelessWidget {
         padding: padding,
         decoration: BoxDecoration(
           color: backgroundColor,
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(borderRadius ?? 10),
           border: Border.all(color: borderColor, width: 0.5),
           boxShadow: [
             BoxShadow(

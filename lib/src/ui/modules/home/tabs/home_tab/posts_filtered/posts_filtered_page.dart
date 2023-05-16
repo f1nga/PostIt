@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:wallapop/src/routes/routes.dart';
 import 'package:wallapop/src/ui/global_widgets/item_post_finished.dart';
 import 'package:wallapop/src/ui/modules/home/tabs/home_tab/posts_filtered/widgets/posts_filtered_products.dart';
 import 'package:wallapop/src/ui/modules/home/tabs/my_profile_tab/my_profile_controller.dart';
@@ -45,6 +46,29 @@ class _PostsFilteredPageState extends State<PostsFilteredPage> {
     return ChangeNotifierProvider<PostsFilteredController>(
       create: (_) => controller,
       child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          elevation: 0,
+          title: Text(
+            "Productos filtrados",
+            style: FontStyles.title.copyWith(
+              color: secondaryColor,
+            ),
+          ),
+          centerTitle: false,
+          leading: IconButton(
+            key: const Key("arrow_back_icon"),
+            icon: const Icon(
+              Icons.arrow_back,
+            ),
+            onPressed: () {
+              Navigator.pushReplacementNamed(
+                context,
+                Routes.home,
+              );
+            },
+          ),
+        ),
         backgroundColor: backgroundColor,
         body: SafeArea(
           child: SingleChildScrollView(
