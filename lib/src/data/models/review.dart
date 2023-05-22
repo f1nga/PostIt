@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:wallapop/src/data/models/post.dart';
 import 'package:wallapop/src/utils/methods.dart';
 
 class Review {

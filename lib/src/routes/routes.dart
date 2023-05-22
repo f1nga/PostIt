@@ -11,4 +11,5 @@ abstract class Routes {
   static const myProfilePurchases = '/myProfilePurchases';
   static const myProfileSales = '/myProfileSales';
   static const postsFiltered = '/postsFiltered';
+  static const chat = '/chat';
 }

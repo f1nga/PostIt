@@ -48,6 +48,7 @@ dependencies:
   crypto: ^3.0.2
   flutter_svg: ^2.0.5
   image_picker: ^0.8.6
+  lottie: ^2.3.2
 
 
 dev_dependencies:
@@ -81,6 +82,7 @@ flutter:
     - assets/home/favourites.svg
     - assets/home/postit.svg
     - assets/home/profile.svg
+    - assets/animations/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

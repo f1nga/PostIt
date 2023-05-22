@@ -63,6 +63,7 @@ class MyProfileResumeController extends ChangeNotifier {
       _postReview.add(post);
       _userPost.add(await _usersRepository.getUserByPostId(post.id));
     }
+
     _isLoading = false;
     notifyListeners();
   }

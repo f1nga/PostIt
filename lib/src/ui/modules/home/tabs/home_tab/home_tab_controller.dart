@@ -14,6 +14,9 @@ class HomeTabController extends ChangeNotifier {
   List<Post> _userPosts = [];
   List<Post> get userPosts => _userPosts;
 
+  List<Post> _postsFiltered = [];
+  List<Post> get postsFiltered => _postsFiltered;
+
   List<String> _searchesList = [];
   List<String> get searchesList => _searchesList;
 
@@ -110,12 +113,16 @@ class HomeTabController extends ChangeNotifier {
 
   void onIsSearchTextChanged(String value) {
     _searchText = value;
+    notifyListeners();
   }
 
   Future<bool> addNewSearchToDB(String text) async {
     if (text.isNotEmpty) {
-      _searchesList.add(text);
-      return await _usersRepository.updateLastSearches(_searchesList, _user);
+      if (!_user.lastSearches.contains(text)) {
+        _searchesList.add(text);
+        notifyListeners();
+        return await _usersRepository.updateLastSearches(_searchesList, _user);
+      }
     }
     return true;
   }
@@ -123,6 +130,9 @@ class HomeTabController extends ChangeNotifier {
   Future<bool> removeSearchToDB(String text) async {
     _searchesList.remove(text);
     notifyListeners();
+    if (_user.likedSearches.remove(text)) {
+      await _usersRepository.updateLikedSearches(_user.likedSearches, _user);
+    }
     return await _usersRepository.updateLastSearches(_searchesList, _user);
   }
 
@@ -138,6 +148,14 @@ class HomeTabController extends ChangeNotifier {
     return allPosts
         .where((element) =>
             element.title.toLowerCase().contains(text.toLowerCase()))
+        .toList();
+  }
+
+  Future<List<Post>> onCategoryClicked(String category) async {
+    List<Post> allPosts = await _postsRepository.getPosts(_user);
+
+    return allPosts
+        .where((element) => element.category.compareTo(category) == 0)
         .toList();
   }
 }

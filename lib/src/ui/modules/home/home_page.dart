@@ -28,13 +28,14 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    //final args = ModalRoute.of(context)!.settings.arguments as Arguments;
+    final int? args = ModalRoute.of(context)?.settings.arguments as int?;
 
     return ChangeNotifierProvider<HomeController>(
       create: (_) {
         final HomeController controller = HomeController();
         WidgetsBinding.instance.addPostFrameCallback((_) {
           controller.afterFistLayout();
+          controller.setCurrentPage(args ?? 0);
         });
         Get.i.put<HomeController>(controller);
         controller.onDispose = () => Get.i.remove<HomeController>();

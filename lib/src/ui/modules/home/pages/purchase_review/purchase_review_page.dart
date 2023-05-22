@@ -109,7 +109,7 @@ class _PurchaseReviewPageState extends State<PurchaseReviewPage> {
               );
             },
           ),
-        ),
+        ),  
         body: SingleChildScrollView(
           child: Container(
             color: backgroundColor,

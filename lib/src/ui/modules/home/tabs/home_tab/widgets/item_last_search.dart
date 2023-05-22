@@ -7,31 +7,36 @@ import 'package:wallapop/src/utils/icons.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../../data/models/post.dart';
+import '../../../../../../routes/arguments.dart';
 import '../../../../../../routes/routes.dart';
 import '../../../../../../utils/dialogs.dart';
 import '../home_tab_controller.dart';
 
 class ItemLastSearch extends StatelessWidget {
   final String search;
-  final VoidCallback onLikePressed;
+  final VoidCallback onLikePressed, onRemovePressed;
   final bool likedSearch;
+  final Future<List<Post>> onSubmit;
 
   const ItemLastSearch({
     super.key,
     required this.search,
     required this.onLikePressed,
     required this.likedSearch,
+    required this.onRemovePressed,
+    required this.onSubmit,
   });
 
   @override
   Widget build(BuildContext context) {
-    final HomeTabController controller = context.watch<HomeTabController>();
-
     void submit(String text) async {
       Navigator.pushNamed(
         context,
         Routes.postsFiltered,
-        arguments: await controller.submit(text),
+        arguments: FilterPostsArguments(
+          postsList: await onSubmit,
+          searchText: search
+        ),
       );
     }
 
@@ -66,7 +71,7 @@ class ItemLastSearch extends StatelessWidget {
               ),
               IconButton(
                 icon: const Icon(Icons.remove),
-                onPressed: () => controller.removeSearchToDB(search),
+                onPressed: onRemovePressed,
               ),
             ],
           ),

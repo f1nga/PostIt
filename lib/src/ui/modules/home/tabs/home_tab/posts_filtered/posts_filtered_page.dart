@@ -1,5 +1,8 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:wallapop/src/routes/arguments.dart';
 import 'package:wallapop/src/routes/routes.dart';
 import 'package:wallapop/src/ui/global_widgets/item_post_finished.dart';
 import 'package:wallapop/src/ui/modules/home/tabs/home_tab/posts_filtered/widgets/posts_filtered_products.dart';
@@ -12,7 +15,10 @@ import 'package:wallapop/src/ui/modules/home/tabs/my_profile_tab/widgets/my_prof
 import '../../../../../../data/models/post.dart';
 import '../../../../../../helpers/get.dart';
 import '../../../../../../utils/colors.dart';
+import '../../../../../../utils/dialogs.dart';
 import '../../../../../../utils/font_styles.dart';
+import '../../../../../global_widgets/search_bar.dart';
+import '../widgets/item_last_search.dart';
 import 'posts_filtered_controller.dart';
 
 class PostsFilteredPage extends StatefulWidget {
@@ -38,59 +44,166 @@ class _PostsFilteredPageState extends State<PostsFilteredPage> {
 
   @override
   Widget build(BuildContext context) {
-    final List<Post> postsList =
-        ModalRoute.of(context)!.settings.arguments as List<Post>;
+    final FilterPostsArguments args =
+        ModalRoute.of(context)!.settings.arguments as FilterPostsArguments;
 
-    controller.setPostsList(postsList);
+    controller.setArguments(args);
+
+    void submit(String text) async {
+      if (await controller.addNewSearchToDB(text)) {
+        Navigator.pushNamed(
+          context,
+          Routes.postsFiltered,
+          arguments: FilterPostsArguments(
+            postsList: await controller.submit(text),
+            category: controller.filterCategory,
+            searchText: text,
+          ),
+        );
+      } else {
+        Dialogs.alert(
+          context,
+          title: "Error",
+          description: "No se ha podido buscar",
+        );
+      }
+    }
 
     return ChangeNotifierProvider<PostsFilteredController>(
       create: (_) => controller,
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          elevation: 0,
-          title: Text(
-            "Productos filtrados",
-            style: FontStyles.title.copyWith(
-              color: secondaryColor,
+      builder: (_, __) {
+        final controller = Provider.of<PostsFilteredController>(
+          _,
+          listen: true,
+        );
+        return Scaffold(
+          appBar: AppBar(
+            backgroundColor: Colors.white,
+            elevation: 0,
+            title: Text(
+              "Productos filtrados",
+              style: FontStyles.title.copyWith(
+                color: secondaryColor,
+              ),
+            ),
+            centerTitle: false,
+            leading: IconButton(
+              key: const Key("arrow_back_icon"),
+              icon: const Icon(
+                Icons.arrow_back,
+              ),
+              onPressed: () {
+                Navigator.pop(context);
+              },
             ),
           ),
-          centerTitle: false,
-          leading: IconButton(
-            key: const Key("arrow_back_icon"),
-            icon: const Icon(
-              Icons.arrow_back,
-            ),
-            onPressed: () {
-              Navigator.pushReplacementNamed(
-                context,
-                Routes.home,
-              );
-            },
-          ),
-        ),
-        backgroundColor: backgroundColor,
-        body: SafeArea(
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Encuentra lo que buscas',
-                    style: FontStyles.title.copyWith(fontSize: 24),
-                  ),
-                  const SizedBox(
-                    height: 20.0,
-                  ),
-                  const PostsFilteredProducts(),
-                ],
+          backgroundColor: backgroundColor,
+          body: SafeArea(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: SearchBar(
+                            textFieldController: controller.textFieldController,
+                            onPressed: () {
+                              controller.textFieldController.clear();
+                              controller.unFocusSearchBar();
+                              setState(() {
+                                controller.onIsSearchTextChanged("");
+                              });
+                            },
+                            onChanged: (value) {
+                              setState(() {
+                                controller.onIsSearchTextChanged(value);
+                              });
+                            },
+                            focusNode: controller.focusNode,
+                            onSubmitted: (text) => submit(text),
+                          ),
+                        ),
+                        IconButton(
+                          onPressed: () => controller.searchFavouriteClicked(
+                              args.searchText, null),
+                          icon: controller.isSearchLiked
+                              ? const Icon(
+                                  Icons.favorite,
+                                  color: Colors.red,
+                                  size: 27,
+                                )
+                              : const Icon(
+                                  Icons.favorite_border_outlined,
+                                  size: 27,
+                                ),
+                        )
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 20.0,
+                    ),
+                    Builder(builder: (context) {
+                      final bool isFocus =
+                          context.select<PostsFilteredController, bool>(
+                              (_) => _.focusNode.hasFocus);
+                      return Visibility(
+                        visible: !isFocus,
+                        replacement: Column(
+                          children: [
+                            const SizedBox(height: 10),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    "Búsquedas recientes",
+                                    style:
+                                        FontStyles.title.copyWith(fontSize: 16),
+                                  ),
+                                ),
+                                IconButton(
+                                  onPressed: () =>
+                                      {controller.removeAllSearchesList()},
+                                  icon: const Icon(
+                                    Icons.highlight_remove,
+                                    color: primaryColor,
+                                  ),
+                                )
+                              ],
+                            ),
+                            ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: controller.searchesList.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                return ItemLastSearch(
+                                  search: controller.searchesList[index],
+                                  onLikePressed: () =>
+                                      controller.searchFavouriteClicked(
+                                          controller.searchesList[index],
+                                          index),
+                                  likedSearch: controller.likedSearch[index],
+                                  onRemovePressed: () =>
+                                      controller.removeSearchToDB(
+                                          controller.searchesList[index]),
+                                  onSubmit: controller
+                                      .submit(controller.searchesList[index]),
+                                );
+                              },
+                            ),
+                          ],
+                        ),
+                        child: const PostsFilteredProducts(),
+                      );
+                    }),
+                  ],
+                ),
               ),
             ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 

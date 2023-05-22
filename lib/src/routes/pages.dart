@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:wallapop/src/ui/modules/auth/login/login_page.dart';
 import 'package:wallapop/src/ui/modules/auth/register/register_page.dart';
 import 'package:wallapop/src/ui/modules/home/home_page.dart';
+import 'package:wallapop/src/ui/modules/home/pages/chat/chat_page.dart';
 import 'package:wallapop/src/ui/modules/home/pages/purchase_review/purchase_review_page.dart';
 import 'package:wallapop/src/ui/modules/home/tabs/home_tab/posts_filtered/posts_filtered_page.dart';
 import 'package:wallapop/src/ui/modules/home/tabs/my_profile_tab/my_profile_resume/my_post_detail/my_post_detail_page.dart';
@@ -30,5 +31,6 @@ abstract class Pages {
     Routes.myProfilePurchases: (_) => const MyProfilePurchasesPage(),
     Routes.myProfileSales: (_) => const MyProfileSalesPage(),
     Routes.postsFiltered: (_) => const PostsFilteredPage(),
+    Routes.chat: (_) => const ChatPage(),
   };
 }

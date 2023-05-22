@@ -153,9 +153,9 @@ class _MyPostDetailSliderState extends State<MyPostDetailSlider> {
                   },
                   itemBuilder: (BuildContext context) =>
                       <PopupMenuEntry<String>>[
-                    PopupMenuItem<String>(
+                    const PopupMenuItem<String>(
                       value: 'opcion1',
-                      child: const Text('Borrar producto'),
+                      child: Text('Borrar producto'),
                     ),
                   ],
                 ),

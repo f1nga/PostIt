@@ -9,6 +9,13 @@ class HomeController extends ChangeNotifier implements TickerProvider {
   int _currentPage = 0;
   int get currentPage => _currentPage;
 
+  void setCurrentPage(int current) {
+    _currentPage = current;
+    tabController.index = current;
+
+    notifyListeners();
+  }
+
   bool _userToken = false;
   bool get userToken => _userToken;
 

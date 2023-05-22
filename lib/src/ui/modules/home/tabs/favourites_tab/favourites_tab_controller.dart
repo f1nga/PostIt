@@ -19,7 +19,7 @@ class FavouritesTabController extends ChangeNotifier {
   List<bool> _likedPosts = [];
   List<bool> get likedPosts => _likedPosts;
 
-  List<String> _userSearches = [];
+  final List<String> _userSearches = [];
   List<String> get userSearches => _userSearches;
 
   List<bool> _likedSearches = [];
@@ -55,6 +55,7 @@ class FavouritesTabController extends ChangeNotifier {
     for (String search in _user.likedSearches) {
       _userSearches.add(search);
     }
+
     _likedSearches = List.generate(_userSearches.length, (_) => true);
 
     _userProfiles = await _usersRepository.getFavouriteProfilesByUser(_user);
@@ -86,7 +87,6 @@ class FavouritesTabController extends ChangeNotifier {
       _user.likedSearches.remove(search);
       await _usersRepository.updateLikedSearches(_user.likedSearches, _user);
     }
-
     notifyListeners();
   }
 

@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import 'package:flutter_awesome_buttons/flutter_awesome_buttons.dart';
 import 'package:wallapop/src/data/models/post.dart';
+import 'package:wallapop/src/routes/arguments.dart';
 import 'package:wallapop/src/routes/routes.dart';
 import 'package:wallapop/src/ui/global_widgets/custom_rounded_button.dart';
 import 'package:wallapop/src/ui/global_widgets/custom_rounded_button_with_icon.dart';
@@ -29,8 +30,6 @@ class PostDetailBody extends StatelessWidget {
     final Post post = ModalRoute.of(context)!.settings.arguments as Post;
     final PostDetailController _controller =
         context.watch<PostDetailController>();
-
-    // _controller.onIsProfileLiked();
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -148,7 +147,20 @@ class PostDetailBody extends StatelessWidget {
                       ],
                     ),
                   ],
-                )
+                ),
+                const Spacer(),
+                DefaultLineButton(
+                  onPressed: () => Navigator.pushNamed(
+                    context,
+                    Routes.chat,
+                    arguments: ChatArguments(
+                      post: post,
+                      user: _controller.user!,
+                    ),
+                  ),
+                  title: "Chat",
+                  textColor: primaryColor,
+                ),
               ],
             ),
             onTap: () => Navigator.pushNamed(

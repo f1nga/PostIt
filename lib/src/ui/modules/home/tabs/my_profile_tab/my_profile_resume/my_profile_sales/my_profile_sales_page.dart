@@ -12,6 +12,7 @@ import 'package:wallapop/src/ui/modules/home/tabs/my_profile_tab/widgets/my_prof
 import '../../../../../../../helpers/get.dart';
 import '../../../../../../../utils/colors.dart';
 import '../../../../../../../utils/font_styles.dart';
+import '../../../../../../global_widgets/rounded_button.dart';
 
 class MyProfileSalesPage extends StatefulWidget {
   const MyProfileSalesPage({super.key});
@@ -69,10 +70,48 @@ class _MyProfileSalesPageState extends State<MyProfileSalesPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'MIS VENTAS',
-                    style: FontStyles.title.copyWith(fontSize: 24),
-                  ),
+                  Builder(builder: (context) {
+                    final controller =
+                        context.watch<MyProfileSalesController>();
+                    return Row(
+                      children: [
+                        RoundedButton(
+                          onPressed: () => controller.onIsOnSaleClicked(),
+                          textColor: controller.isOnSaleCliked
+                              ? textColorWhite
+                              : Colors.black,
+                          backgroundColor: controller.isOnSaleCliked
+                              ? primaryColor.withOpacity(0.4)
+                              : Colors.transparent,
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 8,
+                            horizontal: 20,
+                          ),
+                          label: "En venta",
+                          fullWidth: false,
+                          fontSize: 14,
+                          borderRadius: 20,
+                        ),
+                        RoundedButton(
+                          onPressed: () => controller.onIsOnFinishedClicked(),
+                          textColor: controller.isOnFinishedClicked
+                              ? textColorWhite
+                              : Colors.black,
+                          backgroundColor: controller.isOnFinishedClicked
+                              ? primaryColor.withOpacity(0.4)
+                              : Colors.transparent,
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 8,
+                            horizontal: 20,
+                          ),
+                          label: "Finalizadas",
+                          fullWidth: false,
+                          fontSize: 14,
+                          borderRadius: 20,
+                        ),
+                      ],
+                    );
+                  }),
                   const SizedBox(
                     height: 20.0,
                   ),

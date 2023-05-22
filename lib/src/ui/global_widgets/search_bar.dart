@@ -13,17 +13,17 @@ class SearchBar extends StatelessWidget {
     required this.onPressed,
     required this.onSubmitted,
     required this.onChanged,
-    this.focusNode,
+    required this.focusNode,
   });
 
   final TextEditingController textFieldController;
   final Function(String)? onChanged, onSubmitted;
   final VoidCallback onPressed;
-  final FocusNode? focusNode;
+  final FocusNode focusNode;
 
   @override
   Widget build(BuildContext context) {
-    final HomeTabController controller = context.watch<HomeTabController>();
+    // final HomeTabController controller = context.watch<HomeTabController>();
 
     return Container(
       padding: const EdgeInsets.symmetric(
@@ -33,7 +33,7 @@ class SearchBar extends StatelessWidget {
       height: 45,
       decoration: BoxDecoration(
         border: Border.all(
-          color: controller.focusNode.hasFocus ? primaryColor : tertiaryColor, // Color del borde
+          color: focusNode.hasFocus ? primaryColor : tertiaryColor, // Color del borde
           width: 1.0, // Ancho del borde
         ),
         borderRadius: BorderRadius.circular(10), // Radio de borde
@@ -48,7 +48,7 @@ class SearchBar extends StatelessWidget {
                 contentPadding: EdgeInsets.zero,
                 isDense: true,
                 border: InputBorder.none,
-                hintText: controller.focusNode.hasFocus ? "¿Qué estás buscando?" : "Buscar en PostIt",
+                hintText: focusNode.hasFocus ? "¿Qué estás buscando?" : "Buscar en PostIt",
               ),
               textInputAction: TextInputAction.search,
               focusNode: focusNode,
@@ -60,7 +60,7 @@ class SearchBar extends StatelessWidget {
             padding: EdgeInsets.zero,
             splashColor: transparentColor,
             onPressed: onPressed,
-            icon: controller.focusNode.hasFocus
+            icon: focusNode.hasFocus
                 ? const Icon(closeIcon)
                 : const Icon(Icons.search),
           ),

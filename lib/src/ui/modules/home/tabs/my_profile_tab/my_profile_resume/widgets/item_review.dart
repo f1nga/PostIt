@@ -32,111 +32,125 @@ class ItemReview extends StatelessWidget {
         Routes.postDetail,
         arguments: controller.postReview[index],
       ),
-      child: Row(
+      child: Column(
         children: [
-          SizedBox(
-            height: 75,
-            width: 80,
-            child: Stack(
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: Image.network(
-                    controller.postReview[index].imagesList[0],
-                    fit: BoxFit.cover,
-                    height: 60,
-                    width: 60,
-                  ),
-                ),
-                Positioned(
-                  bottom: 0,
-                  right: 0,
-                  child: GestureDetector(
-                    onTap: () => Navigator.pushNamed(
-                      context,
-                      Routes.profileResume,
-                      arguments: controller.userPost[index].nickname ==
-                              controller.user.nickname
-                          ? controller.userReview[index]
-                          : controller.userPost[index],
-                      // controller.comingFromMyProfile
-                      //     ? controller.userPost[index]
-                      //     : controller.userReview[index],
-                    ),
-                    child: ClipOval(
+          Row(
+            children: [
+              SizedBox(
+                height: 75,
+                width: 80,
+                child: Stack(
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
                       child: Image.network(
-                        controller.userPost[index].nickname ==
-                                controller.user.nickname
-                            ? controller.userReview[index].image
-                            : controller.userPost[index].image,
-                        // controller.comingFromMyProfile
-                        //     ? controller.userPost[index].image
-                        //     : controller.userReview[index].image,
+                        controller.postReview[index].imagesList[0],
                         fit: BoxFit.cover,
-                        height: 47,
-                        width: 47,
+                        height: 60,
+                        width: 60,
                       ),
                     ),
-                  ),
+                    Positioned(
+                      bottom: 0,
+                      right: 0,
+                      child: GestureDetector(
+                        onTap: () => Navigator.pushNamed(
+                          context,
+                          Routes.profileResume,
+                          arguments: controller.userPost[index].nickname ==
+                                  controller.user.nickname
+                              ? controller.userReview[index]
+                              : controller.userPost[index],
+                        ),
+                        child: ClipOval(
+                          child: Image.network(
+                            controller.userPost[index].nickname ==
+                                    controller.user.nickname
+                                ? controller.userReview[index].image
+                                : controller.userPost[index].image,
+                            fit: BoxFit.cover,
+                            height: 47,
+                            width: 47,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          ),
-          const SizedBox(
-            width: 10,
-          ),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                if(controller.comingFromMyProfile) 
-                Text(
-                    controller.userPost[index].nickname ==
-                                controller.user.nickname ? "Compraste" : "Vendiste",
-                  style: FontStyles.regular.copyWith(color: tertiaryColor),
-                ),
-                if(!controller.comingFromMyProfile)
-                Text(
-                    controller.userPost[index].nickname ==
-                                controller.user.nickname ? "Compró" : "Vendió",
-                  style: FontStyles.regular.copyWith(color: tertiaryColor),
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                Text(
-                  controller.postReview[index].title,
-                  style: FontStyles.title.copyWith(fontSize: 16),
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                Text(review.description),
-                const SizedBox(
-                  height: 5,
-                ),
-                Text(
-                  "Por ${controller.userReview[index].nickname}",
-                  style: FontStyles.regular.copyWith(color: tertiaryColor),
-                ),
-              ],
-            ),
-          ),
-          Column(
-            children: [
-              UserStars(
-                stars: review.stars,
-                size: 18,
               ),
               const SizedBox(
-                height: 25,
+                width: 10,
               ),
-              Text(
-                Methods.formatDate(review.date.toDate()),
-                style: FontStyles.regular
-                    .copyWith(color: tertiaryColor, fontSize: 16),
-              )
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    if (controller.comingFromMyProfile)
+                      Text(
+                        controller.userPost[index].nickname ==
+                                controller.user.nickname
+                            ? "Compraste"
+                            : "Vendiste",
+                        style:
+                            FontStyles.regular.copyWith(color: tertiaryColor),
+                      ),
+                    if (!controller.comingFromMyProfile)
+                      Text(
+                        controller.userPost[index].nickname ==
+                                controller.user.nickname
+                            ? "Compró"
+                            : "Vendió",
+                        style:
+                            FontStyles.regular.copyWith(color: tertiaryColor),
+                      ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    Text(
+                      controller.postReview[index].title,
+                      style: FontStyles.title.copyWith(fontSize: 16),
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    Text(review.description),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    Text(
+                      "Por ${controller.userReview[index].nickname}",
+                      style: FontStyles.regular.copyWith(color: tertiaryColor),
+                    ),
+                  ],
+                ),
+              ),
+              Column(
+                children: [
+                  UserStars(
+                    stars: review.stars,
+                    size: 18,
+                  ),
+                  const SizedBox(
+                    height: 25,
+                  ),
+                  Text(
+                    Methods.formatDate(review.date.toDate()),
+                    style: FontStyles.regular
+                        .copyWith(color: tertiaryColor, fontSize: 16),
+                  )
+                ],
+              ),
             ],
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          Divider(
+            height: 1,
+            color: Colors.black,
+          ),
+          const SizedBox(
+            height: 5,
           ),
         ],
       ),
