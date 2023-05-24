@@ -82,6 +82,7 @@ flutter:
     - assets/home/favourites.svg
     - assets/home/postit.svg
     - assets/home/profile.svg
+    - assets/home/mailbox.svg
     - assets/animations/
 
   # An image asset can refer to one or more resolution-specific "variants", see

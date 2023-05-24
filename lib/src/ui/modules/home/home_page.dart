@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wallapop/src/ui/modules/home/tabs/favourites_tab/favourites_tab.dart';
+import 'package:wallapop/src/ui/modules/home/tabs/mailbox_tab/mailbox_tab.dart';
 import 'package:wallapop/src/ui/modules/home/tabs/my_profile_tab/my_profile_tab.dart';
 import 'package:wallapop/src/ui/modules/home/tabs/postit_tab/postit_tab.dart';
 
@@ -96,6 +97,7 @@ class _HomePageState extends State<HomePage> {
                 HomeTab(),
                 FavouritesTab(),
                 PostitTab(),
+                MailboxTab(),
                 MyProfileTab(),
               ],
             ),

@@ -166,13 +166,13 @@ class _PostitFormState extends State<PostitForm> {
             ),
             const CategorySelection(),
             const Divider(
-              color: Color.fromARGB(255, 50, 49, 49),
-              thickness: 0.7,
+              color: tertiaryColor,
+              thickness: 1,
             ),
             const StateSelection(),
             const Divider(
-              color: Color.fromARGB(255, 50, 49, 49),
-              thickness: 0.7,
+              color: tertiaryColor,
+              thickness: 1,
             ),
             InputText(
               onchanged: controller.onPriceChanged,

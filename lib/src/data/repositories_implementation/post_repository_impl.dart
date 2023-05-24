@@ -64,4 +64,9 @@ class PostRepositoryImpl implements PostRepository {
   Future<List<Post>> getPostsByText(String text) {
     return _postProvider.getPostsByText(text);
   }
+
+  @override
+  Future<bool> addViewToPost(String postId) {
+    return _postProvider.addViewToPost(postId);
+  }
 }

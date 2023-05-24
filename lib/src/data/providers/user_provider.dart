@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:crypt/crypt.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wallapop/src/data/models/review.dart';
@@ -7,6 +9,7 @@ import 'package:wallapop/src/data/models/user.dart';
 import 'package:wallapop/src/data/providers/authentication_provider.dart';
 
 import '../../helpers/get.dart';
+import '../../utils/methods.dart';
 import '../models/post.dart';
 
 const String postStore = "post_store";
@@ -21,6 +24,7 @@ const String productsSoldedField = "productsSolded";
 const String lastSearchesField = "lastSearches";
 const String likedSearchesField = "likedSearches";
 const String profilesLikedField = "profilesLiked";
+const String postsViewedField = "postsViewed";
 
 /// Class that contains the provider methods logic
 class UserProvider {
@@ -67,7 +71,7 @@ class UserProvider {
     return User.fromMap(map);
   }
 
-   Future<List<User>> getFavouriteProfilesByUser(User user) async {
+  Future<List<User>> getFavouriteProfilesByUser(User user) async {
     List<User> usersList = [];
 
     try {
@@ -230,6 +234,21 @@ class UserProvider {
     return false;
   }
 
+  Future<bool> addViewedPost(User user, String postId) async {
+    try {
+      user.postsViewed.add(postId);
+
+      await _updateUserData(user.id, postsViewedField, user.postsViewed);
+
+      return true;
+    } catch (exception) {
+      if (kDebugMode) {
+        print(exception);
+      }
+    }
+    return false;
+  }
+
   Future<bool> addSoldedProduct(User user, String postId) async {
     try {
       user.productsSolded.add(postId);
@@ -260,6 +279,49 @@ class UserProvider {
           .update(
         {field: newList},
       );
+
+      return true;
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
+
+    return false;
+  }
+
+  Future<bool> updateUser(String userId, User newUser) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection(userStore)
+          .doc(userId)
+          .delete();
+
+      if (newUser.file != null) {
+        newUser.image = await FirebaseStorage.instance
+            .ref(usersBucket)
+            .child(
+              newUser.file.hashCode.toString(),
+            )
+            .putFile(
+              newUser.file!,
+            )
+            .then(
+              (task) => task.ref.getDownloadURL(),
+            );
+      }
+
+      await FirebaseFirestore.instance
+          .collection(userStore)
+          .doc(newUser.id)
+          .set(
+            newUser.toMap(),
+          );
+
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.clear();
+      prefs.setString(token, Methods.generateToken().toString());
+      prefs.setString(emailConstant, newUser.email);
 
       return true;
     } catch (e) {

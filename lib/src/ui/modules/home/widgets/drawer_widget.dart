@@ -3,6 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:wallapop/src/ui/global_widgets/circle_user_image.dart';
+import 'package:wallapop/src/utils/colors.dart';
 
 import '../../../../data/models/user.dart';
 import '../../../../helpers/get.dart';
@@ -19,8 +21,6 @@ class CustomDrawer extends StatelessWidget {
 
   final VoidCallback hideDrawer;
 
-  // Logs out the current user by clearing their session and removing their data from the app.
-  // Retrieve the shared preferences instance for persistent storage.
   void _logout(BuildContext context) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.clear();
@@ -32,10 +32,6 @@ class CustomDrawer extends StatelessWidget {
     );
   }
 
-  // Displays an alert dialog box to confirm the user's intention to log out.
-  // The dialog box contains the title and description texts for the alert,
-  // along with an 'OK' button to trigger the log out process. The context parameter
-  // is used to display the dialog box, and the _logout function is called when the 'OK' button is pressed.
   void _logoutAlertDialog(BuildContext context) {
     Dialogs.alert(
       context,
@@ -48,116 +44,85 @@ class CustomDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool sessionToken =
-        context.select<HomeController, bool>((_) => _.userToken);
+    final HomeController controller = context.watch<HomeController>();
 
-    return Drawer(
-      child: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            vertical: 15,
-            horizontal: 20,
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Builder(builder: (context) {
+      if (controller.currentUser != null) {
+        return Drawer(
+          child: ListView(
             children: [
-              Column(
-                children: [
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      "PostIt Menú",
-                      style: FontStyles.title,
-                    ),
+              SizedBox(
+                height: 200,
+                child: DrawerHeader(
+                  decoration: BoxDecoration(
+                    color: primaryColor.withOpacity(0.8),
                   ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: MaterialButton(
-                      key: const Key("create_debate_button"),
-                      onPressed: () => {},
-                      child: Text(
-                        "Crear hol",
-                      ),
-                    ),
-                  ),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: MaterialButton(
-                      key: const Key("create_group_button"),
-                      onPressed: () =>{},
-                      child: const Text(
-                        "crear hol",
-                      ),
-                    ),
-                  ),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: MaterialButton(
-                      key: const Key("my_interactions_button"),
-                      onPressed: () => {},
-                      child: const Text(
-                        "My interactions",
-                      ),
-                    ),
-                  ),
-                  if (sessionToken)
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: MaterialButton(
-                        key: const Key("my_profile_button"),
-                        onPressed: () => {},
-                        child: const Text(
-                          "Perfil",
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      InkWell(
+                        onTap: () => Navigator.popAndPushNamed(
+                            context, Routes.home,
+                            arguments: 3),
+                        child: CircleUserImage(
+                          image: controller.currentUser!.image,
                         ),
                       ),
-                    ),
-                ],
+                      const SizedBox(height: 10),
+                      Text(
+                        controller.currentUser!.nickname,
+                        style: FontStyles.title.copyWith(color: Colors.white),
+                      ),
+                      const SizedBox(height: 5),
+                      Text(
+                        controller.currentUser!.email,
+                        style:
+                            FontStyles.subtitle.copyWith(color: Colors.white),
+                      ),
+                    ],
+                  ),
+                ),
               ),
-              sessionToken
-                  ? GestureDetector(
-                      key: const Key("logout_button"),
-                      onTap: () => _logoutAlertDialog(context),
-                      //   // hideDrawer();
-                      child: Row(
-                        children: const [
-                          Icon(Icons.logout),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Expanded(
-                            child: Text(
-                                "Logout",
-                          ),
-                          )
-                        ],
-                      ),
-                    )
-                  : GestureDetector(
-                      onTap: () {
-                        Navigator.pushNamed(
-                          context,
-                          Routes.login
-                        );
-                      },
-                      child: Row(
-                        children: const [
-                          Icon(Icons.login),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Expanded(
-                            child: Text("Login"),
-                          ),
-                        ],
-                      ),
-                    ),
+              ListTile(
+                leading: const Icon(Icons.home),
+                title: const Text('Inicio'),
+                onTap: () => Navigator.pop(context),
+              ),
+              ListTile(
+                leading: const Icon(Icons.favorite),
+                title: const Text('Favoritos'),
+                onTap: () => Navigator.popAndPushNamed(context, Routes.home,
+                    arguments: 1),
+              ),
+              ListTile(
+                leading: const Icon(Icons.post_add),
+                title: const Text('Súbelo'),
+                onTap: () => Navigator.popAndPushNamed(context, Routes.home,
+                    arguments: 2),
+              ),
+              ListTile(
+                leading: const Icon(Icons.person),
+                title: const Text('Perfil'),
+                onTap: () => Navigator.popAndPushNamed(context, Routes.home,
+                    arguments: 3),
+              ),
+              const Divider(
+                thickness: 1,
+                color: tertiaryColor,
+              ),
+              ListTile(
+                leading: const Icon(Icons.logout),
+                title: const Text('Cerrar sesión'),
+                onTap: () => _logoutAlertDialog(context),
+              ),
             ],
           ),
-        ),
-      ),
-    );
+        );
+      }
+      return Container(
+        child: Center(child: CircularProgressIndicator()),
+      );
+    });
   }
 }

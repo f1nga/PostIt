@@ -10,6 +10,7 @@ abstract class Routes {
   static const purchaseReview = '/purchaseReview';
   static const myProfilePurchases = '/myProfilePurchases';
   static const myProfileSales = '/myProfileSales';
+  static const myProfileEdit = '/myProfileEdit';
   static const postsFiltered = '/postsFiltered';
   static const chat = '/chat';
 }

@@ -15,6 +15,7 @@ const String postsCreatedField = "postsCreated";
 const String likesField = "likes";
 const String soldField = "sold";
 const String titleField = "title";
+const String viewsField = "views";
 
 /// Class that contains the provider methods logic
 class PostProvider {
@@ -203,6 +204,26 @@ class PostProvider {
           )
           .update(
         {likesField: FieldValue.increment(1)},
+      );
+
+      return true;
+    } catch (exception) {
+      if (kDebugMode) {
+        print(exception);
+      }
+    }
+    return false;
+  }
+
+  Future<bool> addViewToPost(String postId) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection(postStore)
+          .doc(
+            postId,
+          )
+          .update(
+        {viewsField: FieldValue.increment(1)},
       );
 
       return true;

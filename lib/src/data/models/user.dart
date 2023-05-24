@@ -6,18 +6,25 @@ import 'package:wallapop/src/utils/constants.dart';
 import '../../utils/methods.dart';
 
 class User {
-  late String nickname, email, image, id = Methods.generateId();
+  late String nickname,
+      email,
+      image,
+      description = "",
+      birthdate = "",
+      id = Methods.generateId();
   String? password;
-  late List<dynamic> postsCreated = [],
+  List<dynamic> postsCreated = [],
       postsLiked = [],
       reviewsCreated = [],
       productsPurchased = [],
       productsSolded = [],
       lastSearches = [],
       likedSearches = [],
-      profilesLiked = [];
+      profilesLiked = [],
+      postsViewed = [];
   late File? file;
   late int stars = 0;
+  int? phone;
 
   User({
     required this.nickname,
@@ -34,6 +41,9 @@ class User {
     nickname = map["nickname"];
     email = map["email"];
     password = map["password"];
+    phone = map["phone"];
+    description = map["description"];
+    birthdate = map["birthdate"];
     postsCreated = map["postsCreated"];
     postsLiked = map["postsLiked"];
     reviewsCreated = map["reviewsCreated"];
@@ -42,6 +52,7 @@ class User {
     lastSearches = map["lastSearches"];
     likedSearches = map["likedSearches"];
     profilesLiked = map["profilesLiked"];
+    postsViewed = map["postsViewed"];
     image = map["image"];
     stars = map["stars"];
   }
@@ -54,6 +65,9 @@ class User {
       "nickname": nickname,
       "email": email,
       "password": password,
+      "phone": phone,
+      "description": description,
+      "birthdate": birthdate,
       "postsCreated": postsCreated,
       "postsLiked": postsLiked,
       "reviewsCreated": reviewsCreated,
@@ -62,6 +76,7 @@ class User {
       "lastSearches": lastSearches,
       "likedSearches": likedSearches,
       "profilesLiked": profilesLiked,
+      "postsViewed": postsViewed,
       "image": image,
       "stars": stars,
     };

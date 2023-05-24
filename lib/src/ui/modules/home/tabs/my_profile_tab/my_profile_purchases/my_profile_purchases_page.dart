@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wallapop/src/ui/global_widgets/item_post_finished.dart';
 import 'package:wallapop/src/ui/modules/home/tabs/my_profile_tab/my_profile_controller.dart';
-import 'package:wallapop/src/ui/modules/home/tabs/my_profile_tab/my_profile_resume/my_profile_purchases/my_profile_purchases_controller.dart';
-import 'package:wallapop/src/ui/modules/home/tabs/my_profile_tab/my_profile_resume/my_profile_purchases/widgets/my_profile_purchases_products.dart';
+import 'package:wallapop/src/ui/modules/home/tabs/my_profile_tab/my_profile_purchases/my_profile_purchases_controller.dart';
+import 'package:wallapop/src/ui/modules/home/tabs/my_profile_tab/my_profile_purchases/widgets/my_profile_purchases_products.dart';
 import 'package:wallapop/src/ui/modules/home/tabs/my_profile_tab/widgets/my_profile_action.dart';
 import 'package:wallapop/src/ui/modules/home/tabs/my_profile_tab/widgets/my_profile_header.dart';
 
-import '../../../../../../../helpers/get.dart';
-import '../../../../../../../utils/colors.dart';
-import '../../../../../../../utils/font_styles.dart';
+import '../../../../../../helpers/get.dart';
+import '../../../../../../utils/colors.dart';
+import '../../../../../../utils/font_styles.dart';
 
 class MyProfilePurchasesPage extends StatefulWidget {
   const MyProfilePurchasesPage({super.key});

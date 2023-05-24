@@ -21,6 +21,12 @@ class PostDetailController extends ChangeNotifier {
   bool _isLiked = false;
   bool get isLiked => _isLiked;
 
+  int _postLikes = 0;
+  int get postLikes => _postLikes;
+
+  int _postViews = 0;
+  int get postViews => _postViews;
+
   bool _isProfileLiked = false;
   bool get isProfileLiked => _isProfileLiked;
 
@@ -32,6 +38,29 @@ class PostDetailController extends ChangeNotifier {
 
   void _init() async {
     _currentUser = await _usersRepository.getCurrentUser();
+
+    notifyListeners();
+  }
+
+  void isPostViewed(String postId) async {
+    final currentUser = await _usersRepository.getCurrentUser();
+
+    if (!currentUser.postsViewed.contains(postId)) {
+      // _postViews++;
+      await _usersRepository.addViewedPost(currentUser, postId);
+      await _postsRepository.addViewToPost(postId);
+      notifyListeners();
+    }
+  }
+
+  void setPostLikes(int value) {
+    _postLikes = value;
+    notifyListeners();
+  }
+
+  void setPostViews(int value) {
+    print("hooool$value");
+    _postViews = value;
     notifyListeners();
   }
 
@@ -79,10 +108,11 @@ class PostDetailController extends ChangeNotifier {
     notifyListeners();
   }
 
-  void onIsProfileLiked() async {
+  void onIsProfileLiked(String postId) async {
     final currentUser = await _usersRepository.getCurrentUser();
+    final user2 = await _usersRepository.getUserByPostId(postId);
 
-    _isProfileLiked = currentUser.profilesLiked.contains(user!.id);
+    _isProfileLiked = currentUser.profilesLiked.contains(user2.id);
     notifyListeners();
   }
 

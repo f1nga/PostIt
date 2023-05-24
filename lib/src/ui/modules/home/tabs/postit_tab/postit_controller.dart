@@ -13,15 +13,15 @@ import '../../../../../utils/colors.dart';
 import '../../../../global_widgets/custom_form.dart';
 
 class PostitController extends ChangeNotifier {
+  final PostRepository _repository = Get.i.find<PostRepository>()!;
+  final UserRepository _usersRepository = Get.i.find<UserRepository>()!;
+  
   String _title = '', _description = '', _state = '';
   ProductCategoryType? _category;
   double _price = 0.0;
 
   final List<File?> _filesList = [];
   List<File?> get filesList => _filesList;
-
-  final PostRepository _repository = Get.i.find<PostRepository>()!;
-  final UserRepository _usersRepository = Get.i.find<UserRepository>()!;
 
   int _isClickedCategory = 1;
   int get isClickedCategory {

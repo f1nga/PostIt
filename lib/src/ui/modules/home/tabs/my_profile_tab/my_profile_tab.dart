@@ -101,7 +101,7 @@ class _MyProfileTabState extends State<MyProfileTab> {
                           title: "Editar el perfil",
                           onPressed: () => Navigator.pushNamed(
                             context,
-                            Routes.myProfilePurchases,
+                            Routes.myProfileEdit,
                           ),
                         ),
                       ],

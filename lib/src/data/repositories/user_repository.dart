@@ -21,4 +21,6 @@ abstract class UserRepository {
   Future<bool> updateLikedSearches(List<dynamic> likedSearches, User user);
   Future<bool> updateProfilesLiked(List<dynamic> profilesLiked, User user);
   Future<bool> deleteUserPost(String postId, User user);
+  Future<bool> addViewedPost(User user, String postId);
+  Future<bool> updateUser(String userId, User newUser);
 }

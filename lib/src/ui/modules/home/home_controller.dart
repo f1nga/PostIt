@@ -3,9 +3,12 @@ import 'package:flutter/scheduler.dart';
 
 import '../../../data/models/user.dart';
 import '../../../data/repositories/authentication_repository.dart';
+import '../../../data/repositories/user_repository.dart';
 import '../../../helpers/get.dart';
 
 class HomeController extends ChangeNotifier implements TickerProvider {
+  final UserRepository _usersRepository = Get.i.find<UserRepository>()!;
+
   int _currentPage = 0;
   int get currentPage => _currentPage;
 
@@ -22,6 +25,9 @@ class HomeController extends ChangeNotifier implements TickerProvider {
   String? _nickname;
   String? get nickname => _nickname;
 
+  User? _currentUser;
+  User? get currentUser => _currentUser;
+
   final AuthenticationRepository _repository =
       Get.i.find<AuthenticationRepository>()!;
 
@@ -37,6 +43,7 @@ class HomeController extends ChangeNotifier implements TickerProvider {
   // It also retrieves the nickname of the currently logged in user using the Get library, and assigns it to the _nickname variable.
   // Finally, it calls notifyListeners() to inform listeners that the state of the object has changed.
   void laterLayout() async {
+    _currentUser = await _usersRepository.getCurrentUser();
     _userToken = await _repository.tokenExists();
     _nickname = Get.i.find<User>()?.nickname;
     notifyListeners();
@@ -56,7 +63,7 @@ class HomeController extends ChangeNotifier implements TickerProvider {
 
   void _init() async {
     tabController = TabController(
-      length: 4,
+      length: 5,
       vsync: this,
     );
   }

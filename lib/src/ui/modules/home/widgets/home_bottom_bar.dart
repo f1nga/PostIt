@@ -12,6 +12,7 @@ const String homeIcon = "assets/home/home.svg";
 const String favouritesIcon = "assets/home/favourites.svg";
 const String postitIcon = "assets/home/postit.svg";
 const String profileIcon = "assets/home/profile.svg";
+const String mailboxIcon = "assets/home/mailbox.svg";
 
 class HomeBottomBar extends StatelessWidget {
   const HomeBottomBar({super.key});
@@ -35,6 +36,10 @@ class HomeBottomBar extends StatelessWidget {
       _BottomBarItem(
         icon: postitIcon,
         label: "Súbelo",
+      ),
+      _BottomBarItem(
+        icon: mailboxIcon,
+        label: "Buzón",
       ),
       _BottomBarItem(
         icon: profileIcon,

@@ -98,7 +98,75 @@ class _MyProfileResumePageState extends State<MyProfileResumePage> {
                           } else if (controller.selectedContainer == 2) {
                             return const ProfileResumeReviews();
                           } else {
-                            return Text("${controller.selectedContainer}");
+                            return Padding(
+                              padding: const EdgeInsets.all(16),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Información básica",
+                                    style: FontStyles.title,
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  Row(
+                                    children: [
+                                      const Icon(
+                                        Icons.person,
+                                        size: 25,
+                                      ),
+                                      const SizedBox(
+                                        width: 5,
+                                      ),
+                                      Text(
+                                        controller.user.nickname,
+                                        style: FontStyles.regular
+                                            .copyWith(fontSize: 18),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  Row(
+                                    children: [
+                                      const Icon(
+                                        Icons.cake,
+                                        size: 25,
+                                      ),
+                                      const SizedBox(
+                                        width: 5,
+                                      ),
+                                      Text(
+                                        "23/64/2344",
+                                        style: FontStyles.regular
+                                            .copyWith(fontSize: 18),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  Row(
+                                    children: [
+                                      const Icon(
+                                        Icons.description,
+                                        size: 25,
+                                      ),
+                                      const SizedBox(
+                                        width: 5,
+                                      ),
+                                      Text(
+                                        controller.user.description,
+                                        style: FontStyles.regular
+                                            .copyWith(fontSize: 18),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            );
                           }
                         },
                       ),

@@ -5,9 +5,10 @@ import 'package:wallapop/src/ui/modules/home/home_page.dart';
 import 'package:wallapop/src/ui/modules/home/pages/chat/chat_page.dart';
 import 'package:wallapop/src/ui/modules/home/pages/purchase_review/purchase_review_page.dart';
 import 'package:wallapop/src/ui/modules/home/tabs/home_tab/posts_filtered/posts_filtered_page.dart';
+import 'package:wallapop/src/ui/modules/home/tabs/my_profile_tab/my_profile_edit/my_profile_edit_page.dart';
 import 'package:wallapop/src/ui/modules/home/tabs/my_profile_tab/my_profile_resume/my_post_detail/my_post_detail_page.dart';
-import 'package:wallapop/src/ui/modules/home/tabs/my_profile_tab/my_profile_resume/my_profile_purchases/my_profile_purchases_page.dart';
-import 'package:wallapop/src/ui/modules/home/tabs/my_profile_tab/my_profile_resume/my_profile_sales/my_profile_sales_page.dart';
+import 'package:wallapop/src/ui/modules/home/tabs/my_profile_tab/my_profile_purchases/my_profile_purchases_page.dart';
+import 'package:wallapop/src/ui/modules/home/tabs/my_profile_tab/my_profile_sales/my_profile_sales_page.dart';
 
 import '../ui/modules/home/pages/post_detail/post_detail_page.dart';
 import '../ui/modules/home/tabs/my_profile_tab/my_profile_resume/my_profile_resume_page.dart';
@@ -32,5 +33,6 @@ abstract class Pages {
     Routes.myProfileSales: (_) => const MyProfileSalesPage(),
     Routes.postsFiltered: (_) => const PostsFilteredPage(),
     Routes.chat: (_) => const ChatPage(),
+    Routes.myProfileEdit: (_) => const MyProfileEditPage(),
   };
 }

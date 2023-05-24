@@ -91,4 +91,14 @@ class UserRepositoryImpl implements UserRepository {
   Future<List<User>> getFavouriteProfilesByUser(User user) {
     return _userProvider.getFavouriteProfilesByUser(user);
   }
+
+  @override
+  Future<bool> addViewedPost(User user, String postId) {
+    return _userProvider.addViewedPost(user, postId);
+  }
+
+  @override
+  Future<bool> updateUser(String userId, User newUser) {
+    return _userProvider.updateUser(userId, newUser);
+  }
 }

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:wallapop/src/ui/modules/home/tabs/my_profile_tab/my_profile_resume/my_profile_purchases/my_profile_purchases_controller.dart';
+import 'package:wallapop/src/ui/modules/home/tabs/my_profile_tab/my_profile_purchases/my_profile_purchases_controller.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../../../../../routes/routes.dart';
-import '../../../../../../../../utils/colors.dart';
-import '../../../../../../../global_widgets/animation.dart';
-import '../../../../../../../global_widgets/item_post_finished.dart';
+import '../../../../../../../routes/routes.dart';
+import '../../../../../../../utils/colors.dart';
+import '../../../../../../global_widgets/animation.dart';
+import '../../../../../../global_widgets/item_post_finished.dart';
 
 class MyProfilePurchasesProducts extends StatelessWidget {
   const MyProfilePurchasesProducts({super.key});

@@ -9,26 +9,21 @@ import 'package:wallapop/src/ui/global_widgets/custom_rounded_button.dart';
 import 'package:wallapop/src/ui/global_widgets/custom_rounded_button_with_icon.dart';
 import 'package:wallapop/src/ui/global_widgets/user_icon.dart';
 import 'package:wallapop/src/ui/global_widgets/user_stars.dart';
-import 'package:wallapop/src/ui/modules/home/pages/post_detail/post_detail_controller.dart';
 import 'package:wallapop/src/ui/modules/home/tabs/my_profile_tab/my_profile_resume/my_post_detail/widgets/button_category.dart';
 import 'package:wallapop/src/utils/colors.dart';
 
 import '../../../../../../data/models/user.dart';
 import '../../../../../../helpers/get.dart';
 import '../../../../../../utils/methods.dart';
+import '../post_detail_controller.dart';
 
 class PostDetailBody extends StatelessWidget {
-  final PostDetailController controller;
-
-  const PostDetailBody({
-    super.key,
-    required this.controller,
-  });
+  const PostDetailBody({super.key});
 
   @override
   Widget build(BuildContext context) {
     final Post post = ModalRoute.of(context)!.settings.arguments as Post;
-    final PostDetailController _controller =
+    final PostDetailController controller =
         context.watch<PostDetailController>();
 
     return Padding(
@@ -74,7 +69,7 @@ class PostDetailBody extends StatelessWidget {
                     SizedBox(
                       height: 90,
                       child: UserIcon(
-                        userNickname: _controller.user!.nickname,
+                        userNickname: controller.user!.nickname,
                         userColor: Colors.greenAccent,
                         width: 60,
                         height: 60,
@@ -94,9 +89,9 @@ class PostDetailBody extends StatelessWidget {
                         ),
                         child: Center(
                           child: GestureDetector(
-                            onTap: () => _controller
-                                .onIsProfileLikePressed(_controller.user!.id),
-                            child: _controller.isProfileLiked
+                            onTap: () => controller
+                                .onIsProfileLikePressed(controller.user!.id),
+                            child: controller.isProfileLiked
                                 ? const Icon(
                                     Icons.favorite,
                                     color: Colors.red,
@@ -123,14 +118,14 @@ class PostDetailBody extends StatelessWidget {
                       height: 15,
                     ),
                     Text(
-                      _controller.user!.nickname,
+                      controller.user!.nickname,
                       style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     UserStars(
-                      stars: _controller.user!.stars,
+                      stars: controller.user!.stars,
                       size: 18,
                     ),
                     const SizedBox(
@@ -143,7 +138,7 @@ class PostDetailBody extends StatelessWidget {
                           width: 5,
                         ),
                         Text(
-                            "${_controller.user!.productsSolded.length} Ventas"),
+                            "${controller.user!.productsSolded.length} Ventas"),
                       ],
                     ),
                   ],
@@ -155,7 +150,7 @@ class PostDetailBody extends StatelessWidget {
                     Routes.chat,
                     arguments: ChatArguments(
                       post: post,
-                      user: _controller.user!,
+                      user: controller.user!,
                     ),
                   ),
                   title: "Chat",
@@ -166,7 +161,7 @@ class PostDetailBody extends StatelessWidget {
             onTap: () => Navigator.pushNamed(
               context,
               Routes.profileResume,
-              arguments: _controller.user,
+              arguments: controller.user,
             ),
           ),
           const Divider(),
@@ -194,21 +189,34 @@ class PostDetailBody extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(_controller.getLastEditedDate(post.date.toDate())),
+              Text(controller.getLastEditedDate(post.date.toDate())),
               const Spacer(),
               const Icon(Icons.remove_red_eye_outlined),
               const SizedBox(
                 width: 8,
               ),
-              const Text("0"),
+              Text(controller.postViews.toString()),
               const SizedBox(
                 width: 8,
               ),
-              const Icon(Icons.favorite_border_outlined),
+              GestureDetector(
+                child: controller.isLiked
+                    ? const Icon(
+                        Icons.favorite,
+                        color: Colors.red,
+                        size: 25,
+                      )
+                    : const Icon(
+                        Icons.favorite_border_outlined,
+                        color: Colors.black,
+                        size: 25,
+                      ),
+                onTap: () => controller.onIsLikedPressed(post.id),
+              ),
               const SizedBox(
                 width: 8,
               ),
-              const Text("0"),
+              Text(controller.postLikes.toString()),
             ],
           ),
           const Divider(),

@@ -5,15 +5,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../utils/methods.dart';
 
 class Post {
-  late String title,
-      description,
-      category,
-      state,
-      // image,
-      id = Methods.generateId();
+  late String title, description, category, state, id = Methods.generateId();
   late double price;
-  // late File file;
-  late int likes;
+  late int likes, views = 0;
   late Timestamp date = Timestamp.now();
   late bool sold = false;
   late List<File?> filesList;
@@ -26,7 +20,6 @@ class Post {
     required this.category,
     required this.state,
     required this.filesList,
-    this.likes = 0,
   });
 
   /// A function that converts a Map to object Post
@@ -40,6 +33,7 @@ class Post {
     state = map["state"];
     imagesList = map["imagesList"];
     likes = map["likes"];
+    views = map["views"];
     date = map["date"];
     sold = map["sold"];
   }
@@ -56,6 +50,7 @@ class Post {
       "state": state,
       "imagesList": imagesList,
       "likes": likes,
+      "views": views,
       "date": date,
       "sold": sold,
     };

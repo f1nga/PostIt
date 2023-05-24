@@ -15,4 +15,5 @@ abstract class PostRepository {
   Future<List<Post>> getSalesPostsByUser(User user);
   Future<List<Post>> getPostsByText(String text);
   Future<bool> deletePost(String postId);
+  Future<bool> addViewToPost(String postId);
 }

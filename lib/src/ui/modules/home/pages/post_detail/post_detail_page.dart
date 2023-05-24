@@ -40,8 +40,6 @@ class _PostDetailPageState extends State<PostDetailPage> {
   @override
   Widget build(BuildContext context) {
     final Post args = ModalRoute.of(context)!.settings.arguments as Post;
-    _controller.getUserByPostId(args.id);
-    _controller.onIsPostLiked(args.id);
 
     void goToPurchaseReview() async {
       final bool purchaseCompleted = await _controller.buyProduct(args.id);
@@ -65,7 +63,12 @@ class _PostDetailPageState extends State<PostDetailPage> {
 
     return ChangeNotifierProvider<PostDetailController>(
       create: (_) {
-        _controller.onIsProfileLiked();
+        _controller.getUserByPostId(args.id);
+        _controller.onIsPostLiked(args.id);
+        _controller.setPostLikes(args.likes);
+        _controller.setPostViews(args.views);
+        _controller.onIsProfileLiked(args.id);
+        _controller.isPostViewed(args.id);
         return _controller;
       },
       child: Scaffold(
@@ -102,7 +105,7 @@ class _PostDetailPageState extends State<PostDetailPage> {
                           comingFromMyPost: false,
                           post: args,
                         ),
-                        PostDetailBody(controller: controller),
+                        const PostDetailBody(),
                       ],
                     );
                   }

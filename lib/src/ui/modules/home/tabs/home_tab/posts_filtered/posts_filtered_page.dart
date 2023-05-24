@@ -7,8 +7,8 @@ import 'package:wallapop/src/routes/routes.dart';
 import 'package:wallapop/src/ui/global_widgets/item_post_finished.dart';
 import 'package:wallapop/src/ui/modules/home/tabs/home_tab/posts_filtered/widgets/posts_filtered_products.dart';
 import 'package:wallapop/src/ui/modules/home/tabs/my_profile_tab/my_profile_controller.dart';
-import 'package:wallapop/src/ui/modules/home/tabs/my_profile_tab/my_profile_resume/my_profile_purchases/my_profile_purchases_controller.dart';
-import 'package:wallapop/src/ui/modules/home/tabs/my_profile_tab/my_profile_resume/my_profile_purchases/widgets/my_profile_purchases_products.dart';
+import 'package:wallapop/src/ui/modules/home/tabs/my_profile_tab/my_profile_purchases/my_profile_purchases_controller.dart';
+import 'package:wallapop/src/ui/modules/home/tabs/my_profile_tab/my_profile_purchases/widgets/my_profile_purchases_products.dart';
 import 'package:wallapop/src/ui/modules/home/tabs/my_profile_tab/widgets/my_profile_action.dart';
 import 'package:wallapop/src/ui/modules/home/tabs/my_profile_tab/widgets/my_profile_header.dart';
 
@@ -93,7 +93,7 @@ class _PostsFilteredPageState extends State<PostsFilteredPage> {
                 Icons.arrow_back,
               ),
               onPressed: () {
-                Navigator.pop(context);
+                Navigator.popAndPushNamed(context, Routes.home);
               },
             ),
           ),

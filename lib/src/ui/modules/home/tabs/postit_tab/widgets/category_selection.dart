@@ -37,7 +37,10 @@ class _CategorySelectionState extends State<CategorySelection> {
               ? "Categoría"
               : controller.category!.value,
           style: const TextStyle(
-              color: Color.fromARGB(255, 128, 125, 125), fontSize: 16),
+            color: Color.fromARGB(255, 128, 125, 125),
+            fontSize: 16,
+            fontWeight: FontWeight.bold
+          ),
         ),
         Expanded(
           child: Align(
@@ -157,8 +160,7 @@ class _CategorySelectionState extends State<CategorySelection> {
                                 },
                               ),
                               RadioListTile<int>(
-                                title:
-                                    const Text(ProductCategoryType.sports),
+                                title: const Text(ProductCategoryType.sports),
                                 value: 7,
                                 groupValue: controller.isClickedCategory,
                                 activeColor: primaryColor,

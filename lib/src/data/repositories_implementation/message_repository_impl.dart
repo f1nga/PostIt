@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:wallapop/src/data/models/chat.dart';
 import 'package:wallapop/src/data/models/message.dart';
 import 'package:wallapop/src/data/providers/message_provider.dart';
 import 'package:wallapop/src/data/repositories/message_repository.dart';
@@ -22,5 +23,20 @@ class MessageRepositoryImpl implements MessageRepository {
   @override
   Future<bool> addMessage(Message newMessage) {
     return _messageProvider.addMessage(newMessage);
+  }
+
+  @override
+  Future<Chat?> isChatExists(String receiverId, String senderId, String postId) {
+    return _messageProvider.isChatExists(receiverId, senderId, postId);
+  }
+
+  @override
+  Future<bool> addChat(Chat newChat) {
+    return _messageProvider.addChat(newChat);
+  }
+
+  @override
+  Future<bool> updateChat(String chatId, List messages) {
+    return _messageProvider.updateChat(chatId, messages);
   }
 }

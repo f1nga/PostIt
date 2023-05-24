@@ -99,7 +99,7 @@ class _MyPostDetailSliderState extends State<MyPostDetailSlider> {
                     color: Colors.white,
                     size: 30,
                   ),
-                  onPressed: () => Navigator.pop(context),
+                  onPressed: () => Navigator.popAndPushNamed(context, Routes.home),
                 ),
               ),
               Positioned(

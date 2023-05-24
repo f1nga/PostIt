@@ -29,7 +29,7 @@ class _ChatPageState extends State<ChatPage> {
       create: (_) {
         final ChatController controller = ChatController();
         WidgetsBinding.instance.addPostFrameCallback((_) {
-          controller.afterFistLayout(args.user);
+          controller.afterFistLayout(args.user, args.post);
         });
         Get.i.put<ChatController>(controller);
         controller.onDispose = () {
@@ -57,7 +57,7 @@ class _ChatPageState extends State<ChatPage> {
                 child: ListView.builder(
                   shrinkWrap: true,
                   itemCount: controller.messagesList.length,
-                  itemBuilder: (BuildContext context, int index) {
+                  itemBuilder: (BuildContext context, int index) {  
                     return ItemMessage(
                       message: controller.messagesList[index],
                     );

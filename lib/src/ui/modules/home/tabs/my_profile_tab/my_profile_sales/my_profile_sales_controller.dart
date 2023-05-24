@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:wallapop/src/data/repositories/user_repository.dart';
 
-import '../../../../../../../data/models/post.dart';
-import '../../../../../../../data/models/user.dart';
-import '../../../../../../../data/repositories/post_repository.dart';
-import '../../../../../../../helpers/get.dart';
+import '../../../../../../data/models/post.dart';
+import '../../../../../../data/models/user.dart';
+import '../../../../../../data/repositories/post_repository.dart';
+import '../../../../../../helpers/get.dart';
 
 class MyProfileSalesController extends ChangeNotifier {
   final PostRepository _postsRepository = Get.i.find<PostRepository>()!;

@@ -1,6 +1,8 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_awesome_buttons/flutter_awesome_buttons.dart';
 import 'package:uuid/uuid.dart';
@@ -183,5 +185,12 @@ abstract class Methods {
       }
     }
     return "Editado hace más de un mes";
+  }
+
+  static Future<Digest> generateToken() async {
+    Uuid uuid = const Uuid();
+    List<int> bytes1 = utf8.encode(uuid.v1());
+
+    return sha256.convert(bytes1);
   }
 }
