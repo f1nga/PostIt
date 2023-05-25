@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:wallapop/src/ui/modules/welcome/widgets/header_details_widget.dart';
 
 import '../../../../utils/colors.dart';
 
@@ -19,7 +20,6 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
-
     return ChangeNotifierProvider<LoginController>(
       create: (_) => LoginController(),
       builder: (_, __) {
@@ -45,8 +45,18 @@ class _LoginPageState extends State<LoginPage> {
               padding: const EdgeInsets.symmetric(
                 horizontal: 15,
               ),
-              child: const LoginForm(
-                isLateLogin: false,
+              child: Column(
+                children: const [
+                  SizedBox(
+                    height: 20,
+                  ),
+                  HeaderDetails(
+                    comingFromWelcome: false,
+                  ),
+                  LoginForm(
+                    isLateLogin: false,
+                  ),
+                ],
               ),
             ),
           ),

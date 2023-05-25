@@ -52,7 +52,7 @@ class ItemChat extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const SizedBox(
-                          height: 10,
+                          height: 5,
                         ),
                         Text(
                           controller.receiverUserList[index].nickname,
@@ -97,7 +97,7 @@ class ItemChat extends StatelessWidget {
                         Methods.formatDate2(
                             controller.lastMessageList[index].date.toDate()),
                         style:
-                            FontStyles.subtitle.copyWith(color: tertiaryColor),
+                            FontStyles.subtitle.copyWith(color: primaryColor),
                       ),
                     ),
                   ),

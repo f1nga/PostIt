@@ -109,7 +109,7 @@ class CustomDrawer extends StatelessWidget {
               ),
               const Divider(
                 thickness: 1,
-                color: tertiaryColor,
+                color: primaryColor,
               ),
               ListTile(
                 leading: const Icon(Icons.logout),
