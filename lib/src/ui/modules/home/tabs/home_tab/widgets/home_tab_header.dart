@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, depend_on_referenced_packages
 
 import 'package:flutter/material.dart';
 import 'package:wallapop/src/data/models/utils/product_category_type.dart';
@@ -35,9 +35,7 @@ class _HomeTabHeaderState extends State<HomeTabHeader> {
           context,
           Routes.postsFiltered,
           arguments: FilterPostsArguments(
-            postsList: await controller.submit(text),
-            searchText: text
-          ),
+              postsList: await controller.submit(text), searchText: text),
         );
       } else {
         Dialogs.alert(
@@ -53,10 +51,9 @@ class _HomeTabHeaderState extends State<HomeTabHeader> {
         context,
         Routes.postsFiltered,
         arguments: FilterPostsArguments(
-          postsList: await controller.onCategoryClicked(category),
-          category: category,
-          searchText: ""
-        ),
+            postsList: await controller.onCategoryClicked(category),
+            category: category,
+            searchText: ""),
       );
     }
 
@@ -233,42 +230,17 @@ class _HomeTabHeaderState extends State<HomeTabHeader> {
                       style: FontStyles.title.copyWith(fontSize: 24),
                     ),
                     const SizedBox(height: 20.0),
-                    const HomeTabProducts()
+                    Builder(builder: (context) {
+                      if (!controller.isLoading) {
+                        return const HomeTabProducts();
+                      } else {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                    })
                   ],
                 ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildCategoryCard(
-      String title, IconData icon, Color color, BuildContext context) {
-    return InkWell(
-      onTap: () {},
-      child: Container(
-        padding: const EdgeInsets.all(20.0),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10.0),
-          color: color,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Icon(
-              icon,
-              color: Colors.white,
-              size: 30.0,
-            ),
-            const SizedBox(height: 10.0),
-            Text(
-              title,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 20.0,
-                fontWeight: FontWeight.bold,
               ),
             ),
           ],

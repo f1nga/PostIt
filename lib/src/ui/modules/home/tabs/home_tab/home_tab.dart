@@ -1,3 +1,5 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wallapop/src/ui/modules/home/tabs/home_tab/home_tab_controller.dart';

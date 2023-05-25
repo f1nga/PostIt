@@ -1,19 +1,16 @@
 import 'package:flutter/material.dart';
+// ignore: depend_on_referenced_packages
 import 'package:provider/provider.dart';
 
 import 'package:flutter_awesome_buttons/flutter_awesome_buttons.dart';
 import 'package:wallapop/src/data/models/post.dart';
 import 'package:wallapop/src/routes/arguments.dart';
 import 'package:wallapop/src/routes/routes.dart';
-import 'package:wallapop/src/ui/global_widgets/custom_rounded_button.dart';
-import 'package:wallapop/src/ui/global_widgets/custom_rounded_button_with_icon.dart';
 import 'package:wallapop/src/ui/global_widgets/user_icon.dart';
 import 'package:wallapop/src/ui/global_widgets/user_stars.dart';
 import 'package:wallapop/src/ui/modules/home/tabs/my_profile_tab/my_profile_resume/my_post_detail/widgets/button_category.dart';
 import 'package:wallapop/src/utils/colors.dart';
 
-import '../../../../../../data/models/user.dart';
-import '../../../../../../helpers/get.dart';
 import '../../../../../../utils/methods.dart';
 import '../post_detail_controller.dart';
 

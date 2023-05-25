@@ -38,7 +38,7 @@ class PostsFilteredController extends ChangeNotifier {
   bool _isSearchLiked = false;
   bool get isSearchLiked => _isSearchLiked;
 
-  List<String> _searchesList = [];
+  final List<String> _searchesList = [];
   List<String> get searchesList => _searchesList;
 
   void afterFistLayout() {

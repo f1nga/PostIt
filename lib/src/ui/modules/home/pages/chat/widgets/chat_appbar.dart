@@ -1,8 +1,11 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'package:flutter/material.dart';
 import 'package:wallapop/src/routes/routes.dart';
 import 'package:wallapop/src/ui/global_widgets/circle_user_image.dart';
-import 'package:wallapop/src/ui/global_widgets/user_icon.dart';
+import 'package:wallapop/src/ui/modules/home/pages/chat/chat_controller.dart';
 import 'package:wallapop/src/utils/font_styles.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../../../data/models/post.dart';
 import '../../../../../../data/models/user.dart';
@@ -19,6 +22,8 @@ class ChatAppbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ChatController controller = context.watch<ChatController>();
+
     return InkWell(
       onTap: () => Navigator.pushNamed(
         context,
@@ -34,7 +39,12 @@ class ChatAppbar extends StatelessWidget {
               IconButton(
                 icon: const Icon(Icons.arrow_back),
                 onPressed: () {
-                  Navigator.pop(context);
+                  controller.closeStream();
+                  Navigator.pushNamed(
+                    context,
+                    Routes.home,
+                    arguments: 3,
+                  );
                 },
               ),
               ClipRRect(

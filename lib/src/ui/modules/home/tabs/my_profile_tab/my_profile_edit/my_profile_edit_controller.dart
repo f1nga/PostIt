@@ -1,11 +1,13 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'dart:io';
 
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:wallapop/src/data/models/user.dart';
-import 'package:wallapop/src/data/repositories/authentication_repository.dart';
 import 'package:wallapop/src/data/repositories/user_repository.dart';
 
 import 'package:intl/intl.dart';
@@ -14,8 +16,6 @@ import '../../../../../../helpers/get.dart';
 
 class MyProfileEditController extends ChangeNotifier {
   final UserRepository _usersRepository = Get.i.find<UserRepository>()!;
-  final AuthenticationRepository _authRepository =
-      Get.i.find<AuthenticationRepository>()!;
 
   User? _currentUser;
   User? get currentUser => _currentUser;
@@ -133,7 +133,9 @@ class MyProfileEditController extends ChangeNotifier {
       }
       return true;
     } catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
     return false;
   }

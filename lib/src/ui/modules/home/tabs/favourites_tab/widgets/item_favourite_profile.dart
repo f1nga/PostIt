@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:wallapop/src/data/models/user.dart';
 import 'package:wallapop/src/routes/routes.dart';
 import 'package:wallapop/src/ui/global_widgets/user_stars.dart';
-import 'package:wallapop/src/utils/colors.dart';
 
 class ItemFavouriteProfile extends StatelessWidget {
   final User user;

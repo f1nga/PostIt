@@ -1,7 +1,7 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:wallapop/src/ui/global_widgets/select_image.dart';
-import 'package:wallapop/src/ui/modules/welcome/widgets/header_details_widget.dart';
 
 import '../../../../utils/colors.dart';
 

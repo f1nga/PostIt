@@ -1,8 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:wallapop/src/routes/pages.dart';
-import 'package:wallapop/src/routes/routes.dart';
-import 'ui/modules/welcome/welcome_page.dart';
 import 'utils/colors.dart';
 import 'utils/font_styles.dart';
 

@@ -16,4 +16,5 @@ abstract class PostRepository {
   Future<List<Post>> getPostsByText(String text);
   Future<bool> deletePost(String postId);
   Future<bool> addViewToPost(String postId);
+  Future<Post> getPostById(dynamic postId);
 }

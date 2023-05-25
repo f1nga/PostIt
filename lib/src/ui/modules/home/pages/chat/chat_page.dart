@@ -1,16 +1,14 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:wallapop/src/data/models/user.dart';
 import 'package:wallapop/src/routes/arguments.dart';
-import 'package:wallapop/src/ui/global_widgets/input_text.dart';
 import 'package:wallapop/src/ui/modules/home/pages/chat/chat_controller.dart';
 import 'package:wallapop/src/ui/modules/home/pages/chat/widgets/chat_appbar.dart';
 import 'package:wallapop/src/ui/modules/home/pages/chat/widgets/item_message.dart';
 
-import '../../../../../data/models/message.dart';
 import '../../../../../helpers/get.dart';
 import '../../../../../utils/colors.dart';
-import '../../../../../utils/font_styles.dart';
 
 class ChatPage extends StatefulWidget {
   const ChatPage({super.key});
@@ -57,7 +55,7 @@ class _ChatPageState extends State<ChatPage> {
                 child: ListView.builder(
                   shrinkWrap: true,
                   itemCount: controller.messagesList.length,
-                  itemBuilder: (BuildContext context, int index) {  
+                  itemBuilder: (BuildContext context, int index) {
                     return ItemMessage(
                       message: controller.messagesList[index],
                     );

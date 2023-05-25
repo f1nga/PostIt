@@ -98,7 +98,7 @@ class ItemPostFinished extends StatelessWidget {
             ),
             const Divider(
               thickness: 1.0,
-              color: Colors.grey,
+              color: tertiaryColor,
             ),
             const SizedBox(
               height: 15,

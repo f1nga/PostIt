@@ -1,25 +1,20 @@
 import 'dart:async';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:wallapop/src/data/models/chat.dart';
 import 'package:wallapop/src/data/models/message.dart';
-import 'package:wallapop/src/data/repositories/message_repository.dart';
-import 'package:wallapop/src/data/repositories/post_repository.dart';
+import 'package:wallapop/src/data/repositories/chat_repository.dart';
 import 'package:wallapop/src/data/repositories/user_repository.dart';
 
-import '../../../../../data/models/messages.dart';
 import '../../../../../data/models/post.dart';
 import '../../../../../data/models/user.dart';
 import '../../../../../helpers/get.dart';
 
 class ChatController extends ChangeNotifier {
-  final PostRepository _postsRepository = Get.i.find<PostRepository>()!;
   final UserRepository _usersRepository = Get.i.find<UserRepository>()!;
-  final MessageRepository _messagesRepository =
-      Get.i.find<MessageRepository>()!;
+  final ChatRepository _messagesRepository = Get.i.find<ChatRepository>()!;
 
   late User _currentUser;
 
@@ -31,6 +26,9 @@ class ChatController extends ChangeNotifier {
 
   late Post _postChat;
   Post get postChat => _postChat;
+
+  Chat? _chat;
+  Chat? get chat => _chat;
 
   String _messageContent = "";
   String get messageContent => _messageContent;
@@ -52,19 +50,27 @@ class ChatController extends ChangeNotifier {
     _receiverUser = u;
     _postChat = p;
 
-    _messagesList = await _messagesRepository.getMessages(
-        _receiverUser.id, _currentUser.id);
+    _chat = await _messagesRepository.isChatExists(
+      _currentUser.id,
+      _receiverUser.id,
+      postChat.id,
+    );
 
-    //iniciarConsultaPeriodica();
+    if (_chat != null) {
+      _messagesList =
+          await _messagesRepository.getMessages(_chat!.id, _currentUser.id);
+    }
+
+    iniciarConsultaPeriodica();
 
     notifyListeners();
   }
 
   void iniciarConsultaPeriodica() {
-    Timer.periodic(const Duration(seconds: 2), (_) async {
+    Timer.periodic(const Duration(seconds: 3), (_) async {
       if (_stream) {
-        _messagesList = await _messagesRepository.getMessages(
-            _receiverUser.id, _currentUser.id);
+        _messagesList =
+            await _messagesRepository.getMessages(_chat!.id, _currentUser.id);
 
         notifyListeners();
       } else {
@@ -79,68 +85,57 @@ class ChatController extends ChangeNotifier {
     super.dispose();
   }
 
+  void closeStream() {
+    _stream = false;
+    notifyListeners();
+  }
+
   void onIsSendingMessageChanges(String message) {
     _messageContent = message;
     notifyListeners();
   }
 
   Future<bool> submit() async {
-    Message newMessage = Message(
-      senderId: _currentUser.id,
-      receiverId: _receiverUser.id,
-      content: _messageContent,
-    );
-    if (await _messagesRepository.addMessage(newMessage)) {
-      _messagesList.add(newMessage);
-      _textFieldController.clear();
-      notifyListeners();
-
-      final Chat? chatFound = await _messagesRepository.isChatExists(
-        _currentUser.id,
-        _receiverUser.id,
-        postChat.id,
-      );
-
-      if (chatFound == null) {
-        await _messagesRepository.addChat(
+    try {
+      if (_chat == null) {
+        Message newMessage = Message(
+          content: _messageContent,
+          senderId: _currentUser.id,
+        );
+        if (await _messagesRepository.addChat(
           Chat(
             senderId: _currentUser.id,
             receiverId: _receiverUser.id,
             postId: postChat.id,
-            messagesList: [
-              Messages(
-                content: _messageContent,
-                senderId: _currentUser.id,
-              ).toMap()
-            ],
+            messagesList: [newMessage.toMap()],
           ),
-        );
+        )) {
+          _messagesList.add(newMessage);
+          notifyListeners();
+        }
       } else {
-        // final record = await FirebaseFirestore.instance
-        //     .collection("chat_store")
-        //     .doc("ce47ea39-5187-4716-bf51-ae15fe2c6ac8")
-        //     .get();
-
-        // Chat chat = Chat.fromMap(record.data()!);
-        print("hoool1");
-        chatFound.messagesList.add(
-            Messages(senderId: _currentUser.id, content: messageContent)
-                .toMap());
-                        print("hoool2");
-
-        await _messagesRepository.updateChat(
-            chatFound.id, chatFound.messagesList);
-                    print("hoool3");
-
+        Message newMessage = Message(
+          content: _messageContent,
+          senderId: _currentUser.id,
+        );
+        if (await _messagesRepository.updateChat(
+          _chat!.id,
+          newMessage,
+        )) {
+          _messagesList.add(newMessage);
+          notifyListeners();
+        }
       }
+
+      _textFieldController.clear();
+
       return true;
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
     }
+
     return false;
-    // return _messagesRepository.addMessage(
-    //   Message(
-    //       senderId: _currentUser.id,
-    //       receiverId: _receiverUser.id,
-    //       content: _messageContent),
-    // );
   }
 }

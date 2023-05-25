@@ -1,20 +1,17 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'package:flutter/material.dart';
-import 'package:flutter_awesome_buttons/flutter_awesome_buttons.dart';
 import 'package:provider/provider.dart';
 import 'package:wallapop/src/ui/modules/home/tabs/favourites_tab/favourites_tab_controller.dart';
 import 'package:wallapop/src/ui/modules/home/tabs/favourites_tab/widgets/favourites_tab_header.dart';
 import 'package:wallapop/src/ui/modules/home/tabs/favourites_tab/widgets/item_favourite_profile.dart';
 import 'package:wallapop/src/ui/modules/home/tabs/favourites_tab/widgets/item_favourite_search.dart';
-import 'package:wallapop/src/ui/modules/home/tabs/home_tab/home_tab_controller.dart';
-import 'package:wallapop/src/ui/modules/home/tabs/home_tab/widgets/home_tab_products.dart';
 import 'package:wallapop/src/utils/colors.dart';
 
 import '../../../../../helpers/get.dart';
 import '../../../../../routes/routes.dart';
-import '../../../../../utils/font_styles.dart';
 import '../../../../global_widgets/animation.dart';
 import '../../../../global_widgets/item_post.dart';
-import '../my_profile_tab/my_profile_resume/my_profile_resume_controller.dart';
 
 class FavouritesTab extends StatefulWidget {
   const FavouritesTab({super.key});

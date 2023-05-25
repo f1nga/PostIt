@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_awesome_buttons/flutter_awesome_buttons.dart';
 import 'package:wallapop/src/data/models/post.dart';
 import 'package:wallapop/src/ui/global_widgets/custom_rounded_button.dart';
-import 'package:wallapop/src/ui/global_widgets/custom_rounded_button_with_icon.dart';
 import 'package:wallapop/src/ui/modules/home/tabs/my_profile_tab/my_profile_resume/my_post_detail/widgets/button_category.dart';
 import 'package:wallapop/src/utils/colors.dart';
 import 'package:wallapop/src/utils/methods.dart';

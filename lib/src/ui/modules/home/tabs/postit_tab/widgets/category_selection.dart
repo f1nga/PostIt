@@ -1,3 +1,5 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wallapop/src/data/models/utils/product_category_type.dart';
@@ -37,10 +39,7 @@ class _CategorySelectionState extends State<CategorySelection> {
               ? "Categoría"
               : controller.category!.value,
           style: const TextStyle(
-            color: Color.fromARGB(255, 128, 125, 125),
-            fontSize: 16,
-            fontWeight: FontWeight.bold
-          ),
+              color: Color.fromARGB(255, 128, 125, 125), fontSize: 16),
         ),
         Expanded(
           child: Align(
@@ -155,19 +154,6 @@ class _CategorySelectionState extends State<CategorySelection> {
                                   setState(() {
                                     controller
                                         .onIsMotorCyclesCategoryClicked(value!);
-                                  });
-                                  Navigator.pop(context);
-                                },
-                              ),
-                              RadioListTile<int>(
-                                title: const Text(ProductCategoryType.sports),
-                                value: 7,
-                                groupValue: controller.isClickedCategory,
-                                activeColor: primaryColor,
-                                onChanged: (value) {
-                                  setState(() {
-                                    controller
-                                        .onIsSportsCategoryClicked(value!);
                                   });
                                   Navigator.pop(context);
                                 },

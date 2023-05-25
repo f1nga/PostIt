@@ -1,5 +1,6 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'package:flutter/material.dart';
-import 'package:wallapop/src/ui/modules/home/tabs/my_profile_tab/my_profile_purchases/my_profile_purchases_controller.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../../../routes/routes.dart';

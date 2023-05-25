@@ -1,13 +1,11 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wallapop/src/data/models/post.dart';
 import 'package:wallapop/src/ui/modules/home/tabs/my_profile_tab/my_profile_resume/my_post_detail/widgets/my_post_detail_body.dart';
 import 'package:wallapop/src/ui/global_widgets/my_post_detail_slider.dart';
-import 'package:wallapop/src/ui/modules/home/tabs/my_profile_tab/my_profile_controller.dart';
 
-import '../../../../../../../helpers/get.dart';
-import '../../../../../../../routes/routes.dart';
-import '../../../../../../../utils/colors.dart';
 import 'my_post_detail_controller.dart';
 
 class MyPostDetailPage extends StatefulWidget {

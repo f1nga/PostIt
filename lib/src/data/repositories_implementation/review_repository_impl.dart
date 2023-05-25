@@ -1,12 +1,11 @@
+// ignore_for_file: unused_import
+
 import 'package:wallapop/src/data/models/review.dart';
 import 'package:wallapop/src/data/models/user.dart';
-
-import 'package:wallapop/src/data/models/post.dart';
 
 import '../providers/review_provider.dart';
 import '../providers/user_provider.dart';
 import '../repositories/review_repository.dart';
-import '../repositories/user_repository.dart';
 
 /// Class that implements the provider obligatory methods
 class ReviewRepositoryImpl implements ReviewRepository {

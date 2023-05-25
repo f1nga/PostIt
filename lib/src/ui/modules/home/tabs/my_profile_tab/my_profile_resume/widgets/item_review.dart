@@ -1,12 +1,12 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'package:flutter/material.dart';
 import 'package:wallapop/src/data/models/review.dart';
 import 'package:wallapop/src/routes/routes.dart';
 import 'package:wallapop/src/utils/font_styles.dart';
 import 'package:wallapop/src/utils/methods.dart';
 
-import '../../../../../../../data/models/user.dart';
 import '../../../../../../../utils/colors.dart';
-import '../../../../../../global_widgets/user_icon.dart';
 import '../../../../../../global_widgets/user_stars.dart';
 import '../my_profile_resume_controller.dart';
 import 'package:provider/provider.dart';
@@ -89,8 +89,8 @@ class ItemReview extends StatelessWidget {
                       Text(
                         controller.userPost[index].nickname ==
                                 controller.user.nickname
-                            ? "Compraste"
-                            : "Vendiste",
+                            ? "Vendiste"
+                            : "Compraste",
                         style:
                             FontStyles.regular.copyWith(color: tertiaryColor),
                       ),
@@ -98,8 +98,8 @@ class ItemReview extends StatelessWidget {
                       Text(
                         controller.userPost[index].nickname ==
                                 controller.user.nickname
-                            ? "Compró"
-                            : "Vendió",
+                            ? "Vendió"
+                            : "Compró",
                         style:
                             FontStyles.regular.copyWith(color: tertiaryColor),
                       ),
@@ -145,9 +145,9 @@ class ItemReview extends StatelessWidget {
           const SizedBox(
             height: 10,
           ),
-          Divider(
-            height: 1,
-            color: Colors.black,
+          const Divider(
+            thickness: 1,
+            color: tertiaryColor,
           ),
           const SizedBox(
             height: 5,

@@ -1,13 +1,12 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:wallapop/src/routes/routes.dart';
-import 'package:wallapop/src/ui/modules/home/tabs/my_profile_tab/my_profile_controller.dart';
 import 'package:wallapop/src/ui/modules/home/tabs/my_profile_tab/my_profile_resume/my_profile_resume_controller.dart';
 import 'package:wallapop/src/ui/modules/home/tabs/my_profile_tab/my_profile_resume/widgets/my_profile_resume_header.dart';
+import 'package:wallapop/src/ui/modules/home/tabs/my_profile_tab/my_profile_resume/widgets/my_profile_resume_info.dart';
 import 'package:wallapop/src/ui/modules/home/tabs/my_profile_tab/my_profile_resume/widgets/profile_resume_reviews.dart';
 import 'package:wallapop/src/ui/modules/home/tabs/my_profile_tab/my_profile_resume/widgets/select_container.dart';
-import 'package:wallapop/src/ui/modules/home/tabs/my_profile_tab/widgets/my_profile_action.dart';
-import 'package:wallapop/src/ui/modules/home/tabs/my_profile_tab/widgets/my_profile_header.dart';
 
 import '../../../../../../data/models/user.dart';
 import '../../../../../../helpers/get.dart';
@@ -83,7 +82,7 @@ class _MyProfileResumePageState extends State<MyProfileResumePage> {
                   child: Column(
                     children: [
                       const MyProfileResumeHeader(),
-                      const Divider(),
+                      const Divider(thickness: 1, color: tertiaryColor,),
                       const SizedBox(
                         height: 5,
                       ),
@@ -98,75 +97,7 @@ class _MyProfileResumePageState extends State<MyProfileResumePage> {
                           } else if (controller.selectedContainer == 2) {
                             return const ProfileResumeReviews();
                           } else {
-                            return Padding(
-                              padding: const EdgeInsets.all(16),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "Información básica",
-                                    style: FontStyles.title,
-                                  ),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                  Row(
-                                    children: [
-                                      const Icon(
-                                        Icons.person,
-                                        size: 25,
-                                      ),
-                                      const SizedBox(
-                                        width: 5,
-                                      ),
-                                      Text(
-                                        controller.user.nickname,
-                                        style: FontStyles.regular
-                                            .copyWith(fontSize: 18),
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                  Row(
-                                    children: [
-                                      const Icon(
-                                        Icons.cake,
-                                        size: 25,
-                                      ),
-                                      const SizedBox(
-                                        width: 5,
-                                      ),
-                                      Text(
-                                        "23/64/2344",
-                                        style: FontStyles.regular
-                                            .copyWith(fontSize: 18),
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                  Row(
-                                    children: [
-                                      const Icon(
-                                        Icons.description,
-                                        size: 25,
-                                      ),
-                                      const SizedBox(
-                                        width: 5,
-                                      ),
-                                      Text(
-                                        controller.user.description,
-                                        style: FontStyles.regular
-                                            .copyWith(fontSize: 18),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            );
+                            return const MyProfileResumeInfo();
                           }
                         },
                       ),

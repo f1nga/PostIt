@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:wallapop/src/ui/modules/home/tabs/my_profile_tab/my_profile_controller.dart';
-import 'package:wallapop/src/utils/colors.dart';
-import 'package:provider/provider.dart';
 
 class MyProfileAction extends StatelessWidget {
   final Icon icon;
@@ -17,7 +14,6 @@ class MyProfileAction extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final MyProfileController controller = context.watch<MyProfileController>();
 
     return GestureDetector(
       onTap: onPressed,

@@ -1,6 +1,10 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 
 class MyDrawer extends StatefulWidget {
+  const MyDrawer({super.key});
+
   @override
   _MyDrawerState createState() => _MyDrawerState();
 }
@@ -13,7 +17,7 @@ class _MyDrawerState extends State<MyDrawer> with SingleTickerProviderStateMixin
   void initState() {
     _animationController = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 300),
+      duration: const Duration(milliseconds: 300),
     );
     _animation = Tween<double>(begin: -1.0, end: 0.0).animate(_animationController);
     super.initState();
@@ -40,7 +44,7 @@ class _MyDrawerState extends State<MyDrawer> with SingleTickerProviderStateMixin
               width: MediaQuery.of(context).size.width * 0.8,
               color: Colors.white,
               child: // Contenido de la pantalla lateral
-              Center(
+              const Center(
                 child: Text('Opciones de búsqueda'),
               ),
             ),

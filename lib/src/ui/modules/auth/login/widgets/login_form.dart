@@ -1,10 +1,9 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, depend_on_referenced_packages
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../data/models/user.dart';
-import '../../../../../helpers/get.dart';
 import '../../../../../routes/routes.dart';
 import '../../../../../utils/dialogs.dart';
 import '../../../../global_widgets/custom_form.dart';

@@ -1,7 +1,9 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:wallapop/src/ui/modules/home/tabs/home_tab/home_tab_controller.dart';
-import 'package:wallapop/src/ui/modules/home/tabs/home_tab/widgets/home_tab_header.dart';
+import 'package:wallapop/src/ui/global_widgets/animation.dart';
+import 'package:wallapop/src/ui/modules/home/tabs/mailbox_tab/widgets/item_chat.dart';
 
 import '../../../../../helpers/get.dart';
 import 'malbox_tab_controller.dart';
@@ -37,13 +39,36 @@ class _MailboxTabState extends State<MailboxTab> {
             listen: true,
           );
 
-          if (controller.currentUser != null) {
-            return Container();
+          if (!controller.isLoading) {
+            if (controller.chatsList.isNotEmpty) {
+              return ListView.separated(
+                shrinkWrap: true,
+                separatorBuilder: (BuildContext context, int index) =>
+                    const SizedBox(height: 10),
+                itemCount: controller.chatsList.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return ItemChat(
+                    index: index,
+                  );
+                },
+              );
+            } else {
+              return const Padding(
+                padding: EdgeInsets.only(top:100),
+                child: AnimationLottie(
+                  titleText: "Todavía no tienes ningún chat",
+                  descText:
+                      "Habla e interactua, negocia con gente para vender o comprar productos que desees, a que esperas?",
+                  lottiePath: 'assets/animations/chat.json',
+                  buttonText: "",
+                  lottieHeight: 250,
+                  lottieWidth: 250,
+                ),
+              );
+            }
           }
-          return Container(
-            child: Center(
-              child: CircularProgressIndicator(),
-            ),
+          return const Center(
+            child: CircularProgressIndicator(),
           );
         });
   }

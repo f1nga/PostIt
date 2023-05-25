@@ -3,14 +3,10 @@
 import 'package:flutter/material.dart';
 import 'package:wallapop/src/utils/colors.dart';
 import 'package:wallapop/src/utils/font_styles.dart';
-import 'package:wallapop/src/utils/icons.dart';
-import 'package:provider/provider.dart';
 
 import '../../../../../../data/models/post.dart';
 import '../../../../../../routes/arguments.dart';
 import '../../../../../../routes/routes.dart';
-import '../../../../../../utils/dialogs.dart';
-import '../home_tab_controller.dart';
 
 class ItemLastSearch extends StatelessWidget {
   final String search;

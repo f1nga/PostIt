@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_awesome_buttons/flutter_awesome_buttons.dart';
 import 'package:wallapop/src/ui/modules/welcome/widgets/header_details_widget.dart';
 
 import '../../../../routes/routes.dart';
@@ -7,7 +6,6 @@ import '../../../../utils/colors.dart';
 import '../../../../utils/icons.dart';
 import '../../../../utils/font_styles.dart';
 import '../../../global_widgets/custom_rounded_button_with_icon.dart';
-import '../../../global_widgets/rounded_button.dart';
 
 class WelcomePageCoulumn extends StatelessWidget {
   const WelcomePageCoulumn({super.key});

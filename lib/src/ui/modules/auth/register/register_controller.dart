@@ -59,7 +59,6 @@ class RegisterController extends ChangeNotifier {
   /// Function that calls the register provider function
   /// @returns {boolean} Returns true if everything go ok, return false if the user already exist.
   Future<bool> submit() async {
-    print(_imageFile.toString());
     return _repository.register(
       _nickname,
       _email,

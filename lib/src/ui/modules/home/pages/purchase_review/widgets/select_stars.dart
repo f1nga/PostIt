@@ -1,3 +1,5 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'package:flutter/material.dart';
 import 'package:wallapop/src/ui/modules/home/pages/purchase_review/purchase_review_controller.dart';
 import 'package:provider/provider.dart';

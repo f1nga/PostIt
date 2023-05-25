@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:wallapop/src/data/repositories/post_repository.dart';
 import 'package:wallapop/src/data/repositories/review_repository.dart';
 
-import '../../../../../data/models/post.dart';
 import '../../../../../data/models/review.dart';
 import '../../../../../data/models/user.dart';
 import '../../../../../data/repositories/user_repository.dart';

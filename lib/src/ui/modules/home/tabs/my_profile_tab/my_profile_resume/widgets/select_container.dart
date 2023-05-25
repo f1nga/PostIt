@@ -1,8 +1,9 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'package:flutter/material.dart';
 import 'package:wallapop/src/ui/modules/home/tabs/my_profile_tab/my_profile_resume/my_profile_resume_controller.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../../../../data/models/user.dart';
 import '../../../../../../../utils/colors.dart';
 import '../../../../../../../utils/font_styles.dart';
 
@@ -11,10 +12,8 @@ class SelectContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final MyProfileResumeController _controller =
+    final MyProfileResumeController controller =
         context.watch<MyProfileResumeController>();
-
-    final User user = ModalRoute.of(context)!.settings.arguments as User;
 
     return Row(
       children: [
@@ -26,17 +25,17 @@ class SelectContainer extends StatelessWidget {
                 border: Border(
                   bottom: BorderSide(
                     color: primaryColor,
-                    width: _controller.selectedContainer == 1 ? 1.5 : 0,
+                    width: controller.selectedContainer == 1 ? 1.5 : 0,
                   ),
                 ),
               ),
               child: Column(
                 children: [
                   Text(
-                    _controller.userPosts.length.toString(),
+                    controller.userPosts.length.toString(),
                     style: FontStyles.title.copyWith(
                       fontSize: 20,
-                      color: _controller.selectedContainer == 1
+                      color: controller.selectedContainer == 1
                           ? Colors.black
                           : tertiaryColor,
                     ),  
@@ -44,7 +43,7 @@ class SelectContainer extends StatelessWidget {
                   Text(
                     "En venta",
                     style: FontStyles.regular.copyWith(
-                      color: _controller.selectedContainer == 1
+                      color: controller.selectedContainer == 1
                           ? Colors.black
                           : tertiaryColor,
                     ),
@@ -52,7 +51,7 @@ class SelectContainer extends StatelessWidget {
                 ],
               ),
             ),
-            onTap: () => _controller.onisContainerSelected(1),
+            onTap: () => controller.onisContainerSelected(1),
           ),
         ),
         Expanded(
@@ -63,17 +62,17 @@ class SelectContainer extends StatelessWidget {
                 border: Border(
                   bottom: BorderSide(
                     color: primaryColor,
-                    width: _controller.selectedContainer == 2 ? 1.5 : 0,
+                    width: controller.selectedContainer == 2 ? 1.5 : 0,
                   ),
                 ),
               ),
               child: Column(
                 children: [
                   Text(
-                    _controller.userReviews.length.toString(),
+                    controller.userReviews.length.toString(),
                     style: FontStyles.title.copyWith(
                       fontSize: 20,
-                      color: _controller.selectedContainer == 2
+                      color: controller.selectedContainer == 2
                           ? Colors.black
                           : tertiaryColor,
                     ),
@@ -81,7 +80,7 @@ class SelectContainer extends StatelessWidget {
                   Text(
                     "Valoraciones",
                     style: FontStyles.regular.copyWith(
-                      color: _controller.selectedContainer == 2
+                      color: controller.selectedContainer == 2
                           ? Colors.black
                           : tertiaryColor,
                     ),
@@ -89,7 +88,7 @@ class SelectContainer extends StatelessWidget {
                 ],
               ),
             ),
-            onTap: () => _controller.onisContainerSelected(2),
+            onTap: () => controller.onisContainerSelected(2),
           ),
         ),
         Expanded(
@@ -100,7 +99,7 @@ class SelectContainer extends StatelessWidget {
                 border: Border(
                   bottom: BorderSide(
                     color: primaryColor,
-                    width: _controller.selectedContainer == 3 ? 1.5 : 0,
+                    width: controller.selectedContainer == 3 ? 1.5 : 0,
                   ),
                 ),
               ),
@@ -110,7 +109,7 @@ class SelectContainer extends StatelessWidget {
                     "+",
                     style: FontStyles.title.copyWith(
                       fontSize: 20,
-                      color: _controller.selectedContainer == 3
+                      color: controller.selectedContainer == 3
                           ? Colors.black
                           : tertiaryColor,
                     ),
@@ -118,7 +117,7 @@ class SelectContainer extends StatelessWidget {
                   Text(
                     "Info",
                     style: FontStyles.regular.copyWith(
-                      color: _controller.selectedContainer == 3
+                      color: controller.selectedContainer == 3
                           ? Colors.black
                           : tertiaryColor,
                     ),
@@ -126,7 +125,7 @@ class SelectContainer extends StatelessWidget {
                 ],
               ),
             ),
-            onTap: () => _controller.onisContainerSelected(3),
+            onTap: () => controller.onisContainerSelected(3),
           ),
         ),
       ],

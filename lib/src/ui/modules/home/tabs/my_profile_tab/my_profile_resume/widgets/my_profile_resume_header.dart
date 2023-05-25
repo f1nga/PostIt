@@ -1,12 +1,10 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'package:flutter/material.dart';
-import 'package:wallapop/src/data/models/user.dart';
 import 'package:wallapop/src/ui/global_widgets/user_stars.dart';
-import 'package:wallapop/src/ui/modules/home/tabs/my_profile_tab/my_profile_controller.dart';
 import 'package:wallapop/src/ui/modules/home/tabs/my_profile_tab/my_profile_resume/my_profile_resume_controller.dart';
 import 'package:wallapop/src/utils/colors.dart';
 import 'package:provider/provider.dart';
-
-import '../../../../../../../data/models/post.dart';
 
 class MyProfileResumeHeader extends StatelessWidget {
   const MyProfileResumeHeader({super.key});

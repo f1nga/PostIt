@@ -1,8 +1,6 @@
 import 'widgets/column_welcome_page_widget.dart';
-import 'widgets/header_details_widget.dart';
 import 'package:flutter/material.dart';
 
-import '../../../utils/colors.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});

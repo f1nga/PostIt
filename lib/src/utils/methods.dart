@@ -4,10 +4,8 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_awesome_buttons/flutter_awesome_buttons.dart';
 import 'package:uuid/uuid.dart';
 import 'package:wallapop/src/data/models/utils/product_category_type.dart';
-import 'package:wallapop/src/ui/global_widgets/rounded_button.dart';
 import 'package:wallapop/src/utils/colors.dart';
 
 abstract class Methods {
@@ -96,8 +94,8 @@ abstract class Methods {
             ),
             onPressed: onPressed as void Function()?,
             child: Text(
-              "$title",
-              style: TextStyle(color: Colors.white),
+              title,
+              style: const TextStyle(color: Colors.white),
             ),
           )
         : TextButton.icon(
@@ -109,7 +107,7 @@ abstract class Methods {
               color: textColor,
             ),
             label: Text(
-              "$title",
+              title,
               style: TextStyle(color: textColor),
             ));
   }
@@ -145,8 +143,39 @@ abstract class Methods {
     return "${date.day} $month ${date.year}";
   }
 
-  static Widget getIconState(File? _imageFile) {
-    if (_imageFile == null) {
+  static String formatDate2(DateTime date) {
+    late String month;
+    if (date.month == 1) {
+      month = "ene";
+    } else if (date.month == 2) {
+      month = "feb";
+    } else if (date.month == 3) {
+      month = "mar";
+    } else if (date.month == 4) {
+      month = "abr";
+    } else if (date.month == 5) {
+      month = "may";
+    } else if (date.month == 6) {
+      month = "jun";
+    } else if (date.month == 7) {
+      month = "jul";
+    } else if (date.month == 8) {
+      month = "ago";
+    } else if (date.month == 9) {
+      month = "set";
+    } else if (date.month == 10) {
+      month = "oct";
+    } else if (date.month == 11) {
+      month = "nov";
+    } else if (date.month == 12) {
+      month = "dic";
+    }
+
+    return "${date.day} $month";
+  }
+
+  static Widget getIconState(File? imageFile) {
+    if (imageFile == null) {
       return const Icon(
         Icons.image_search,
         color: secondaryColor,
@@ -154,7 +183,7 @@ abstract class Methods {
       );
     } else {
       return Image.file(
-        _imageFile,
+        imageFile,
         fit: BoxFit.fill,
       );
     }

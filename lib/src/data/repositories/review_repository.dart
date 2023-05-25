@@ -1,4 +1,3 @@
-import "package:wallapop/src/data/models/post.dart";
 
 import "../models/review.dart";
 import "../models/user.dart";

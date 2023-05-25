@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
 import 'package:wallapop/src/routes/routes.dart';
 import 'package:wallapop/src/ui/global_widgets/animation.dart';
 import 'package:wallapop/src/ui/modules/home/tabs/my_profile_tab/my_profile_resume/my_profile_resume_controller.dart';
 import 'package:wallapop/src/utils/colors.dart';
+// ignore: depend_on_referenced_packages
 import 'package:provider/provider.dart';
 
-import '../../../../../../../data/models/user.dart';
 import '../../../../../../global_widgets/item_post.dart';
 
 class MyProfileResumeProducts extends StatelessWidget {

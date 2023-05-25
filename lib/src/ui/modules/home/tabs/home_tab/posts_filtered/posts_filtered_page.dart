@@ -1,18 +1,11 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, depend_on_referenced_packages
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wallapop/src/routes/arguments.dart';
 import 'package:wallapop/src/routes/routes.dart';
-import 'package:wallapop/src/ui/global_widgets/item_post_finished.dart';
 import 'package:wallapop/src/ui/modules/home/tabs/home_tab/posts_filtered/widgets/posts_filtered_products.dart';
-import 'package:wallapop/src/ui/modules/home/tabs/my_profile_tab/my_profile_controller.dart';
-import 'package:wallapop/src/ui/modules/home/tabs/my_profile_tab/my_profile_purchases/my_profile_purchases_controller.dart';
-import 'package:wallapop/src/ui/modules/home/tabs/my_profile_tab/my_profile_purchases/widgets/my_profile_purchases_products.dart';
-import 'package:wallapop/src/ui/modules/home/tabs/my_profile_tab/widgets/my_profile_action.dart';
-import 'package:wallapop/src/ui/modules/home/tabs/my_profile_tab/widgets/my_profile_header.dart';
 
-import '../../../../../../data/models/post.dart';
 import '../../../../../../helpers/get.dart';
 import '../../../../../../utils/colors.dart';
 import '../../../../../../utils/dialogs.dart';

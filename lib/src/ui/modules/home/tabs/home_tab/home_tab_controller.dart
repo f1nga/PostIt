@@ -14,10 +14,10 @@ class HomeTabController extends ChangeNotifier {
   List<Post> _userPosts = [];
   List<Post> get userPosts => _userPosts;
 
-  List<Post> _postsFiltered = [];
+  final List<Post> _postsFiltered = [];
   List<Post> get postsFiltered => _postsFiltered;
 
-  List<String> _searchesList = [];
+  final List<String> _searchesList = [];
   List<String> get searchesList => _searchesList;
 
   List<bool> _likedPosts = [];
@@ -37,6 +37,9 @@ class HomeTabController extends ChangeNotifier {
   final FocusNode _focusNode = FocusNode();
   FocusNode get focusNode => _focusNode;
 
+  bool _isLoading = true;
+  bool get isLoading => _isLoading;
+
   void Function()? onDispose;
 
   void afterFistLayout() {
@@ -55,7 +58,7 @@ class HomeTabController extends ChangeNotifier {
     }
 
     _focusNode.addListener(_onSearchBarFocusChange);
-
+    _isLoading = false;
     notifyListeners();
   }
 

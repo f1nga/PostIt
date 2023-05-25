@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, depend_on_referenced_packages, library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
 import 'package:wallapop/src/routes/routes.dart';
@@ -31,7 +31,6 @@ class MyPostDetailSlider extends StatefulWidget {
 }
 
 class _MyPostDetailSliderState extends State<MyPostDetailSlider> {
-  int _currentPage = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +73,7 @@ class _MyPostDetailSliderState extends State<MyPostDetailSlider> {
       );
     }
 
-    return Container(
+    return SizedBox(
       height: 300,
       child: PageView.builder(
         scrollDirection: Axis.horizontal,
@@ -165,7 +164,6 @@ class _MyPostDetailSliderState extends State<MyPostDetailSlider> {
         },
         onPageChanged: (int index) {
           setState(() {
-            _currentPage = index;
           });
         },
       ),

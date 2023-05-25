@@ -1,6 +1,7 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:wallapop/src/data/models/utils/product_category_type.dart';
 import 'package:wallapop/src/data/models/utils/product_state_type.dart';
 import 'package:wallapop/src/ui/modules/home/tabs/postit_tab/postit_controller.dart';
 
@@ -34,9 +35,7 @@ class _StateSelectionState extends State<StateSelection> {
           width: 15,
         ),
         Text(
-          controller.state == ""
-              ? "Estado del producto"
-              : controller.state,
+          controller.state == "" ? "Estado del producto" : controller.state,
           style: const TextStyle(
               color: Color.fromARGB(255, 128, 125, 125), fontSize: 16),
         ),
@@ -86,13 +85,14 @@ class _StateSelectionState extends State<StateSelection> {
                                   activeColor: primaryColor,
                                   onChanged: (value) {
                                     setState(() {
-                                      controller.onIsPerfectStateClicked(value!);
+                                      controller
+                                          .onIsPerfectStateClicked(value!);
                                     });
                                     Navigator.pop(context);
                                   },
                                 ),
                                 RadioListTile<int>(
-                                  title: const Text(ProductStateType.like_new),
+                                  title: const Text(ProductStateType.likeNew),
                                   value: 2,
                                   groupValue: controller.isClickedState,
                                   activeColor: primaryColor,
@@ -111,8 +111,7 @@ class _StateSelectionState extends State<StateSelection> {
                                   activeColor: primaryColor,
                                   onChanged: (value) {
                                     setState(() {
-                                      controller
-                                          .onIsGoodStateClicked(value!);
+                                      controller.onIsGoodStateClicked(value!);
                                     });
                                     Navigator.pop(context);
                                   },
@@ -132,15 +131,13 @@ class _StateSelectionState extends State<StateSelection> {
                                   },
                                 ),
                                 RadioListTile<int>(
-                                  title:
-                                      const Text(ProductStateType.busted),
+                                  title: const Text(ProductStateType.busted),
                                   value: 5,
                                   groupValue: controller.isClickedState,
                                   activeColor: primaryColor,
                                   onChanged: (value) {
                                     setState(() {
-                                      controller
-                                          .onIsBustedStateClicked(value!);
+                                      controller.onIsBustedStateClicked(value!);
                                     });
                                     Navigator.pop(context);
                                   },

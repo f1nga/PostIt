@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:wallapop/src/data/repositories/post_repository.dart';
 import 'package:wallapop/src/utils/methods.dart';
 
-import '../../../../../data/models/post.dart';
 import '../../../../../data/models/user.dart';
 import '../../../../../data/repositories/user_repository.dart';
 import '../../../../../helpers/get.dart';
@@ -59,7 +58,6 @@ class PostDetailController extends ChangeNotifier {
   }
 
   void setPostViews(int value) {
-    print("hooool$value");
     _postViews = value;
     notifyListeners();
   }

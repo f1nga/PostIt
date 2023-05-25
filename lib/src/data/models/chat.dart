@@ -1,9 +1,5 @@
-import 'dart:io';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../../utils/methods.dart';
-import 'messages.dart';
 
 class Chat {
   late String senderId, receiverId, postId, id = Methods.generateId();

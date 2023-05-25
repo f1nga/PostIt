@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../../../../utils/colors.dart';
 import '../../../../../../../../utils/font_styles.dart';
 
 class ButtonCategory extends StatelessWidget {

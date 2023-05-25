@@ -74,13 +74,13 @@ class PostProvider {
     try {
       await FirebaseFirestore.instance
           .collection(postStore)
-          .where(idField, whereNotIn: user.postsCreated)
+          .orderBy(viewsField, descending: true)
           .get()
           .then(
         (querySnapshot) {
           for (QueryDocumentSnapshot<Map<String, dynamic>> documentSnapshot
               in querySnapshot.docs) {
-            if (!documentSnapshot.get("sold")) {
+            if (!documentSnapshot.get(soldField) && !user.postsCreated.contains(documentSnapshot.get(idField))) {
               postsList.add(Post.fromMap(documentSnapshot.data()));
             }
           }
@@ -93,6 +93,21 @@ class PostProvider {
     }
 
     return postsList;
+  }
+
+  Future<Post> getPostById(dynamic postId) async {
+    final record = await FirebaseFirestore.instance
+        .collection(postStore)
+        .where(
+          idField,
+          isEqualTo: postId,
+        )
+        .limit(1)
+        .get();
+
+    Map<String, dynamic> map = record.docs.first.data();
+
+    return Post.fromMap(map);
   }
 
   Future<List<Post>> getFavouritePostsByUser(User user) async {

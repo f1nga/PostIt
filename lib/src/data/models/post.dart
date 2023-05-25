@@ -7,7 +7,7 @@ import '../../utils/methods.dart';
 class Post {
   late String title, description, category, state, id = Methods.generateId();
   late double price;
-  late int likes, views = 0;
+  late int likes = 0, views = 0;
   late Timestamp date = Timestamp.now();
   late bool sold = false;
   late List<File?> filesList;

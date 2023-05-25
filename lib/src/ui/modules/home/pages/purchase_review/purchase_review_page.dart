@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, depend_on_referenced_packages
 
 import 'package:flutter/material.dart';
 import 'package:wallapop/src/data/models/review.dart';
@@ -6,12 +6,10 @@ import 'package:wallapop/src/routes/arguments.dart';
 import 'package:wallapop/src/routes/routes.dart';
 import 'package:wallapop/src/ui/global_widgets/item_post.dart';
 import 'package:wallapop/src/ui/global_widgets/rounded_button.dart';
-import 'package:wallapop/src/ui/global_widgets/user_stars.dart';
 import 'package:wallapop/src/ui/modules/home/pages/purchase_review/purchase_review_controller.dart';
 import 'package:wallapop/src/ui/modules/home/pages/purchase_review/widgets/select_stars.dart';
 import 'package:wallapop/src/utils/dialogs.dart';
 
-import '../../../../../data/models/post.dart';
 import '../../../../../helpers/get.dart';
 import 'package:provider/provider.dart';
 

@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:wallapop/src/data/repositories/post_repository.dart';
 import 'package:wallapop/src/data/repositories/user_repository.dart';
 
-import '../../../../../../../data/models/post.dart';
 import '../../../../../../../data/models/user.dart';
 import '../../../../../../../helpers/get.dart';
-import '../../../../../../../utils/methods.dart';
 
 class MyPostDetailController extends ChangeNotifier {
   final PostRepository _postsRepository = Get.i.find<PostRepository>()!;

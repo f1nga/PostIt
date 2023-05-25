@@ -37,7 +37,6 @@ class ItemMessage extends StatelessWidget {
                   fontSize: 16,
                   color: message.sended ? Colors.white : Colors.black,
                 ),
-                // textAlign: TextAlign.end,
               ),
               const SizedBox(
                 height: 5,

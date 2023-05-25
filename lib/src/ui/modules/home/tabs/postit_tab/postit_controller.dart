@@ -15,7 +15,7 @@ import '../../../../global_widgets/custom_form.dart';
 class PostitController extends ChangeNotifier {
   final PostRepository _repository = Get.i.find<PostRepository>()!;
   final UserRepository _usersRepository = Get.i.find<UserRepository>()!;
-  
+
   String _title = '', _description = '', _state = '';
   ProductCategoryType? _category;
   double _price = 0.0;
@@ -23,12 +23,12 @@ class PostitController extends ChangeNotifier {
   final List<File?> _filesList = [];
   List<File?> get filesList => _filesList;
 
-  int _isClickedCategory = 1;
+  int _isClickedCategory = 0;
   int get isClickedCategory {
     return _isClickedCategory;
   }
 
-  int _isClickedState = 1;
+  int _isClickedState = 0;
   int get isClickedState {
     return _isClickedState;
   }
@@ -140,7 +140,7 @@ class PostitController extends ChangeNotifier {
 
   void onIsLikeNewStateClicked(int value) async {
     _isClickedState = value;
-    _state = ProductStateType.like_new;
+    _state = ProductStateType.likeNew;
 
     notifyListeners();
   }

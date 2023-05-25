@@ -14,7 +14,7 @@ class MyProfilePurchasesController extends ChangeNotifier {
   List<Post> _userPurchasedPosts = [];
   List<Post> get userPurchasedPosts => _userPurchasedPosts;
 
-  List<User> _userCreatedPosts = [];
+  final List<User> _userCreatedPosts = [];
   List<User> get userCreatedPosts => _userCreatedPosts;
 
   void afterFistLayout() {

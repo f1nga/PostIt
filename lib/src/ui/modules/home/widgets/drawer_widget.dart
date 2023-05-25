@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, depend_on_referenced_packages
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -120,9 +120,7 @@ class CustomDrawer extends StatelessWidget {
           ),
         );
       }
-      return Container(
-        child: Center(child: CircularProgressIndicator()),
-      );
+      return const Center(child: CircularProgressIndicator());
     });
   }
 }

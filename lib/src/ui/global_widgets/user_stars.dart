@@ -7,7 +7,7 @@ class UserStars extends StatelessWidget {
   final double size;
   final MainAxisAlignment mainAxisAlignment;
 
-  UserStars({
+  const UserStars({
     super.key,
     required this.stars,
     required this.size,

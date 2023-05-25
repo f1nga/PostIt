@@ -1,8 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:wallapop/src/ui/modules/home/tabs/my_profile_tab/my_profile_edit/my_profile_edit_controller.dart';
-import 'package:provider/provider.dart';
-
-import '../../../../../../global_widgets/select_image.dart';
 
 class EditProfileTextField extends StatelessWidget {
   final String label;
